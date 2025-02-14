@@ -1,12 +1,11 @@
 <template>
   <div class="relative h-screen">
-    <!-- Logo and title -->
     <div class="absolute top-4 left-4 z-10 flex items-center">
       <h1 class="text-2xl font-bold text-gray-800">PV-ESS</h1>
     </div>
 
     <div class="flex h-full">
-      <!-- Form section (3/10) -->
+      <!-- Form section -->
       <div
         class="w-full md:w-3/10 flex items-center justify-center bg-white p-8"
       >
@@ -16,14 +15,15 @@
           <form @submit.prevent="handleSubmit">
             <div class="mb-4">
               <label
-                for="name"
+                for="username"
                 class="block mb-2 text-sm font-medium text-gray-700"
-                >Full Name</label
+                >User Name</label
               >
               <input
                 type="text"
-                id="name"
-                v-model="name"
+                id="username"
+                v-model="username"
+                autocomplete="username"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -39,6 +39,7 @@
                 type="email"
                 id="email"
                 v-model="email"
+                autocomplete="email"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -54,6 +55,7 @@
                 type="password"
                 id="password"
                 v-model="password"
+                autocomplete="new-password"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -69,20 +71,21 @@
                 type="password"
                 id="confirmPassword"
                 v-model="confirmPassword"
+                autocomplete="new-password"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
 
-            <div class="flex items-center mb-6">
+            <div class="mb-6">
               <input
                 type="checkbox"
                 id="agreeTerms"
                 v-model="agreeTerms"
-                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                class="h-4 w-4 text-blue-600"
                 required
               />
-              <label for="agreeTerms" class="ml-2 block text-sm text-gray-700">
+              <label for="agreeTerms" class="ml-2 text-sm text-gray-700">
                 I agree to the
                 <a href="#" class="text-blue-600 hover:text-blue-800"
                   >Terms and Conditions</a
@@ -92,30 +95,31 @@
 
             <button
               type="submit"
+              :disabled="isLoading"
               class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+              :class="{ 'opacity-50 cursor-not-allowed': isLoading }"
             >
-              Create Account
+              {{ isLoading ? 'Creating Account...' : 'Create Account' }}
             </button>
           </form>
 
           <p class="mt-4 text-center text-sm text-gray-600">
             Already have an account?
-            <a
-              href="#"
-              @click.prevent="switchToLogin"
-              class="text-blue-600 hover:text-blue-800"
-              >Sign in</a
+            <router-link to="/login" class="text-blue-600 hover:text-blue-800"
+              >Sign in</router-link
             >
           </p>
         </div>
       </div>
 
-      <!-- Image section (7/10) -->
-      <div class="hidden md:block w-7/10 bg-gray-200">
+      <!-- Image section -->
+      <div
+        class="hidden md:flex w-7/10 bg-gray-200 items-center justify-center"
+      >
         <img
           src="/red-plum.jpg"
           alt="Register background"
-          class="w-full h-full object-cover"
+          class="max-w-full max-h-full object-cover"
         />
       </div>
     </div>
@@ -124,28 +128,50 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
+import { useAuthApi } from '@/composables/authApi'
 
-const name = ref('')
+const username = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const agreeTerms = ref(false)
+const isLoading = ref(false)
+const router = useRouter()
+const api = useAuthApi()
 
-const handleSubmit = () => {
-  // Handle form submission logic here
-  console.log(
-    'Register',
-    name.value,
-    email.value,
-    password.value,
-    confirmPassword.value,
-    agreeTerms.value
-  )
-  // In a real application, you would validate the input and call an API to register the user
-}
+const handleSubmit = async () => {
+  if (password.value !== confirmPassword.value) {
+    await Swal.fire({
+      icon: 'warning',
+      title: 'Password Mismatch',
+      text: 'Passwords do not match.',
+      confirmButtonText: 'OK'
+    })
+    return
+  }
 
-const switchToLogin = () => {
-  // In a real application, you would implement logic to switch to the login form
-  console.log('Switching to login form')
+  isLoading.value = true
+  try {
+    await api.register(username.value, email.value, password.value)
+    await Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: 'Registration successful!',
+      timer: 1500,
+      showConfirmButton: false
+    })
+    router.push('/login')
+  } catch (error) {
+    await Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: error.message,
+      confirmButtonText: 'OK'
+    })
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>

@@ -1,84 +1,74 @@
-# Turborepo starter
+# PV-ESS
 
-This Turborepo starter is maintained by the Turborepo core team.
+## 簡介
 
-## Using this example
+PV-ESS（光儲系統）是一個智能能源管理系統，能夠有效地安排儲存的太陽能，並透過 AI 預測最佳的充放電時間。此外，系統提供即時數據監測功能，幫助使用者提升能源利用效率。
 
-Run the following command:
+## 功能
+
+- **智慧排程**：根據太陽能發電量與用電需求，動態調整充放電計劃。
+- **AI 預測**：利用 AI 分析天氣、歷史數據與用電習慣，優化能源分配。
+- **即時監測**：透過 Web 介面監控系統運行狀態、電池電量與功率變化。
+- **多設備支援**：透過 WebSocket 實現即時數據同步，支援多裝置同時監控。
+
+## 技術棧
+
+### **Frontend**
+
+- Vue 3
+- TailwindCSS
+- ShadCN
+- TypeScript
+
+### **Backend**
+
+- Express.js
+- JWT 驗證機制
+- Redis（快取與即時數據存儲）
+- PostgreSQL（數據庫）
+- Socket.io（即時通訊）
+
+### **開發工具**
+
+- pnpm
+- Docker Compose
+- Turborepo（單體倉庫管理）
+
+### **雲端部署**
+
+- Vercel（前端）
+- GKE（Google Kubernetes Engine，後端與數據管理）
+
+## 運行方式
+
+### **建置專案**
 
 ```sh
-npx create-turbo@latest
+# 建立 Docker 容器
+docker-compose build
 ```
 
-## What's inside?
+### **啟動所有服務**
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```sh
+docker-compose up -d
 ```
 
-### Develop
+### **服務端口**
 
-To develop all apps and packages, run the following command:
+| 服務       | 端口 |
+| ---------- | ---- |
+| 前端       | 5173 |
+| 後端       | 3000 |
+| PostgreSQL | 5432 |
+| PgAdmin    | 5050 |
+| Redis      | 6379 |
 
-```
-cd my-turborepo
-pnpm dev
-```
+## 相關資源
 
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- [Vue.js 官方網站](https://vuejs.org/)
+- [Express.js 官方網站](https://expressjs.com/)
+- [TailwindCSS 官方網站](https://tailwindcss.com/)
+- [ShadCN 官方網站](https://ui.shadcn.com/)
+- [Turborepo 官方網站](https://turbo.build/repo)
+- [Vercel 官方網站](https://vercel.com/)

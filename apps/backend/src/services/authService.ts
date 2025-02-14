@@ -3,6 +3,10 @@ import jwt from 'jsonwebtoken'
 import AppDataSource from '../data-source'
 import { User } from '../entities/User'
 import { redisClient } from '../config/redis'
+import {
+  clearFailedLogin,
+  recordFailedLogin
+} from '../middleware/loginRateLimiter'
 
 export class AuthService {
   private userRepository = AppDataSource.getRepository(User)
@@ -34,15 +38,20 @@ export class AuthService {
   async login(email: string, password: string) {
     const user = await this.userRepository.findOneBy({ email })
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      throw new Error('Invalid credentials')
+      recordFailedLogin(email)
+      throw new Error('Error email or password!')
     }
+    // successful login, clear failed login attempts
+    clearFailedLogin(email)
+
+    // generate JWT token
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
       expiresIn: '1h'
     })
     return { user, token }
   }
 
-  async signout(token: string) {
+  async logout(token: string) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
         exp: number
