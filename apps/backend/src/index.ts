@@ -10,14 +10,16 @@ import roleRoutes from './routes/roleRoute'
 import permissionRoutes from './routes/permissonRoute'
 import userRoleRoutes from './routes/user-roleRoute'
 import rolePermissionRoutes from './routes/role-permissionRoute'
+import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
-app.use(cors())
-app.use(express.json())
+app.use(cors({ origin: true, credentials: true })) // 允許跨域請求
+app.use(express.json()) // 解析 JSON 請求體
+app.use(cookieParser()) // 解析 Cookie
 
 // 初始化資料庫連線
 AppDataSource.initialize()

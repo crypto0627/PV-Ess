@@ -2,6 +2,7 @@
   "name": "pv-ess",
   "private": true,
   "scripts": {
+    "docker-rebuild": "docker-compose down -v && docker-compose build && docker-compose up -d",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",

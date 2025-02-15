@@ -8,7 +8,7 @@ export const authMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '')
+  const token = req.cookies?.token // 取得 HTTP-only cookie 的 token
 
   if (!token) {
     return errorResponse(res, 'No token provided', 401)

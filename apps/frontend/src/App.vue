@@ -1,9 +1,7 @@
-<script setup lang="ts">
-import Login from '@/pages/Login.vue'
-</script>
+<script setup></script>
 
 <template>
-  <div>
-    <Login />
+  <div class="flex flex-col h-screen">
+    <router-view />
   </div>
 </template>
