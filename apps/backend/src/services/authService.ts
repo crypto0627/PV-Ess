@@ -2,7 +2,6 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import AppDataSource from '../data-source'
 import { User } from '../entities/User'
-import { redisClient } from '../config/redis'
 import {
   clearFailedLogin,
   recordFailedLogin
@@ -48,28 +47,11 @@ export class AuthService {
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
       expiresIn: '1h'
     })
-    return { user, token }
+    const userWithoutPassword = { ...user, password: undefined }
+    return { user: userWithoutPassword, token }
   }
 
-  async logout(token: string) {
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
-        exp: number
-      }
-      if (!decoded.exp) throw new Error('Invalid token')
-
-      const expireTime = decoded.exp - Math.floor(Date.now() / 1000)
-
-      // 將 token 存入 Redis 黑名單
-      await redisClient.setex(`blacklist:${token}`, expireTime, 'blacklisted')
-
-      return { message: 'Successfully signed out' }
-    } catch (error) {
-      throw new Error('Invalid or expired token')
-    }
-  }
-
-  verifyToken(token: string) {
-    return jwt.verify(token, process.env.JWT_SECRET!)
+  async logout() {
+    return { message: 'Logout successfully!' }
   }
 }

@@ -4,42 +4,36 @@ import LoginPage from '@/pages/auth/LoginPage.vue'
 import RegisterPage from '@/pages/auth/RegisterPage.vue'
 import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage.vue'
 import NotFoundPage from '@/pages/error/NotFoundPage.vue'
+import { useAuthStore } from '@/store/auth'
 
 // 定義路由
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    redirect: '/home' // 默認重定向到首頁
-  },
+  { path: '/', redirect: '/home' },
   {
     path: '/home',
     name: 'Home',
     component: HomePage,
-    meta: { requiresAuth: true } // 需要登入
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
     name: 'Login',
     component: LoginPage,
-    meta: { isPublic: true } // 公開路由
+    meta: { isPublic: true }
   },
   {
     path: '/register',
     name: 'Register',
     component: RegisterPage,
-    meta: { isPublic: true } // 公開路由
+    meta: { isPublic: true }
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
     component: ForgotPasswordPage,
-    meta: { isPublic: true } // 公開路由
+    meta: { isPublic: true }
   },
-  {
-    path: '/:pathMatch(.*)*', // 捕獲所有不存在的路由
-    name: 'NotFound',
-    component: NotFoundPage // 顯示 404 頁面
-  }
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage }
 ]
 
 // 創建路由實例
@@ -48,24 +42,29 @@ const router = createRouter({
   routes
 })
 
-// 路由守衛：檢查是否需要登入
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('token') // 從 localStorage 檢查 token
-  // 如果路由是公開的，直接放行
-  if (to.meta.isPublic) {
-    return next()
+// 全局路由守衛
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore()
+
+  // 若 isAuthenticated 為 null，表示需要向後端確認登入狀態
+  if (authStore.isAuthenticated === null) {
+    await authStore.checkAuth()
   }
 
-  // 如果路由需要驗證且用戶未登入，重定向到登入頁面
+  // 取得最新的登入狀態
+  const isAuthenticated = authStore.isAuthenticated
+
+  // 若需要登入但未登入，導向 /login
   if (to.meta.requiresAuth && !isAuthenticated) {
     return next('/login')
   }
-  // 如果用戶已登入且嘗試訪問公開路由，重定向到首頁
+
+  // 若已登入但嘗試訪問公開頁面，導向 /home
   if (isAuthenticated && to.meta.isPublic) {
     return next('/home')
   }
-  // 否則繼續
-  next()
+
+  next() // 允許正常導航
 })
 
 export default router

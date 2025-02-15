@@ -107,21 +107,20 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
-import { useAuthApi } from '@/composables/authApi'
+import { useAuthStore } from '@/store/auth'
 
 const isLoading = ref(false)
 const router = useRouter()
-const api = useAuthApi()
+const authStore = useAuthStore()
 
 const handleSubmit = async () => {
   isLoading.value = true
   try {
-    const response = await api.logout()
-    localStorage.removeItem('token')
+    await authStore.logout()
     await Swal.fire({
       icon: 'success',
       title: 'Success!',
-      text: `Logout successful! ${response.data.message}`,
+      text: `Logout successful!`,
       timer: 1500,
       showConfirmButton: false
     })

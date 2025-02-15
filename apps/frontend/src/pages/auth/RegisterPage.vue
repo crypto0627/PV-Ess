@@ -130,7 +130,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
-import { useAuthApi } from '@/composables/authApi'
+import { useAuthApi } from '@/api/authApi'
+import { useAuthStore } from '@/store/auth'
 
 const username = ref('')
 const email = ref('')
@@ -139,7 +140,7 @@ const confirmPassword = ref('')
 const agreeTerms = ref(false)
 const isLoading = ref(false)
 const router = useRouter()
-const api = useAuthApi()
+const authStore = useAuthStore()
 
 const handleSubmit = async () => {
   if (password.value !== confirmPassword.value) {
@@ -154,7 +155,7 @@ const handleSubmit = async () => {
 
   isLoading.value = true
   try {
-    await api.register(username.value, email.value, password.value)
+    await authStore.register(username.value, email.value, password.value)
     await Swal.fire({
       icon: 'success',
       title: 'Success!',

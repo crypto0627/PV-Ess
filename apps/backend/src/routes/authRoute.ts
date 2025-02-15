@@ -30,4 +30,12 @@ router.post('/logout', authMiddleware, async (req, res) => {
   }
 })
 
+router.get('/me', authMiddleware, async (req, res) => {
+  try {
+    await authController.getAuthStatus(req, res)
+  } catch (error) {
+    res.status(500).json({ message: (error as Error).message })
+  }
+})
+
 export default router

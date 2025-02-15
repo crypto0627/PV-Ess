@@ -113,7 +113,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
-import { useAuthApi } from '@/composables/authApi'
+import { useAuthStore } from '@/store/auth'
 
 const email = ref('')
 const password = ref('')
@@ -122,7 +122,7 @@ const errorMessage = ref('')
 const isLoading = ref(false)
 const cooldown = ref(0)
 const router = useRouter()
-const api = useAuthApi()
+const authStore = useAuthStore()
 
 const handleSubmit = async () => {
   if (isLoading.value || cooldown.value > 0) return
@@ -131,16 +131,7 @@ const handleSubmit = async () => {
   errorMessage.value = ''
 
   try {
-    const response = await api.login(email.value, password.value, {
-      withCredentials: true
-    })
-
-    // Token 儲存方式
-    if (staySignedIn.value) {
-      localStorage.setItem('token', response.data.token)
-    } else {
-      sessionStorage.setItem('token', response.data.token)
-    }
+    await authStore.login(email.value, password.value)
 
     await Swal.fire({
       icon: 'success',
