@@ -19,19 +19,19 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'Login',
     component: LoginPage,
-    meta: { isPublic: true }
+    meta: { isPublic: true, requiresGuest: true }
   },
   {
     path: '/register',
     name: 'Register',
     component: RegisterPage,
-    meta: { isPublic: true }
+    meta: { isPublic: true, requiresGuest: true }
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
     component: ForgotPasswordPage,
-    meta: { isPublic: true }
+    meta: { isPublic: true, requiresGuest: true }
   },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage }
 ]
@@ -46,25 +46,27 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
 
-  // 若 isAuthenticated 為 null，表示需要向後端確認登入狀態
-  if (authStore.isAuthenticated === null) {
-    await authStore.checkAuth()
+  // 確保登入狀態最新
+  try {
+    await authStore.me()
+  } catch {
+    authStore.isAuthenticated = false
   }
 
-  // 取得最新的登入狀態
   const isAuthenticated = authStore.isAuthenticated
 
-  // 若需要登入但未登入，導向 /login
+  // 已登入的使用者不能進入 Login / Register
+  if (to.meta.requiresGuest && isAuthenticated) {
+    return next('/home')
+  }
+
+  // 需要登入的頁面，卻未登入，導向登入頁
   if (to.meta.requiresAuth && !isAuthenticated) {
     return next('/login')
   }
 
-  // 若已登入但嘗試訪問公開頁面，導向 /home
-  if (isAuthenticated && to.meta.isPublic) {
-    return next('/home')
-  }
-
-  next() // 允許正常導航
+  // 其他情況正常進入
+  next()
 })
 
 export default router

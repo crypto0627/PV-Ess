@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import { AuthController } from '../controllers/authController'
 import { authMiddleware } from '../middleware/authMiddleware'
 import { loginRateLimiter } from '../middleware/loginRateLimiter'
+import * as jwt from 'jsonwebtoken'
 
 const router = express.Router()
 const authController = new AuthController()
@@ -31,11 +32,7 @@ router.post('/logout', authMiddleware, async (req, res) => {
 })
 
 router.get('/me', authMiddleware, async (req, res) => {
-  try {
-    await authController.getAuthStatus(req, res)
-  } catch (error) {
-    res.status(500).json({ message: (error as Error).message })
-  }
+  res.json(req.body.userId)
 })
 
 export default router

@@ -44,9 +44,13 @@ export class AuthService {
     clearFailedLogin(email)
 
     // generate JWT token
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
-      expiresIn: '1h'
-    })
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: '1h'
+      }
+    )
     const userWithoutPassword = { ...user, password: undefined }
     return { user: userWithoutPassword, token }
   }

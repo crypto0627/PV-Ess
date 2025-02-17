@@ -24,18 +24,18 @@ export const useAuthStore = defineStore('auth', {
       await logout()
       this.user = null
       this.isAuthenticated = false
+      window.location.href = '/login'
     },
-    async checkAuth() {
-      const { checkAuth } = useAuthApi()
-      try {
-        await checkAuth()
+    async me() {
+      const { me } = useAuthApi()
+      const response = await me()
+      if (response.status === 200) {
+        this.user = response.data.user
         this.isAuthenticated = true
-      } catch {
+      } else {
+        this.user = null
         this.isAuthenticated = false
       }
-    },
-    setAuth(userData: any) {
-      this.isAuthenticated = true
     }
   }
 })

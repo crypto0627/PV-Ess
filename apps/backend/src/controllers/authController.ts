@@ -4,6 +4,7 @@ import { successResponse, errorResponse } from '../utils/response'
 import { UserService } from '../services/userService'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import { redisClient } from '../config/redis'
 
 dotenv.config()
 
@@ -47,42 +48,34 @@ export class AuthController {
 
   async logout(req: Request, res: Response) {
     try {
-      // 清除 HttpOnly Cookie
-      res.clearCookie('jwt', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // 生產環境啟用 Secure
-        sameSite: 'strict', // 防止 CSRF 攻擊
-        expires: new Date(0) //立即過期
-      })
-
-      // 返回成功訊息
-      res.status(200).json({ message: 'Logout successfully!' })
-    } catch (error) {
-      res.status(400).json({ message: (error as Error).message })
-    }
-  }
-
-  async getAuthStatus(req: Request, res: Response) {
-    try {
-      // 從 Cookie 解析 Token
-      const token = req.cookies.jwt
-      console.log(token)
-      if (!token) return res.status(401).json({ message: 'Unauthorized' })
-
-      // 驗證 Token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload
-
-      // 確保 decoded 內包含 userId
-      if (!decoded || typeof decoded !== 'object' || !decoded.userId) {
-        return res.status(401).json({ message: 'Invalid token structure' })
+      // 取得從 Cookie 中傳來的 JWT
+      const token = req.cookies.token
+      if (!token) {
+        return res.status(400).json({ message: 'No token provided!' })
       }
 
-      const user = await this.userService.getUserById(decoded.userId)
-      if (!user) return res.status(404).json({ message: 'User not found' })
+      // 驗證 token 並解碼
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+        id: string
+      }
+      const userId = decoded.id
 
-      res.json({ user })
+      // 在 Redis 中加入黑名單 (JWT token 與用戶 ID)
+      await redisClient.setex(`blacklist_${token}`, 3600, userId) // 設定 1 小時過期時間
+
+      // 清除 Cookie
+      res.clearCookie('token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // 生產環境啟用 Secure
+        sameSite: 'strict',
+        path: '/'
+      })
+
+      res.status(200).json({ message: 'Logged out successfully' })
     } catch (error) {
-      return res.status(401).json({ message: 'Invalid or expired token' })
+      res
+        .status(400)
+        .json({ message: 'Logout failed', error: (error as Error).message })
     }
   }
 }
