@@ -23,9 +23,10 @@ export function useAuthApi() {
   const logout = async (config = {}) => {
     return api.post('/auth/logout', {}, config)
   }
-  const checkAuth = async () => {
-    return api.get('auth/me')
+
+  const me = async () => {
+    return api.get('/auth/me')
   }
 
-  return { login, register, logout, checkAuth }
+  return { login, register, logout, me }
 }
