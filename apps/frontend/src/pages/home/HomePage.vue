@@ -20,6 +20,62 @@
               Logout
             </button>
           </div>
+          <div class="md:hidden">
+            <button
+              @click="toggleMenu"
+              class="text-gray-700 focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile menu -->
+      <div
+        :class="{ block: isMenuOpen, hidden: !isMenuOpen }"
+        class="md:hidden"
+      >
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a
+            href="#"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+            >Products</a
+          >
+          <a
+            href="#"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+            >Solutions</a
+          >
+          <a
+            href="#"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+            >Contact</a
+          >
+          <button
+            type="submit"
+            @click="handleSubmit"
+            class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </nav>
@@ -112,6 +168,7 @@ import { useAuthStore } from '@/store/auth'
 const isLoading = ref(false)
 const router = useRouter()
 const authStore = useAuthStore()
+const isMenuOpen = ref(false)
 
 const handleSubmit = async () => {
   isLoading.value = true
@@ -135,5 +192,9 @@ const handleSubmit = async () => {
   } finally {
     isLoading.value = false
   }
+}
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
 }
 </script>

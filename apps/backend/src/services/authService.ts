@@ -6,6 +6,7 @@ import {
   clearFailedLogin,
   recordFailedLogin
 } from '../middleware/loginRateLimiter'
+import { PasswordResetToken } from '../entities/PasswordResetToken'
 
 export class AuthService {
   private userRepository = AppDataSource.getRepository(User)

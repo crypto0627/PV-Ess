@@ -22,11 +22,13 @@ export const loginRateLimiter = (
   // **如果帳號已被封鎖**
   if (lockUntil > currentTime) {
     const remainingTime = Math.ceil((lockUntil - currentTime) / 1000)
-    res.status(429).json({ message: `請稍等 ${remainingTime} 秒後再嘗試` })
-    return // **確保 middleware 不會繼續執行**
+    res
+      .status(429)
+      .json({ message: `please wait ${remainingTime} seconds and try again!` })
+    return
   }
 
-  next() // **允許請求繼續進行**
+  next()
 }
 
 // **登入失敗時增加錯誤計數**

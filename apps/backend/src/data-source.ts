@@ -4,8 +4,8 @@ import dotenv from 'dotenv'
 import { User } from './entities/User'
 import { Permission } from './entities/Permission'
 import { Role } from './entities/Role'
-import { RolePermission } from './entities/RolePermission'
 import { UserRole } from './entities/UserRole'
+import { PasswordResetToken } from './entities/PasswordResetToken'
 
 dotenv.config()
 
@@ -16,7 +16,7 @@ const AppDataSource = new DataSource({
   username: process.env.POSTGRES_USER || 'admin',
   password: process.env.POSTGRES_PASSWORD || 'password',
   database: process.env.POSTGRES_NAME || 'auth_db',
-  entities: [User, Role, Permission, UserRole, RolePermission],
+  entities: [User, Role, Permission, UserRole, PasswordResetToken],
   migrations:
     process.env.NODE_ENV === 'production'
       ? ['dist/migration/*.js']

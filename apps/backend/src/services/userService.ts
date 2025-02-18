@@ -71,4 +71,8 @@ export class UserService {
     // Save the updated user password
     return await this.userRepository.save(user)
   }
+
+  async findUserByEmail(email: string) {
+    return await this.userRepository.findOneBy({ email })
+  }
 }

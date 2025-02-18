@@ -22,8 +22,7 @@
               <input
                 type="text"
                 id="username"
-                v-model="username"
-                autocomplete="username"
+                v-model.trim="username"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -38,8 +37,7 @@
               <input
                 type="email"
                 id="email"
-                v-model="email"
-                autocomplete="email"
+                v-model.trim="email"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -55,7 +53,6 @@
                 type="password"
                 id="password"
                 v-model="password"
-                autocomplete="new-password"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -71,7 +68,6 @@
                 type="password"
                 id="confirmPassword"
                 v-model="confirmPassword"
-                autocomplete="new-password"
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -130,7 +126,6 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
-import { useAuthApi } from '@/api/authApi'
 import { useAuthStore } from '@/store/auth'
 
 const username = ref('')
@@ -143,6 +138,7 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const handleSubmit = async () => {
+  // 確保密碼匹配
   if (password.value !== confirmPassword.value) {
     await Swal.fire({
       icon: 'warning',
@@ -155,20 +151,31 @@ const handleSubmit = async () => {
 
   isLoading.value = true
   try {
-    await authStore.register(username.value, email.value, password.value)
-    await Swal.fire({
-      icon: 'success',
-      title: 'Success!',
-      text: 'Registration successful!',
-      timer: 1500,
-      showConfirmButton: false
-    })
-    router.push('/login')
+    // 呼叫 API 註冊
+    const res = await authStore.register(
+      username.value,
+      email.value,
+      password.value
+    )
+
+    // 確保 API 正確回應 message
+    if (res?.data?.message) {
+      await Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: res.data.message,
+        timer: 1500,
+        showConfirmButton: false
+      })
+      router.push('/login')
+    }
   } catch (error) {
+    // 安全地解析錯誤信息
+    const errorMessage = error.response?.data?.message || 'Something went wrong'
     await Swal.fire({
       icon: 'error',
       title: 'Error!',
-      text: error.message,
+      text: errorMessage,
       confirmButtonText: 'OK'
     })
   } finally {

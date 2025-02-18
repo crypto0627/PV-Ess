@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { RolePermission } from './RolePermission'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm'
+import { Role } from './Role'
 
-@Entity()
+@Entity('permissions')
 export class Permission {
   @PrimaryGeneratedColumn()
   id!: number
@@ -9,9 +9,6 @@ export class Permission {
   @Column({ unique: true })
   name!: string
 
-  @OneToMany(
-    () => RolePermission,
-    (rolePermission) => rolePermission.permission
-  )
-  roles!: RolePermission[]
+  @ManyToMany(() => Role, (role) => role.permissions)
+  roles!: Role[]
 }

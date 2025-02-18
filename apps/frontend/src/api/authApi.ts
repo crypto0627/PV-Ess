@@ -28,5 +28,25 @@ export function useAuthApi() {
     return api.get('/auth/me')
   }
 
-  return { login, register, logout, me }
+  const forgot_password = async (email: string) => {
+    return api.post('/auth/forgot-password', { email })
+  }
+
+  const verify_reset_token = async (resetToken: string) => {
+    return api.post('/auth/verify-reset-token', { resetToken })
+  }
+
+  const reset_password = async (token: string, password: string) => {
+    return api.post('/auth/reset-password', { token, password })
+  }
+
+  return {
+    login,
+    register,
+    logout,
+    me,
+    forgot_password,
+    reset_password,
+    verify_reset_token
+  }
 }

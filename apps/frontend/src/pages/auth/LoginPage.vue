@@ -99,11 +99,11 @@
       </div>
 
       <div class="hidden md:block w-7/10 bg-gray-200">
-        <img
+        <!-- <img
           src="/red-plum.jpg"
           alt="Login background"
           class="w-full h-full object-cover"
-        />
+        /> -->
       </div>
     </div>
   </div>
@@ -131,21 +131,21 @@ const handleSubmit = async () => {
   errorMessage.value = ''
 
   try {
-    await authStore.login(email.value, password.value)
+    const res = await authStore.login(email.value, password.value)
 
     await Swal.fire({
       icon: 'success',
       title: 'Success!',
-      text: 'Login successful',
+      text: res.data.message,
       timer: 1500,
       showConfirmButton: false
     })
 
     router.push('/home')
   } catch (error: any) {
-    if (error.response && error.response.status === 429) {
+    if (error.res && error.res.status === 429) {
       // 處理 429 Too Many Requests
-      const retryAfter = error.response.data.retryAfter || 30 // 預設 30 秒
+      const retryAfter = error.res.data.retryAfter || 30 // 預設 30 秒
       errorMessage.value = `Too many requests. Please wait ${retryAfter} seconds.`
       startCooldown(retryAfter)
     } else {
@@ -155,7 +155,7 @@ const handleSubmit = async () => {
     await Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: errorMessage.value,
+      text: error.response.data.message,
       confirmButtonText: 'OK'
     })
   } finally {

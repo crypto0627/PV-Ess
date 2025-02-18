@@ -1,8 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  OneToMany
+} from 'typeorm'
 import { UserRole } from './UserRole'
-import { RolePermission } from './RolePermission'
+import { Permission } from './Permission'
 
-@Entity()
+@Entity('roles')
 export class Role {
   @PrimaryGeneratedColumn()
   id!: number
@@ -10,9 +16,9 @@ export class Role {
   @Column({ unique: true })
   name!: string
 
-  @OneToMany(() => UserRole, (userRole) => userRole.role)
-  users!: UserRole[]
+  @ManyToMany(() => Permission, (permission) => permission.roles)
+  permissions!: Permission[]
 
-  @OneToMany(() => RolePermission, (rolePermission) => rolePermission.role)
-  permissions!: RolePermission[]
+  @OneToMany(() => UserRole, (userRole) => userRole.role)
+  userRoles!: UserRole[]
 }

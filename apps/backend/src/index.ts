@@ -6,10 +6,6 @@ import AppDataSource from './data-source'
 // 路由
 import authRoutes from './routes/authRoute'
 import userRoutes from './routes/userRoute'
-import roleRoutes from './routes/roleRoute'
-import permissionRoutes from './routes/permissonRoute'
-import userRoleRoutes from './routes/user-roleRoute'
-import rolePermissionRoutes from './routes/role-permissionRoute'
 import cookieParser from 'cookie-parser'
 
 dotenv.config()
@@ -34,10 +30,6 @@ const apiPrefix = '/api'
 
 app.use(`${apiPrefix}/auth`, authRoutes)
 app.use(`${apiPrefix}/users`, userRoutes)
-app.use(`${apiPrefix}/roles`, roleRoutes)
-app.use(`${apiPrefix}/permissions`, permissionRoutes)
-app.use(`${apiPrefix}/user-roles`, userRoleRoutes)
-app.use(`${apiPrefix}/role-permissions`, rolePermissionRoutes)
 
 // 錯誤處理 Middleware
 app.use(

@@ -2,14 +2,16 @@ import { Request, Response } from 'express'
 import { AuthService } from '../services/authService'
 import { successResponse, errorResponse } from '../utils/response'
 import { UserService } from '../services/userService'
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { redisClient } from '../config/redis'
+import { PasswordResetService } from '../services/passwordResetService'
 
 dotenv.config()
 
 export class AuthController {
   private authService = new AuthService()
+  private passwordResetService = new PasswordResetService()
   private userService = new UserService()
 
   async register(req: Request, res: Response) {
@@ -76,6 +78,61 @@ export class AuthController {
       res
         .status(400)
         .json({ message: 'Logout failed', error: (error as Error).message })
+    }
+  }
+
+  async forgotPassword(req: Request, res: Response) {
+    try {
+      const { email } = req.body
+      const user = await this.userService.findUserByEmail(email)
+
+      if (!user) {
+        return errorResponse(res, 'User not found')
+      }
+
+      // 生成重設密碼 Token 並儲存
+      const resetToken =
+        await this.passwordResetService.generateResetToken(email)
+
+      // 發送重設密碼郵件（假設有一個 email service）
+      await this.passwordResetService.sendResetEmail(email, resetToken)
+
+      successResponse(res, {
+        message: 'Password reset link has been sent to your email.'
+      })
+    } catch (error) {
+      errorResponse(res, (error as Error).message)
+    }
+  }
+
+  async verifyResetToken(req: Request, res: Response) {
+    const { resetToken } = req.body
+    const userId = await redisClient.get(`reset_token_${resetToken}`) // 加上前缀
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ success: false, message: 'Token is required' })
+    }
+
+    try {
+      const result = await this.passwordResetService.verifyResetToken(
+        resetToken as string
+      )
+      return res.json(result)
+    } catch (error: any) {
+      return res.status(500).json({ success: false, message: error.message })
+    }
+  }
+
+  async resetPassword(req: Request, res: Response) {
+    try {
+      const user = await this.passwordResetService.resetPassword(
+        req.body.token,
+        req.body.password
+      )
+      successResponse(res, user)
+    } catch (error) {
+      errorResponse(res, (error as Error).message)
     }
   }
 }

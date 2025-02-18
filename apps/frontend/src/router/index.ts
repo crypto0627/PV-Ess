@@ -4,6 +4,7 @@ import LoginPage from '@/pages/auth/LoginPage.vue'
 import RegisterPage from '@/pages/auth/RegisterPage.vue'
 import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage.vue'
 import NotFoundPage from '@/pages/error/NotFoundPage.vue'
+import ResetPasswordPage from '@/pages/auth/ResetPasswordPage.vue'
 import { useAuthStore } from '@/store/auth'
 
 // 定義路由
@@ -32,6 +33,19 @@ const routes: Array<RouteRecordRaw> = [
     name: 'ForgotPassword',
     component: ForgotPasswordPage,
     meta: { isPublic: true, requiresGuest: true }
+  },
+  {
+    path: '/reset-password',
+    name: 'ResetPassword',
+    component: ResetPasswordPage,
+    props: (route) => ({ token: route.query.token }), // 從 URL 中獲取 token
+    beforeEnter: (to, from, next) => {
+      if (!to.query.token) {
+        next('/forgot-password')
+      } else {
+        next()
+      }
+    }
   },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage }
 ]
