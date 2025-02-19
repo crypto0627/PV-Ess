@@ -112,9 +112,6 @@
         </router-link>
       </p>
     </div>
-    <div class="fixed bottom-4 right-4">
-      <LanguageSwitcher />
-    </div>
   </div>
 </template>
 
@@ -123,7 +120,6 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import { useAuthStore } from '@/store/auth'
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 const username = ref('')
 const email = ref('')

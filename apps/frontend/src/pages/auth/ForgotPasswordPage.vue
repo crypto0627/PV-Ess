@@ -76,9 +76,6 @@
         </a>
       </p>
     </div>
-    <div class="fixed bottom-4 right-4">
-      <LanguageSwitcher />
-    </div>
   </div>
 </template>
 
@@ -86,7 +83,6 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 const email = ref('')
 const isLoading = ref(false)

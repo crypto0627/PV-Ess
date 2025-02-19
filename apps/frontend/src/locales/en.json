@@ -31,12 +31,22 @@
     "terms_conditions": "Terms and Conditions",
     "enter_email_to_reset": "Enter your email address and we'll send you a link to reset your password."
   },
-  "home": {
+  "navbar": {
     "home": "Home",
+    "profile": "Profile",
     "products": "Products",
     "solutions": "Solutions",
     "contact": "Contact",
     "logout": "Logout",
-    "logout_success": "You have successfully logged out."
+    "logout_success": "You have successfully logged out.",
+    "settings": "Settings"
+  },
+  "contact": {
+    "message": "Message content",
+    "submitting": "Submitting...",
+    "submit_message": "Submit message",
+    "success": "Success!",
+    "suceess_text": "Your message've submitted, we'll response you as soon as possible.",
+    "confirm_btn": "OK"
   }
 }

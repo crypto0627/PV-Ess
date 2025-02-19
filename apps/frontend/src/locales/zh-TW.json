@@ -32,12 +32,21 @@
     "enter_email_to_reset": "輸入您的電子郵件，我們將傳送一個重置密碼的連結"
   },
   "home": {
-    "brand": "我的品牌",
     "home": "首頁",
+    "profile": "個人資訊",
     "products": "產品",
     "solutions": "解決方案",
     "contact": "聯絡我們",
     "logout": "登出",
-    "logout_success": "您已成功登出。"
+    "logout_success": "您已成功登出。",
+    "settings": "設定"
+  },
+  "contact": {
+    "message": "訊息內容",
+    "submitting": "傳送中...",
+    "submit_message": "傳送訊息",
+    "success": "成功！",
+    "suceess_text": "您的訊息已成功送出，我們會盡快回覆您。",
+    "confirm_btn": "確定"
   }
 }

@@ -85,9 +85,9 @@
           }}</a>
         </p>
       </div>
-    </div>
-    <div class="fixed bottom-4 right-4">
-      <LanguageSwitcher />
+      <div class="absolute bottom-0 right-4">
+        <LanguageSwitcher direction="up" />
+      </div>
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@ export function useLanguage() {
 
   const changeLanguage = (lang: string) => {
     locale.value = lang
-    localStorage.setItem('lang', lang) // 記住語言設定
+    localStorage.setItem('lang', lang)
   }
 
   return { locale, changeLanguage }
