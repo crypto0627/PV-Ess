@@ -6,8 +6,6 @@ import {
   BeforeInsert,
   BeforeUpdate
 } from 'typeorm'
-import { UserRole } from './UserRole'
-import { PasswordResetToken } from './PasswordResetToken'
 
 @Entity('users')
 export class User {
@@ -28,12 +26,6 @@ export class User {
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   updated_at!: Date
-
-  @OneToMany(() => UserRole, (userRole) => userRole.user)
-  userRoles!: UserRole[]
-
-  @OneToMany(() => PasswordResetToken, (token) => token.user)
-  passwordResetTokens!: PasswordResetToken[]
 
   // 設置 created_at 和 updated_at 自動填充
   @BeforeInsert()

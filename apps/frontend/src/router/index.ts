@@ -5,6 +5,7 @@ import RegisterPage from '@/pages/auth/RegisterPage.vue'
 import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage.vue'
 import NotFoundPage from '@/pages/error/NotFoundPage.vue'
 import ResetPasswordPage from '@/pages/auth/ResetPasswordPage.vue'
+import TermsConditions from '@/pages/auth/TermsConditions.vue'
 import { useAuthStore } from '@/store/auth'
 
 // 定義路由
@@ -46,6 +47,12 @@ const routes: Array<RouteRecordRaw> = [
         next()
       }
     }
+  },
+  {
+    path: '/terms-conditions',
+    name: 'TermsConditions',
+    component: TermsConditions,
+    meta: { isPublic: true, requiresGuest: true }
   },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage }
 ]

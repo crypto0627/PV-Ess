@@ -1,0 +1,42 @@
+{
+  "app_name": "PV-ESS",
+  "auth": {
+    "sign_in": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "stay_signed_in": "Stay signed in",
+    "forgot_password": "Forgot password?",
+    "sign_up_prompt": "Don't have an account?",
+    "sign_up": "Sign up",
+    "create_account": "Create an Account",
+    "user_name": "User Name",
+    "confirm_password": "Confirm Password",
+    "terms_agreement": "I agree to the ",
+    "create_account_button": "Create Account",
+    "already_have_account": "Already have an account?",
+    "sign_in_redirect": "Sign in",
+    "forgot_password_title": "Forgot Password",
+    "forgot_password_description": "Enter your email address and we'll send you a link to reset your password.",
+    "send_reset_link": "Send Reset Link",
+    "remember_password": "Remember your password?",
+    "back_to_login": "Back to login",
+    "new_password": "New Password",
+    "confirm_new_password": "Confirm New Password",
+    "loading": "Signing in...",
+    "cooldown": "Please wait {time} seconds!",
+    "success": "Success!",
+    "login_failed": "Login failed. Please check your credentials.",
+    "too_many_requests": "Too many requests. Please wait {time} seconds.",
+    "creating_account": "Creating Account...",
+    "terms_conditions": "Terms and Conditions",
+    "enter_email_to_reset": "Enter your email address and we'll send you a link to reset your password."
+  },
+  "home": {
+    "home": "Home",
+    "products": "Products",
+    "solutions": "Solutions",
+    "contact": "Contact",
+    "logout": "Logout",
+    "logout_success": "You have successfully logged out."
+  }
+}

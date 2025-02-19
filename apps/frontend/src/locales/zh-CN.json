@@ -1,0 +1,43 @@
+{
+  "app_name": "PV-ESS",
+  "auth": {
+    "sign_in": "登录",
+    "email": "电子邮件",
+    "password": "密码",
+    "stay_signed_in": "保持登录",
+    "forgot_password": "忘记密码？",
+    "sign_up_prompt": "还没有账户？",
+    "sign_up": "注册",
+    "create_account": "创建账户",
+    "user_name": "用户名",
+    "confirm_password": "确认密码",
+    "terms_agreement": "我同意",
+    "create_account_button": "创建账户",
+    "already_have_account": "已经有账户？",
+    "sign_in_redirect": "登录",
+    "forgot_password_title": "忘记密码",
+    "forgot_password_description": "输入您的电子邮件，我们将发送一个重置密码的链接给您。",
+    "send_reset_link": "发送重置链接",
+    "remember_password": "记得密码了？",
+    "back_to_login": "返回登录",
+    "new_password": "新密码",
+    "confirm_new_password": "确认新密码",
+    "loading": "登录中...",
+    "cooldown": "请等待 {time} 秒！",
+    "success": "成功！",
+    "login_failed": "登录失败，请检查您的凭证。",
+    "too_many_requests": "请求过多，请等待 {time} 秒！",
+    "creating_account": "創建帳號中...",
+    "terms_conditions": "条款和条件",
+    "enter_email_to_reset": "输入您的电子邮件，我们将传送一个重置密码的连结"
+  },
+  "home": {
+    "brand": "我的品牌",
+    "home": "首页",
+    "products": "产品",
+    "solutions": "解决方案",
+    "contact": "联系我们",
+    "logout": "退出登录",
+    "logout_success": "您已成功退出登录。"
+  }
+}

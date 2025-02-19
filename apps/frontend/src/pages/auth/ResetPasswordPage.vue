@@ -1,102 +1,88 @@
 <template>
-  <div class="relative h-screen">
-    <!-- Logo and title -->
-    <div class="absolute top-4 left-4 z-10 flex items-center">
-      <h1 class="text-2xl font-bold text-gray-800">PV-ESS</h1>
-    </div>
+  <div class="flex h-screen items-center justify-center bg-white">
+    <div class="w-full max-w-md p-8">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-gray-800">PV-ESS</h1>
+      </div>
 
-    <div class="flex h-full">
-      <!-- Form section -->
-      <div
-        class="w-full md:w-3/10 flex items-center justify-center bg-white p-8"
-      >
-        <div class="w-full max-w-md mt-16">
-          <h2 class="text-3xl font-bold mb-6">{{ pageTitle }}</h2>
-          <p class="mb-6 text-gray-600">{{ pageDescription }}</p>
+      <h2 class="text-3xl font-bold mb-6">{{ pageTitle }}</h2>
+      <p class="mb-6 text-gray-600">{{ pageDescription }}</p>
 
-          <form @submit.prevent="handleSubmit">
-            <div v-if="!hasResetToken">
-              <!-- Email input -->
-              <div class="mb-6">
-                <label
-                  for="email"
-                  class="block mb-2 text-sm font-medium text-gray-700"
-                  >Email</label
-                >
-                <input
-                  type="email"
-                  id="email"
-                  v-model="email"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-            </div>
-
-            <div v-else>
-              <!-- New Password input -->
-              <div class="mb-4">
-                <label
-                  for="newPassword"
-                  class="block mb-2 text-sm font-medium text-gray-700"
-                  >New Password</label
-                >
-                <input
-                  type="password"
-                  id="newPassword"
-                  v-model="newPassword"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-
-              <!-- Confirm Password input -->
-              <div class="mb-6">
-                <label
-                  for="confirmPassword"
-                  class="block mb-2 text-sm font-medium text-gray-700"
-                  >Confirm New Password</label
-                >
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  v-model="confirmPassword"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-            </div>
-
-            <!-- Submit Button -->
-            <button
-              type="submit"
-              class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-              :disabled="loading"
+      <form @submit.prevent="handleSubmit">
+        <div v-if="!hasResetToken">
+          <!-- Email input -->
+          <div class="mb-6">
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-700"
+              >Email</label
             >
-              {{ submitButtonText }}
-            </button>
-          </form>
-
-          <p class="mt-4 text-center text-sm text-gray-600">
-            Remember your password?
-            <a
-              href="#"
-              @click.prevent="switchToLogin"
-              class="text-blue-600 hover:text-blue-800"
-              >Back to login</a
-            >
-          </p>
+            <input
+              type="email"
+              id="email"
+              v-model="email"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
         </div>
-      </div>
 
-      <!-- Image section -->
-      <div class="hidden md:block w-7/10 bg-gray-200">
-        <img
-          src="/red-plum.jpg"
-          alt="Reset Password background"
-          class="w-full h-full object-cover"
-        />
-      </div>
+        <div v-else>
+          <!-- New Password input -->
+          <div class="mb-4">
+            <label
+              for="newPassword"
+              class="block mb-2 text-sm font-medium text-gray-700"
+              >New Password</label
+            >
+            <input
+              type="password"
+              id="newPassword"
+              v-model="newPassword"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+          <!-- Confirm Password input -->
+          <div class="mb-6">
+            <label
+              for="confirmPassword"
+              class="block mb-2 text-sm font-medium text-gray-700"
+              >Confirm New Password</label
+            >
+            <input
+              type="password"
+              id="confirmPassword"
+              v-model="confirmPassword"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          :disabled="loading"
+        >
+          {{ submitButtonText }}
+        </button>
+      </form>
+
+      <p class="mt-4 text-center text-sm text-gray-600">
+        Remember your password?
+        <a
+          href="#"
+          @click.prevent="switchToLogin"
+          class="text-blue-600 hover:text-blue-800"
+          >Back to login</a
+        >
+      </p>
+    </div>
+    <div class="fixed bottom-4 right-4">
+      <LanguageSwitcher />
     </div>
   </div>
 </template>
@@ -106,6 +92,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import { useAuthStore } from '@/store/auth'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 const route = useRoute()
 const router = useRouter()
