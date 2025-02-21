@@ -2,25 +2,26 @@
   <div
     class="flex h-screen items-center justify-center bg-gradient-to-br from-green-400 to-green-100"
   >
+    <BackgroundElemt />
     <div
-      class="w-full max-w-md p-8 bg-white bg-opacity-90 rounded-lg shadow-xl"
+      class="relative z-[2] w-full max-w-sm p-6 bg-white bg-opacity-90 rounded-lg shadow-xl"
     >
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-green-800">PV-ESS</h1>
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-bold text-green-800">PV-ESS</h1>
       </div>
 
-      <h2 class="text-2xl font-bold mb-6 text-green-700">
+      <h2 class="text-xl font-bold mb-4 text-green-700">
         {{ $t('auth.forgot_password') }}
       </h2>
-      <p class="mb-6 text-green-600">
+      <p class="mb-4 text-sm text-green-600">
         {{ $t('auth.enter_email_to_reset') }}
       </p>
 
       <form @submit.prevent="handleSubmit">
-        <div class="mb-6">
+        <div class="mb-4">
           <label
             for="email"
-            class="block mb-2 text-sm font-medium text-green-700"
+            class="block mb-1 text-sm font-medium text-green-700"
           >
             {{ $t('auth.email') }}
           </label>
@@ -28,7 +29,7 @@
             type="email"
             id="email"
             v-model="email"
-            class="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-50"
+            class="w-full px-3 py-1.5 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-50"
             required
             autocomplete="email"
           />
@@ -37,22 +38,22 @@
         <!-- Success and Error Messages -->
         <p
           v-if="successMessage"
-          class="text-green-600 text-sm text-center mb-4"
+          class="text-green-600 text-xs text-center mb-3"
         >
           {{ successMessage }}
         </p>
-        <p v-if="errorMessage" class="text-red-600 text-sm text-center mb-4">
+        <p v-if="errorMessage" class="text-red-600 text-xs text-center mb-3">
           {{ errorMessage }}
         </p>
 
         <button
           type="submit"
-          class="w-full flex items-center justify-center bg-gradient-to-r from-green-500 to-green-600 text-white py-2 px-4 rounded-md hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed transition duration-300"
+          class="w-full flex items-center justify-center bg-gradient-to-r from-green-500 to-green-600 text-white py-1.5 px-3 rounded-md hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed transition duration-300"
           :disabled="isLoading"
         >
           <svg
             v-if="isLoading"
-            class="animate-spin h-5 w-5 mr-2 text-white"
+            class="animate-spin h-4 w-4 mr-2 text-white"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -75,14 +76,14 @@
         </button>
       </form>
 
-      <p class="mt-4 text-center text-sm text-green-600">
+      <p class="mt-3 text-center text-xs text-green-600">
         {{ $t('auth.remember_password') }}
-        <a
-          href="/login"
+        <router-link
+          to="/login"
           class="text-green-700 hover:text-green-900 font-medium"
         >
           {{ $t('auth.back_to_login') }}
-        </a>
+        </router-link>
       </p>
     </div>
   </div>
@@ -92,6 +93,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
+import BackgroundElemt from '@/components/common/BackgroundElemt.vue'
 
 const email = ref('')
 const isLoading = ref(false)

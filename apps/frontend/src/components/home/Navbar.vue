@@ -12,14 +12,14 @@
           >
         </div>
         <div class="hidden md:flex space-x-8">
-          <a
+          <router-link
             v-for="link in navLinks"
             :key="link.key"
-            :href="link.link"
+            :to="link.link"
             class="text-white hover:text-green-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white hover:after:w-full after:transition-all after:duration-300"
           >
             {{ $t(link.key) }}
-          </a>
+          </router-link>
           <!-- 用戶頭像和下拉選單 -->
           <div class="relative">
             <button
@@ -54,23 +54,47 @@
               class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 transform transition-all duration-200 origin-top-right z-50"
               v-cloak
             >
-              <a
-                href="/profile"
+              <router-link
+                to="/profile"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors duration-150"
               >
                 {{ $t('navbar.profile') }}
-              </a>
-              <a
-                href="/settings"
+              </router-link>
+              <router-link
+                to="/settings"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors duration-150"
               >
                 {{ $t('navbar.settings') }}
-              </a>
+              </router-link>
               <button
                 @click="handleSubmit"
+                :disabled="isLoading"
                 class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors duration-150"
               >
-                {{ $t('navbar.logout') }}
+                <span v-if="isLoading" class="flex items-center">
+                  <svg
+                    class="animate-spin h-4 w-4 mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  {{ $t('navbar.logging_out') }}
+                </span>
+                <span v-else>{{ $t('navbar.logout') }}</span>
               </button>
             </div>
           </div>
@@ -106,32 +130,55 @@
       class="md:hidden transition-all duration-300"
     >
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a
+        <router-link
           v-for="link in navLinks"
           :key="link.key"
-          :href="link.link"
+          :to="link.link"
           class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:bg-opacity-20 transition-all duration-150"
         >
           {{ $t(link.key) }}
-        </a>
-        <a
-          href="/profile"
+        </router-link>
+        <router-link
+          to="/profile"
           class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:bg-opacity-20 transition-all duration-150"
         >
           {{ $t('navbar.profile') }}
-        </a>
-        <a
-          href="/settings"
+        </router-link>
+        <router-link
+          to="/settings"
           class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:bg-opacity-20 transition-all duration-150"
         >
           {{ $t('navbar.settings') }}
-        </a>
+        </router-link>
         <button
-          type="submit"
           @click="handleSubmit"
+          :disabled="isLoading"
           class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:bg-opacity-20 transition-all duration-150"
         >
-          {{ $t('navbar.logout') }}
+          <span v-if="isLoading" class="flex items-center">
+            <svg
+              class="animate-spin h-4 w-4 mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            {{ $t('navbar.logging_out') }}
+          </span>
+          <span v-else>{{ $t('navbar.logout') }}</span>
         </button>
       </div>
     </div>
@@ -161,6 +208,8 @@ const navLinks = [
 ]
 
 const handleSubmit = async () => {
+  if (isLoading.value) return
+
   isLoading.value = true
   try {
     await authStore.logout()
@@ -168,13 +217,8 @@ const handleSubmit = async () => {
       icon: 'success',
       title: 'Success!',
       text: t('navbar.logout_success'),
-      confirmButtonText: 'OK',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
+      timer: 1500,
+      showConfirmButton: false
     })
     router.push('/login')
   } catch (error) {

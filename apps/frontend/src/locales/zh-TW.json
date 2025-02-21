@@ -31,7 +31,9 @@
     "too_many_requests": "請求過多，請等待 {time} 秒！",
     "creating_account": "創建帳號中...",
     "terms_conditions": "條款和條件",
-    "enter_email_to_reset": "輸入您的電子郵件，我們將傳送一個重置密碼的連結"
+    "enter_email_to_reset": "輸入您的電子郵件，我們將傳送一個重置密碼的連結",
+    "reset_password": "重置密碼",
+    "reset_password_description": "輸入您的密碼，確認後重置您的密碼。"
   },
   "navbar": {
     "home": "首頁",

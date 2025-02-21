@@ -2,19 +2,25 @@
   <div
     class="flex h-screen items-center justify-center bg-gradient-to-br from-green-400 to-green-100"
   >
+    <BackgroundElemt />
     <div
-      class="w-full max-w-md p-8 bg-white bg-opacity-90 rounded-lg shadow-xl"
+      class="relative z-[2] w-full max-w-md p-8 bg-white bg-opacity-90 rounded-lg shadow-xl"
     >
       <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-green-800">PV-ESS</h1>
+        <h1 class="text-3xl font-bold text-green-800">
+          {{ $t('auth.welcome') }}
+        </h1>
       </div>
 
-      <h2 class="text-2xl font-bold mb-6 text-green-700">{{ pageTitle }}</h2>
-      <p class="mb-6 text-green-600">{{ pageDescription }}</p>
+      <h2 class="text-2xl font-bold mb-6 text-green-700">
+        {{ $t('auth.reset_password') }}
+      </h2>
+      <p class="mb-6 text-green-600">
+        {{ $t('auth.reset_password_description') }}
+      </p>
 
       <form @submit.prevent="handleSubmit">
         <div v-if="!hasResetToken">
-          <!-- Email input -->
           <div class="mb-6">
             <label
               for="email"
@@ -32,12 +38,11 @@
         </div>
 
         <div v-else>
-          <!-- New Password input -->
           <div class="mb-4">
             <label
               for="newPassword"
               class="block mb-2 text-sm font-medium text-green-700"
-              >New Password</label
+              >{{ $t('auth.new_password') }}</label
             >
             <input
               type="password"
@@ -48,12 +53,11 @@
             />
           </div>
 
-          <!-- Confirm Password input -->
           <div class="mb-6">
             <label
               for="confirmPassword"
               class="block mb-2 text-sm font-medium text-green-700"
-              >Confirm New Password</label
+              >{{ $t('auth.confirm_new_password') }}</label
             >
             <input
               type="password"
@@ -65,23 +69,21 @@
           </div>
         </div>
 
-        <!-- Submit Button -->
         <button
           type="submit"
           class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-2 px-4 rounded-md hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed transition duration-300"
           :disabled="loading"
         >
-          {{ submitButtonText }}
+          {{ $t('auth.reset_password') }}
         </button>
       </form>
 
       <p class="mt-4 text-center text-sm text-green-600">
-        Remember your password?
-        <a
-          href="#"
-          @click.prevent="switchToLogin"
+        {{ $t('auth.remember_password') }}
+        <router-link
+          to="/login"
           class="text-green-700 hover:text-green-900 font-medium"
-          >Back to login</a
+          >{{ $t('auth.back_to_login') }}</router-link
         >
       </p>
     </div>
@@ -93,43 +95,42 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import { useAuthStore } from '@/store/auth'
+import BackgroundElemt from '@/components/common/BackgroundElemt.vue'
 
 const route = useRoute()
 const router = useRouter()
+const authStore = useAuthStore()
 
 const email = ref('')
 const newPassword = ref('')
 const confirmPassword = ref('')
-const resetToken = ref('')
+const resetToken = ref((route.query.token as string) || '')
 const loading = ref(false)
-const authStore = useAuthStore()
 
-// 1. Validate token on component load
+const showAlert = (title: string, text: string, icon: 'success' | 'error') => {
+  return Swal.fire({
+    title,
+    text,
+    icon,
+    confirmButtonText: 'OK'
+  })
+}
+
 onMounted(async () => {
-  resetToken.value = (route.query.token as string) || ''
   try {
-    // Verify Token request
     const res = await authStore.verify_reset_token(resetToken.value)
-    Swal.fire({
-      title: 'Success!',
-      text: res.data.message,
-      icon: 'success',
-      confirmButtonText: 'OK'
-    })
+    await showAlert('Success!', res.data.message, 'success')
   } catch (error) {
     console.error('Error verifying token:', error)
-    Swal.fire({
-      title: 'Error!',
-      text: 'An error occurred while verifying the token.',
-      icon: 'error',
-      confirmButtonText: 'OK'
-    }).then(() => {
-      router.push('/forgot-password')
-    })
+    await showAlert(
+      'Error!',
+      'An error occurred while verifying the token.',
+      'error'
+    )
+    router.push('/forgot-password')
   }
 })
 
-// 2. Computed properties
 const hasResetToken = computed(() => !!resetToken.value)
 const pageTitle = computed(() =>
   hasResetToken.value ? 'Reset Password' : 'Forgot Password'
@@ -143,21 +144,13 @@ const submitButtonText = computed(() =>
   hasResetToken.value ? 'Reset Password' : 'Send Reset Link'
 )
 
-// 3. Submit handler
 const handleSubmit = async () => {
   loading.value = true
 
   try {
     if (hasResetToken.value) {
-      // Reset Password request
       if (newPassword.value !== confirmPassword.value) {
-        Swal.fire({
-          title: 'Error!',
-          text: 'Passwords do not match!',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        })
-        loading.value = false
+        await showAlert('Error!', 'Passwords do not match!', 'error')
         return
       }
 
@@ -166,32 +159,16 @@ const handleSubmit = async () => {
         newPassword.value
       )
 
-      Swal.fire({
-        title: 'Success!',
-        text: res.data.message,
-        icon: 'success',
-        confirmButtonText: 'OK'
-      }).then(() => {
-        router.push('/login')
-      })
+      await showAlert('Success!', res.data.message, 'success')
+      router.push('/login')
     } else {
       router.push('/forgot-password')
     }
   } catch (error) {
     console.error(error)
-    Swal.fire({
-      title: 'Error!',
-      text: 'An error occurred. Please try again.',
-      icon: 'error',
-      confirmButtonText: 'OK'
-    })
+    await showAlert('Error!', 'An error occurred. Please try again.', 'error')
+  } finally {
+    loading.value = false
   }
-
-  loading.value = false
-}
-
-// 4. Switch to login page
-const switchToLogin = () => {
-  router.push('/login')
 }
 </script>

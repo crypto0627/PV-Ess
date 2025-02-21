@@ -2,13 +2,7 @@
   <div
     class="flex h-screen items-center justify-center bg-gradient-to-br from-green-400 to-green-100 overflow-hidden"
   >
-    <img
-      src="/blob.svg"
-      class="absolute z-[1] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[550px] aspect-square"
-    />
-    <div
-      class="absolute z-[1] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-[720px] aspect-square border-2 border-white rounded-[50%] animate-[spin_50s_linear_infinite] origin-center before:content-[''] before:absolute before:w-[18px] before:aspect-square before:rounded-[inherit] before:bg-[#f39f1a] before:top-1/2 before:left-[-9px] before:-translate-y-1/2 after:content-[''] after:absolute after:w-6 after:aspect-square after:rounded-[inherit] after:bg-[#f39f1a] after:top-1/2 after:right-[-12px] after:-translate-y-1/2"
-    ></div>
+    <BackgroundElemt />
     <div
       class="relative z-[2] bg-white rounded-[24px] p-[72px_32px_48px] w-[340px] flex flex-col items-center justify-center text-center shadow-[0_10px_50px_rgb(96_68_121_/_10%)]"
     >
@@ -120,6 +114,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import { useAuthStore } from '@/store/auth'
+import BackgroundElemt from '@/components/common/BackgroundElemt.vue'
 
 const username = ref('')
 const email = ref('')

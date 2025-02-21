@@ -31,7 +31,9 @@
     "too_many_requests": "Too many requests. Please wait {time} seconds.",
     "creating_account": "Creating Account...",
     "terms_conditions": "Terms and Conditions",
-    "enter_email_to_reset": "Enter your email address and we'll send you a link to reset your password."
+    "enter_email_to_reset": "Enter your email address and we'll send you a link to reset your password.",
+    "reset_password": "Reset Password",
+    "reset_password_description": "Enter your new password and confirm it to reset your password."
   },
   "navbar": {
     "home": "Home",
