@@ -9,6 +9,18 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/pages/home/HomePage.vue'),
     meta: { requiresAuth: true }
   },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('@/pages/profile/Profile.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('@/pages/dashboard/DashboardPage.vue'),
+    meta: { requiresAuth: true }
+  },
   // 尚未登入可使用isPublic代表公開的 requireGuest代表登入後不可造訪
   {
     path: '/login',
