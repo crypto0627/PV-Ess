@@ -60,13 +60,14 @@
                 <router-link
                   to="/dashboard"
                   class="animated-border w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 transform hover:scale-105 transition-all duration-300 md:py-4 md:text-lg md:px-10 relative overflow-hidden"
-                />
-                <span class="border-animate"></span>
-                <span class="border-animate"></span>
-                <span class="border-animate"></span>
-                <span class="border-animate"></span>
-                <i class="fas fa-rocket mr-2"></i>
-                {{ $t('home.hero.button') }}
+                >
+                  <i class="fas fa-rocket mr-2"></i>
+                  {{ $t('home.hero.button') }}
+                  <span class="border-animate"></span>
+                  <span class="border-animate"></span>
+                  <span class="border-animate"></span>
+                  <span class="border-animate"></span>
+                </router-link>
               </div>
             </div>
           </div>
@@ -83,14 +84,15 @@
 
 .animated-border {
   position: relative;
+  overflow: hidden;
 }
 
-.animated-border span {
+.border-animate {
   position: absolute;
   background: linear-gradient(90deg, transparent, #00f7ff);
 }
 
-.animated-border span:nth-child(1) {
+.border-animate:nth-child(1) {
   width: 100%;
   height: 2px;
   top: 0;
@@ -98,7 +100,7 @@
   animation: animate1 3s linear infinite;
 }
 
-.animated-border span:nth-child(2) {
+.border-animate:nth-child(2) {
   width: 2px;
   height: 100%;
   top: -100%;
@@ -106,7 +108,7 @@
   animation: animate2 3s linear infinite;
 }
 
-.animated-border span:nth-child(3) {
+.border-animate:nth-child(3) {
   width: 100%;
   height: 2px;
   bottom: 0;
@@ -114,7 +116,7 @@
   animation: animate3 3s linear infinite;
 }
 
-.animated-border span:nth-child(4) {
+.border-animate:nth-child(4) {
   width: 2px;
   height: 100%;
   bottom: -100%;
