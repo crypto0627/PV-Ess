@@ -72,7 +72,6 @@ export class PasswordResetService {
   async resetPassword(resetToken: string, newPassword: string) {
     // 驗證 Token
     const email = await redisClient.get(`reset_token_${resetToken}`)
-    console.log('Redis 存的值:', email) // 檢查 Redis 裡的值
 
     if (!email) {
       return { message: 'Invalid or expired token' }
@@ -88,8 +87,6 @@ export class PasswordResetService {
     const hashedPassword = await bcrypt.hash(newPassword, 10)
     user.password = hashedPassword
     await this.userRepository.save(user)
-
-    console.log('Updated password:', user.password) // 確保密碼已更新
 
     // 刪除 Redis Token，防止重複使用
     await redisClient.del(`reset_token_${resetToken}`)

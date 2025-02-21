@@ -1,101 +1,101 @@
 <template>
-  <div class="flex h-screen items-center justify-center bg-white">
-    <div class="w-full max-w-md p-8">
-      <div class="text-center mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">{{ $t('app_name') }}</h1>
-      </div>
+  <div
+    class="flex h-screen items-center justify-center bg-gradient-to-br from-green-400 to-green-100 overflow-hidden"
+  >
+    <img
+      src="/blob.svg"
+      class="absolute z-[1] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[550px] aspect-square"
+    />
+    <div
+      class="absolute z-[1] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-[720px] aspect-square border-2 border-white rounded-[50%] animate-[spin_50s_linear_infinite] origin-center before:content-[''] before:absolute before:w-[18px] before:aspect-square before:rounded-[inherit] before:bg-[#f39f1a] before:top-1/2 before:left-[-9px] before:-translate-y-1/2 after:content-[''] after:absolute after:w-6 after:aspect-square after:rounded-[inherit] after:bg-[#f39f1a] after:top-1/2 after:right-[-12px] after:-translate-y-1/2"
+    ></div>
+    <div
+      class="relative z-[2] bg-white rounded-[24px] p-[72px_32px_48px] w-[340px] flex flex-col items-center justify-center text-center shadow-[0_10px_50px_rgb(96_68_121_/_10%)]"
+    >
+      <img src="/logo.png" class="w-24 mb-8" />
+      <h2 class="text-lg font-medium mb-1.5">
+        {{ $t('auth.create_account') }}
+      </h2>
+      <h3 class="text-[13px] text-[#ada5b4] font-medium mb-8">
+        {{ $t('auth.welcome_description') }}
+      </h3>
 
-      <h2 class="text-3xl font-bold mb-6">{{ $t('auth.create_account') }}</h2>
-
-      <form @submit.prevent="handleSubmit">
-        <div class="mb-4">
-          <label
-            for="username"
-            class="block mb-2 text-sm font-medium text-gray-700"
-          >
-            {{ $t('auth.user_name') }}
-          </label>
+      <form @submit.prevent="handleSubmit" class="grid gap-3 w-full mb-5">
+        <div class="relative">
           <input
             type="text"
             id="username"
             v-model.trim="username"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="textbox-input"
             required
           />
+          <label for="username" class="textbox-label">
+            {{ $t('auth.user_name') }}
+          </label>
         </div>
 
-        <div class="mb-4">
-          <label
-            for="email"
-            class="block mb-2 text-sm font-medium text-gray-700"
-          >
-            {{ $t('auth.email') }}
-          </label>
+        <div class="relative">
           <input
             type="email"
             id="email"
             v-model.trim="email"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="textbox-input"
             required
           />
+          <label for="email" class="textbox-label">
+            {{ $t('auth.email') }}
+          </label>
         </div>
 
-        <div class="mb-4">
-          <label
-            for="password"
-            class="block mb-2 text-sm font-medium text-gray-700"
-          >
-            {{ $t('auth.password') }}
-          </label>
+        <div class="relative">
           <input
             type="password"
             id="password"
             v-model="password"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="textbox-input"
             required
           />
+          <label for="password" class="textbox-label">
+            {{ $t('auth.password') }}
+          </label>
         </div>
 
-        <div class="mb-6">
-          <label
-            for="confirmPassword"
-            class="block mb-2 text-sm font-medium text-gray-700"
-          >
-            {{ $t('auth.confirm_password') }}
-          </label>
+        <div class="relative">
           <input
             type="password"
             id="confirmPassword"
             v-model="confirmPassword"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="textbox-input"
             required
           />
+          <label for="confirmPassword" class="textbox-label">
+            {{ $t('auth.confirm_password') }}
+          </label>
         </div>
 
-        <div class="mb-6">
+        <div class="mb-6 flex items-center">
           <input
             type="checkbox"
             id="agreeTerms"
             v-model="agreeTerms"
-            class="h-4 w-4 text-blue-600"
+            class="h-4 w-4 text-green-600 focus:ring-green-500 border-green-300 rounded"
             required
           />
-          <label for="agreeTerms" class="ml-2 text-sm text-gray-700">
+          <label for="agreeTerms" class="ml-2 text-sm text-green-700">
             {{ $t('auth.terms_agreement') }}
-            <a
-              href="/terms-conditions"
-              class="text-blue-600 hover:text-blue-800"
+            <router-link
+              to="/terms-conditions"
+              class="text-green-600 hover:text-green-800 font-medium"
             >
               {{ $t('auth.terms_conditions') }}
-            </a>
+            </router-link>
           </label>
         </div>
 
         <button
           type="submit"
           :disabled="isLoading"
-          class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-          :class="{ 'opacity-50 cursor-not-allowed': isLoading }"
+          class="text-[#f9f9f9] bg-gradient-to-r from-green-700 via-green-500 to-green-300 h-[52px] font-inherit text-[15px] px-3 border-0 rounded-lg"
         >
           {{
             isLoading
@@ -105,9 +105,9 @@
         </button>
       </form>
 
-      <p class="mt-4 text-center text-sm text-gray-600">
+      <p class="text-[14px] text-[#ada5b4]">
         {{ $t('auth.already_have_account') }}
-        <router-link to="/login" class="text-blue-600 hover:text-blue-800">
+        <router-link to="/login" class="text-green-700">
           {{ $t('auth.sign_in_redirect') }}
         </router-link>
       </p>
@@ -131,7 +131,7 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const handleSubmit = async () => {
-  // 確保密碼匹配
+  // Ensure passwords match
   if (password.value !== confirmPassword.value) {
     await Swal.fire({
       icon: 'warning',
@@ -144,14 +144,14 @@ const handleSubmit = async () => {
 
   isLoading.value = true
   try {
-    // 呼叫 API 註冊
+    // Call API to register
     const res = await authStore.register(
       username.value,
       email.value,
       password.value
     )
 
-    // 確保 API 正確回應 message
+    // Ensure API responds with a message
     if (res?.data?.message) {
       await Swal.fire({
         icon: 'success',
@@ -163,7 +163,7 @@ const handleSubmit = async () => {
       router.push('/login')
     }
   } catch (error) {
-    // 安全地解析錯誤信息
+    // Safely parse error message
     const errorMessage = error.response?.data?.message || 'Something went wrong'
     await Swal.fire({
       icon: 'error',
@@ -176,3 +176,41 @@ const handleSubmit = async () => {
   }
 }
 </script>
+
+<style scoped>
+.textbox-label,
+.textbox-input {
+  transition: 0.3s;
+}
+
+.textbox-label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translate(0, -50%);
+  transform-origin: 0 50%;
+  pointer-events: none;
+  color: #ada5b4;
+  font-size: 14px;
+}
+
+.textbox-input {
+  width: 100%;
+  padding: 10px 12px 0;
+  background: #f4f1f7;
+  outline: none;
+  color: #2e2c2f;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px transparent;
+}
+
+.textbox-input:focus {
+  box-shadow: 0 0 0 2px #7b00f1;
+}
+
+.textbox-input:is(:focus, :not(:invalid)) ~ .textbox-label {
+  scale: 0.725;
+  transform: translate(0, -112%);
+}
+</style>

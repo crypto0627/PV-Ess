@@ -1,6 +1,8 @@
 {
   "app_name": "PV-ESS",
   "auth": {
+    "welcome": "歡迎使用 PV ESS!",
+    "welcome_description": "開始您的能源管理！",
     "sign_in": "登入",
     "email": "電子郵件",
     "password": "密碼",
@@ -31,7 +33,7 @@
     "terms_conditions": "條款和條件",
     "enter_email_to_reset": "輸入您的電子郵件，我們將傳送一個重置密碼的連結"
   },
-  "home": {
+  "navbar": {
     "home": "首頁",
     "profile": "個人資訊",
     "products": "產品",
@@ -48,5 +50,47 @@
     "success": "成功！",
     "suceess_text": "您的訊息已成功送出，我們會盡快回覆您。",
     "confirm_btn": "確定"
+  },
+  "home": {
+    "hero": {
+      "title": "智慧儲能系統",
+      "subtitle": "引領永續未來",
+      "description": "運用先進AI技術優化您的能源管理。",
+      "button": "立即開始"
+    },
+    "features": {
+      "monitoring": {
+        "title": "即時監控",
+        "description": "一目了然掌握能源使用效率與節能成效。",
+        "button": "查看數據"
+      },
+      "analytics": {
+        "title": "財務分析",
+        "description": "深入分析綠能投資回報與成本節約效益。",
+        "button": "查看報告"
+      },
+      "scheduling": {
+        "title": "智慧排程",
+        "description": "AI優化充電與用電時程，實現最大效益。",
+        "button": "設定排程"
+      },
+      "system_monitoring": {
+        "title": "Grafana監控",
+        "description": "監控SCADA狀態與性能，實現最大效益。",
+        "button": "查看數據"
+      },
+      "solar_panel": {
+        "title": "太陽能整合",
+        "description": "智能整合現有太陽能系統，實現最大發電效率"
+      },
+      "energy_storage": {
+        "title": "儲能系統",
+        "description": "採用先進環保儲能技術，確保穩定供電"
+      },
+      "energy_consumption": {
+        "title": "AI智慧管理",
+        "description": "運用人工智慧技術優化能源配置與使用效率"
+      }
+    }
   }
 }

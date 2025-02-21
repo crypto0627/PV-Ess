@@ -12,7 +12,7 @@
     "resolveJsonModule": true, // Enable importing JSON files
     "isolatedModules": true, // Treat each file as an isolated module (needed for Vue's JSX support)
     "lib": ["dom", "esnext"], // Include the DOM and ESNext libraries
-    "types": ["vite/client", "node"], // Include types for Vite and Node.js (if using Vite)
+    "types": ["vite/client", "node", "cypress", "jest"], // Include types for Vite and Node.js (if using Vite)
     "baseUrl": ".", // Set the base URL for module resolution (helpful for import aliases)
     "paths": {
       "@/*": ["src/*"] // Path alias for 'src' folder, useful for cleaner imports

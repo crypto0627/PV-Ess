@@ -1,6 +1,8 @@
 {
   "app_name": "PV-ESS",
   "auth": {
+    "welcome": "Welcome to PV ESS!",
+    "welcome_description": "Start your energy management!",
     "sign_in": "Sign In",
     "email": "Email",
     "password": "Password",
@@ -48,5 +50,47 @@
     "success": "Success!",
     "suceess_text": "Your message've submitted, we'll response you as soon as possible.",
     "confirm_btn": "OK"
+  },
+  "home": {
+    "hero": {
+      "title": "Smart Energy Storage System",
+      "subtitle": "Leading a Sustainable Future",
+      "description": "Optimize your energy management with advanced AI technology.",
+      "button": "Get Started"
+    },
+    "features": {
+      "monitoring": {
+        "title": "Real-time Monitoring",
+        "description": "Track energy usage efficiency at a glance.",
+        "button": "View Data"
+      },
+      "analytics": {
+        "title": "Financial Analysis",
+        "description": "Analyze green energy investment returns.",
+        "button": "View Report"
+      },
+      "scheduling": {
+        "title": "Smart Scheduling",
+        "description": "Optimize charging and power usage with AI.",
+        "button": "Set Schedule"
+      },
+      "system_monitoring": {
+        "title": "Grafana Monitoring",
+        "description": "Monitor the SCADA status and performance.",
+        "button": "View Data"
+      },
+      "solar_panel": {
+        "title": "Solar Integration",
+        "description": "Smartly integrate existing solar systems to maximize efficiency."
+      },
+      "energy_storage": {
+        "title": "Storage System",
+        "description": "Utilize advanced energy storage technology to ensure stable power supply."
+      },
+      "energy_consumption": {
+        "title": "AI Energy Management",
+        "description": "Optimize energy consumption with AI-driven energy management."
+      }
+    }
   }
 }

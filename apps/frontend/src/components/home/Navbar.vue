@@ -1,7 +1,7 @@
 <template>
   <!-- Navigation -->
   <nav
-    class="bg-gradient-to-r from-[rgb(30,193,106)] via-[rgb(130,212,165)] to-[rgb(181,220,154)] shadow-lg transition-all duration-300"
+    class="bg-gradient-to-r from-[rgb(30,193,106)] via-[rgb(130,212,165)] to-[rgb(181,220,154)] shadow-lg transition-all duration-300 relative z-50"
   >
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex justify-between items-center h-16">
@@ -51,7 +51,7 @@
               v-if="isDropdownOpen"
               @mouseenter="handleMouseEnter"
               @mouseleave="handleDropdownLeave"
-              class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 transform transition-all duration-200 origin-top-right"
+              class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 transform transition-all duration-200 origin-top-right z-50"
               v-cloak
             >
               <a
@@ -74,7 +74,9 @@
               </button>
             </div>
           </div>
-          <LanguageSwitcher />
+          <div class="fixed bottom-4 right-4 z-50">
+            <LanguageSwitcher direction="up" />
+          </div>
         </div>
         <div class="md:hidden">
           <button
@@ -142,7 +144,7 @@ import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import { useAuthStore } from '@/store/auth'
 import { useI18n } from 'vue-i18n'
-import LanguageSwitcher from '../LanguageSwitcher.vue'
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 
 const { t } = useI18n()
 const isLoading = ref(false)

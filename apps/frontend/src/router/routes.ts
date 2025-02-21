@@ -11,12 +11,6 @@ export const routes: Array<RouteRecordRaw> = [
   },
   // 尚未登入可使用isPublic代表公開的 requireGuest代表登入後不可造訪
   {
-    path: '/contact',
-    name: 'Contact',
-    component: () => import('@/pages/Contact.vue'),
-    meta: { isPublic: true }
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import('@/pages/auth/LoginPage.vue'),

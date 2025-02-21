@@ -1,12 +1,18 @@
 <template>
-  <div class="flex h-screen items-center justify-center bg-white">
-    <div class="w-full max-w-md p-8">
+  <div
+    class="flex h-screen items-center justify-center bg-gradient-to-br from-green-400 to-green-100"
+  >
+    <div
+      class="w-full max-w-md p-8 bg-white bg-opacity-90 rounded-lg shadow-xl"
+    >
       <div class="text-center mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">PV-ESS</h1>
+        <h1 class="text-3xl font-bold text-green-800">PV-ESS</h1>
       </div>
 
-      <h2 class="text-3xl font-bold mb-6">{{ $t('auth.forgot_password') }}</h2>
-      <p class="mb-6 text-gray-600">
+      <h2 class="text-2xl font-bold mb-6 text-green-700">
+        {{ $t('auth.forgot_password') }}
+      </h2>
+      <p class="mb-6 text-green-600">
         {{ $t('auth.enter_email_to_reset') }}
       </p>
 
@@ -14,7 +20,7 @@
         <div class="mb-6">
           <label
             for="email"
-            class="block mb-2 text-sm font-medium text-gray-700"
+            class="block mb-2 text-sm font-medium text-green-700"
           >
             {{ $t('auth.email') }}
           </label>
@@ -22,7 +28,7 @@
             type="email"
             id="email"
             v-model="email"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-50"
             required
             autocomplete="email"
           />
@@ -41,7 +47,7 @@
 
         <button
           type="submit"
-          class="w-full flex items-center justify-center bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          class="w-full flex items-center justify-center bg-gradient-to-r from-green-500 to-green-600 text-white py-2 px-4 rounded-md hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed transition duration-300"
           :disabled="isLoading"
         >
           <svg
@@ -69,9 +75,12 @@
         </button>
       </form>
 
-      <p class="mt-4 text-center text-sm text-gray-600">
+      <p class="mt-4 text-center text-sm text-green-600">
         {{ $t('auth.remember_password') }}
-        <a href="/login" class="text-blue-600 hover:text-blue-800">
+        <a
+          href="/login"
+          class="text-green-700 hover:text-green-900 font-medium"
+        >
           {{ $t('auth.back_to_login') }}
         </a>
       </p>

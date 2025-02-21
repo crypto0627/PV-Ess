@@ -1,6 +1,8 @@
 {
   "app_name": "PV-ESS",
   "auth": {
+    "welcome": "欢迎使用 PV ESS!",
+    "welcome_description": "开始您的能源管理！",
     "sign_in": "登录",
     "email": "电子邮件",
     "password": "密码",
@@ -48,5 +50,47 @@
     "success": "成功！",
     "suceess_text": "您的讯息已成功送出，我们会尽快回覆您。",
     "confirm_btn": "确定"
+  },
+  "home": {
+    "hero": {
+      "title": "智慧储能系统",
+      "subtitle": "引领可持续未来",
+      "description": "运用先进AI技术优化您的能源管理。",
+      "button": "立即开始"
+    },
+    "features": {
+      "monitoring": {
+        "title": "实时监控",
+        "description": "一目了然掌握能源使用效率与节能成效。",
+        "button": "查看数据"
+      },
+      "analytics": {
+        "title": "财务分析",
+        "description": "深入分析绿能投资回报与成本节约效益。",
+        "button": "查看报告"
+      },
+      "scheduling": {
+        "title": "智慧排程",
+        "description": "AI优化充电与用电时程，实现最大效益。",
+        "button": "设置排程"
+      },
+      "system_monitoring": {
+        "title": "Grafana监控",
+        "description": "监控SCADA状态与性能，实现最大效益。",
+        "button": "查看数据"
+      },
+      "solar_panel": {
+        "title": "太阳能整合",
+        "description": "智能整合现有太阳能系统，实现最大发电效率"
+      },
+      "energy_storage": {
+        "title": "储能系统",
+        "description": "采用先进环保储能技术，确保稳定供电"
+      },
+      "energy_consumption": {
+        "title": "AI智慧管理",
+        "description": "运用人工智慧技术优化能源配置与使用效率"
+      }
+    }
   }
 }

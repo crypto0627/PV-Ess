@@ -55,6 +55,9 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
+        },
+        loginform: {
+          DEFAULT: '#a084b8'
         }
       },
       borderRadius: {
