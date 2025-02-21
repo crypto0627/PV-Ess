@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: 'https://pv-ess.vercel.app/',
   plugins: [tailwindcss(), vue()],
   build: {
     outDir: 'out',
