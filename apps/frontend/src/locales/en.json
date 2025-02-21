@@ -19,6 +19,7 @@
     "sign_in_redirect": "Sign in",
     "forgot_password_title": "Forgot Password",
     "forgot_password_description": "Enter your email address and we'll send you a link to reset your password.",
+    "sending_reset_link": "Sending reset link...",
     "send_reset_link": "Send Reset Link",
     "remember_password": "Remember your password?",
     "back_to_login": "Back to login",

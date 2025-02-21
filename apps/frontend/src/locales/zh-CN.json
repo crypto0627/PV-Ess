@@ -8,6 +8,7 @@
     "password": "密码",
     "stay_signed_in": "保持登录",
     "forgot_password": "忘记密码？",
+    "sending_reset_link": "发送重置链接...",
     "sign_up_prompt": "还没有账户？",
     "sign_up": "注册",
     "create_account": "创建账户",

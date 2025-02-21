@@ -72,7 +72,11 @@
               d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 11-8 8z"
             ></path>
           </svg>
-          {{ isLoading ? $t('auth.sending') : $t('auth.send_reset_link') }}
+          {{
+            isLoading
+              ? $t('auth.sending_reset_link')
+              : $t('auth.send_reset_link')
+          }}
         </button>
       </form>
 

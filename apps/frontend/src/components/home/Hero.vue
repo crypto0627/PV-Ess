@@ -61,7 +61,6 @@
                   to="/dashboard"
                   class="animated-border w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 transform hover:scale-105 transition-all duration-300 md:py-4 md:text-lg md:px-10 relative overflow-hidden"
                 >
-                  <i class="fas fa-rocket mr-2"></i>
                   {{ $t('home.hero.button') }}
                   <span class="border-animate"></span>
                   <span class="border-animate"></span>
