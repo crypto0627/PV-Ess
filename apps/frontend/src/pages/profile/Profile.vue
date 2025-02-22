@@ -24,8 +24,8 @@
               <div v-if="!editMode.name">
                 {{ user.name }}
                 <button
-                  @click="toggleEdit('name')"
                   class="ml-2 text-green-600 hover:text-green-800"
+                  @click="toggleEdit('name')"
                 >
                   <i class="fas fa-edit"></i>
                 </button>
@@ -33,8 +33,8 @@
               <input
                 v-else
                 v-model="editedUser.name"
-                @blur="saveEdit('name')"
                 class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                @blur="saveEdit('name')"
               />
             </dd>
           </div>
@@ -46,8 +46,8 @@
               <div v-if="!editMode.email">
                 {{ user.email }}
                 <button
-                  @click="toggleEdit('email')"
                   class="ml-2 text-green-600 hover:text-green-800"
+                  @click="toggleEdit('email')"
                 >
                   <i class="fas fa-edit"></i>
                 </button>
@@ -55,9 +55,9 @@
               <input
                 v-else
                 v-model="editedUser.email"
-                @blur="saveEdit('email')"
                 type="email"
                 class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                @blur="saveEdit('email')"
               />
             </dd>
           </div>
@@ -69,8 +69,8 @@
               <div v-if="!editMode.phone">
                 {{ user.phone }}
                 <button
-                  @click="toggleEdit('phone')"
                   class="ml-2 text-green-600 hover:text-green-800"
+                  @click="toggleEdit('phone')"
                 >
                   <i class="fas fa-edit"></i>
                 </button>
@@ -78,9 +78,9 @@
               <input
                 v-else
                 v-model="editedUser.phone"
-                @blur="saveEdit('phone')"
                 type="tel"
                 class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                @blur="saveEdit('phone')"
               />
             </dd>
           </div>
@@ -92,8 +92,8 @@
               <div v-if="!editMode.address">
                 {{ user.address }}
                 <button
-                  @click="toggleEdit('address')"
                   class="ml-2 text-green-600 hover:text-green-800"
+                  @click="toggleEdit('address')"
                 >
                   <i class="fas fa-edit"></i>
                 </button>
@@ -101,9 +101,9 @@
               <textarea
                 v-else
                 v-model="editedUser.address"
-                @blur="saveEdit('address')"
                 rows="3"
                 class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                @blur="saveEdit('address')"
               ></textarea>
             </dd>
           </div>
@@ -131,8 +131,8 @@
       </div>
       <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
         <button
-          @click="saveAllChanges"
           class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          @click="saveAllChanges"
         >
           Save all changes
         </button>
@@ -142,12 +142,9 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { useAuthStore } from '@/store/auth'
-import Swal from 'sweetalert2'
 import Navbar from '@/components/home/Navbar.vue'
-
-const authStore = useAuthStore()
+import Swal from 'sweetalert2'
+import { reactive, ref } from 'vue'
 
 const user = ref({
   name: 'John Doe',
@@ -188,8 +185,7 @@ const saveEdit = async (field) => {
       timer: 1500,
       showConfirmButton: false
     })
-  } catch (error) {
-    console.error('Error updating user information:', error)
+  } catch {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
@@ -211,8 +207,7 @@ const saveAllChanges = async () => {
       timer: 1500,
       showConfirmButton: false
     })
-  } catch (error) {
-    console.error('Error updating user information:', error)
+  } catch {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',

@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "build": "tsc",
     "start": "ts-node src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "jest"
+    "test": "jest",
+    "lint": "pnpm exec eslint . --fix",
+    "lint:check": "pnpm exec eslint ."
   },
   "keywords": [],
   "author": "",
@@ -36,6 +39,7 @@
     "@types/node": "^20.17.17",
     "@types/nodemailer": "^6.4.17",
     "@types/pg": "^8.11.11",
+    "eslint": "^9.20.1",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typeorm": "^0.3.20",

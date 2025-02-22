@@ -2,8 +2,8 @@
   <div class="max-w-4xl mx-auto p-8">
     <div class="flex justify-end mb-4">
       <button
-        @click="toggleLanguage"
         class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        @click="toggleLanguage"
       >
         {{ currentLanguage === 'en' ? '切換到中文' : 'Switch to English' }}
       </button>

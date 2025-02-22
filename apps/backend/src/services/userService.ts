@@ -1,9 +1,9 @@
+import bcrypt from 'bcryptjs'
 import AppDataSource from '../data-source'
 import { User } from '../entities/User'
-import bcrypt from 'bcryptjs'
 
 export class UserService {
-  static updatePassword(userId: any, password: any) {
+  static updatePassword() {
     throw new Error('Method not implemented.')
   }
   private userRepository = AppDataSource.getRepository(User)

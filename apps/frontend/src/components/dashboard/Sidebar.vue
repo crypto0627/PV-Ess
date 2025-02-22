@@ -11,11 +11,11 @@
     <ul class="grid gap-2 list-none p-0 m-0 w-full">
       <li v-for="item in menuItems" :key="item.id">
         <input
-          type="radio"
           :id="item.id"
+          v-model="activeSidebar"
+          type="radio"
           name="sidebar"
           class="scale-0 absolute"
-          v-model="activeSidebar"
           :value="item.id"
           @click="handleClick(item)"
         />
@@ -54,9 +54,9 @@
             <li v-for="subItem in item.submenu" :key="subItem.label">
               <button
                 type="button"
-                @click="handleSubItemClick(subItem.label)"
                 class="relative pl-[52px] font-normal text-base leading-none text-white/95 transition-all duration-300 h-[42px] w-full rounded-lg hover:bg-white/10 hover:translate-x-1 cursor-pointer before:content-[''] before:absolute before:top-1/2 before:left-6 before:-translate-y-1/2 before:w-[5px] before:h-[5px] before:rounded-full before:bg-white/35"
                 :class="{ 'bg-cyan-500/20': activeSubItem === subItem.label }"
+                @click="handleSubItemClick(subItem.label)"
               >
                 {{ subItem.label }}
               </button>

@@ -1,7 +1,7 @@
 <template>
   <div
-    class="relative bg-gradient-to-br from-green-500 via-teal-500 to-blue-600 overflow-hidden"
     v-motion
+    class="relative bg-gradient-to-br from-green-500 via-teal-500 to-blue-600 overflow-hidden"
     :initial="{ opacity: 0, y: 100 }"
     :enter="{ opacity: 1, y: 0 }"
     :visible="{ once: true, amount: 0.2 }"
@@ -20,8 +20,8 @@
         >
           <div class="text-center">
             <h1
-              class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl"
               v-motion
+              class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl"
               :initial="{ opacity: 0, y: 100 }"
               :enter="{ opacity: 1, y: 0, transition: { duration: 800 } }"
             >
@@ -35,8 +35,8 @@
               </span>
             </h1>
             <p
-              class="mt-3 text-base text-cyan-100 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl"
               v-motion
+              class="mt-3 text-base text-cyan-100 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl"
               :initial="{ opacity: 0, y: 50 }"
               :enter="{
                 opacity: 1,
@@ -47,8 +47,8 @@
               {{ $t('home.hero.description') }}
             </p>
             <div
-              class="mt-5 sm:mt-8 sm:flex sm:justify-center"
               v-motion
+              class="mt-5 sm:mt-8 sm:flex sm:justify-center"
               :initial="{ opacity: 0, scale: 0.8 }"
               :enter="{
                 opacity: 1,

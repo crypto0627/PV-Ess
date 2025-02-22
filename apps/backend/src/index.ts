@@ -1,12 +1,12 @@
-import express from 'express'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import cors from 'cors'
 import dotenv from 'dotenv'
+import express from 'express'
 import AppDataSource from './data-source'
 
 // 路由
-import authRoutes from './routes/authRoute'
-import userRoutes from './routes/userRoute'
 import cookieParser from 'cookie-parser'
+import authRoutes from './routes/authRoute'
 
 dotenv.config()
 
@@ -50,23 +50,15 @@ AppDataSource.initialize()
 // API 路由
 const apiPrefix = '/api'
 app.use(`${apiPrefix}/auth`, authRoutes)
-app.use(`${apiPrefix}/users`, userRoutes)
 
 // 全局錯誤處理
-app.use(
-  (
-    err: any,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
-    console.error('🔥 Error:', err)
-    res.status(err.status || 500).json({
-      message: err.message || 'Internal Server Error',
-      error: process.env.NODE_ENV === 'development' ? err.stack : {}
-    })
-  }
-)
+app.use((err: any, req: express.Request, res: express.Response) => {
+  console.error('🔥 Error:', err)
+  res.status(err.status || 500).json({
+    message: err.message || 'Internal Server Error',
+    error: process.env.NODE_ENV === 'development' ? err.stack : {}
+  })
+})
 
 // 啟動伺服器
 app.listen(PORT, () => {

@@ -26,9 +26,9 @@
             {{ $t('auth.email') }}
           </label>
           <input
-            type="email"
             id="email"
             v-model="email"
+            type="email"
             class="w-full px-3 py-1.5 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-50"
             required
             autocomplete="email"

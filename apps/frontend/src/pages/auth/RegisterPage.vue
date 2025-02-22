@@ -14,12 +14,12 @@
         {{ $t('auth.welcome_description') }}
       </h3>
 
-      <form @submit.prevent="handleSubmit" class="grid gap-3 w-full mb-5">
+      <form class="grid gap-3 w-full mb-5" @submit.prevent="handleSubmit">
         <div class="relative">
           <input
-            type="text"
             id="username"
             v-model.trim="username"
+            type="text"
             class="textbox-input"
             required
           />
@@ -30,9 +30,9 @@
 
         <div class="relative">
           <input
-            type="email"
             id="email"
             v-model.trim="email"
+            type="email"
             class="textbox-input"
             required
           />
@@ -43,9 +43,9 @@
 
         <div class="relative">
           <input
-            type="password"
             id="password"
             v-model="password"
+            type="password"
             class="textbox-input"
             required
           />
@@ -56,9 +56,9 @@
 
         <div class="relative">
           <input
-            type="password"
             id="confirmPassword"
             v-model="confirmPassword"
+            type="password"
             class="textbox-input"
             required
           />
@@ -69,9 +69,9 @@
 
         <div class="mb-6 flex items-center">
           <input
-            type="checkbox"
             id="agreeTerms"
             v-model="agreeTerms"
+            type="checkbox"
             class="h-4 w-4 text-green-600 focus:ring-green-500 border-green-300 rounded"
             required
           />

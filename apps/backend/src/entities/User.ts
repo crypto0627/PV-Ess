@@ -1,10 +1,9 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
   BeforeInsert,
-  BeforeUpdate
+  BeforeUpdate,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn
 } from 'typeorm'
 
 @Entity('users')

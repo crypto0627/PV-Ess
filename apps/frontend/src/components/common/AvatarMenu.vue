@@ -1,9 +1,9 @@
 <template>
   <div class="relative">
     <button
+      class="flex items-center text-white hover:text-green-100 focus:outline-none transition-transform duration-200 hover:scale-105"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleAvatarLeave"
-      class="flex items-center text-white hover:text-green-100 focus:outline-none transition-transform duration-200 hover:scale-105"
     >
       <div
         class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md hover:shadow-lg transition-shadow duration-200"
@@ -27,10 +27,10 @@
     <!-- 下拉選單 -->
     <div
       v-if="isDropdownOpen"
+      v-cloak
+      class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 transform transition-all duration-200 origin-top-right z-50"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleDropdownLeave"
-      class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 transform transition-all duration-200 origin-top-right z-50"
-      v-cloak
     >
       <router-link
         to="/profile"
@@ -45,9 +45,9 @@
         {{ $t('navbar.settings') }}
       </router-link>
       <button
-        @click="handleSubmit"
         :disabled="isLoading"
         class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors duration-150"
+        @click="handleSubmit"
       >
         <span v-if="isLoading" class="flex items-center">
           <svg

@@ -28,8 +28,8 @@
         </div>
         <div class="md:hidden">
           <button
-            @click="toggleMenu"
             class="text-white focus:outline-none transition-transform duration-200 hover:scale-105"
+            @click="toggleMenu"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -75,9 +75,9 @@
           {{ $t('navbar.settings') }}
         </router-link>
         <button
-          @click="handleSubmit"
           :disabled="isLoading"
           class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:bg-opacity-20 transition-all duration-150"
+          @click="handleSubmit"
         >
           <span v-if="isLoading" class="flex items-center">
             <svg

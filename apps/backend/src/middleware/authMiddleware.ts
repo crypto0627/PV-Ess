@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
-import { errorResponse } from '../utils/response'
 import { redisClient } from '../config/redis'
+import { errorResponse } from '../utils/response'
 
 export const authMiddleware = async (
   req: Request,
@@ -27,7 +27,7 @@ export const authMiddleware = async (
 
     console.log('Decoded JWT:', decoded) // 確認解碼結果
     next()
-  } catch (err) {
+  } catch {
     errorResponse(res, 'Invalid token', 401)
   }
 }

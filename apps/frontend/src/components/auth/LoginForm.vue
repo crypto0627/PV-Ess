@@ -1,11 +1,11 @@
 <template>
-  <form @submit.prevent="handleSubmit" class="grid gap-3 w-full mb-5">
+  <form class="grid gap-3 w-full mb-5" @submit.prevent="handleSubmit">
     <div class="relative">
       <input
-        required
-        type="email"
         id="email"
         v-model="email"
+        required
+        type="email"
         autocomplete="user-email"
         class="textbox-input"
       />
@@ -13,10 +13,10 @@
     </div>
     <div class="relative">
       <input
-        required
-        :type="showPassword ? 'text' : 'password'"
         id="password"
         v-model="password"
+        required
+        :type="showPassword ? 'text' : 'password'"
         autocomplete="current-password"
         class="textbox-input text-green-700"
       />
@@ -66,9 +66,9 @@
     <div class="flex items-center justify-between mb-6">
       <div class="flex items-center">
         <input
-          type="checkbox"
           id="staySignedIn"
           v-model="staySignedIn"
+          type="checkbox"
           class="h-4 w-4 text-green-600 focus:ring-green-500 border-green-300 rounded"
         />
         <label for="staySignedIn" class="ml-2 block text-sm text-green-700">

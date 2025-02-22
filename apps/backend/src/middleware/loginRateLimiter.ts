@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
 
 const failedLoginAttempts: Record<
   string,
@@ -17,7 +17,7 @@ export const loginRateLimiter = (
     failedLoginAttempts[email] = { count: 0, lockUntil: 0 }
   }
 
-  const { count, lockUntil } = failedLoginAttempts[email]
+  const { lockUntil } = failedLoginAttempts[email]
 
   // **如果帳號已被封鎖**
   if (lockUntil > currentTime) {

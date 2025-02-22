@@ -9,7 +9,7 @@ const userController = new UserController()
 router.get('/', authMiddleware, async (req, res) => {
   try {
     await userController.getAllUsers(req, res)
-  } catch (err) {
+  } catch {
     res.status(500).json({ error: 'Server error' })
   }
 })
@@ -17,7 +17,7 @@ router.get('/', authMiddleware, async (req, res) => {
 router.get('/:id', authMiddleware, async (req, res) => {
   try {
     await userController.getUserById(req, res)
-  } catch (err) {
+  } catch {
     res.status(500).json({ error: 'Server error' })
   }
 })
@@ -25,7 +25,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
 router.put('/:id', authMiddleware, async (req, res) => {
   try {
     await userController.updateUser(req, res)
-  } catch (err) {
+  } catch {
     res.status(500).json({ error: 'Server error' })
   }
 })
@@ -33,15 +33,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
 router.delete('/:id', authMiddleware, async (req, res) => {
   try {
     await userController.deleteUser(req, res)
-  } catch (err) {
-    res.status(500).json({ error: 'Server error' })
-  }
-})
-
-router.patch('/:id/update-password', authMiddleware, async (req, res) => {
-  try {
-    await userController.updatePassword(req, res)
-  } catch (err) {
+  } catch {
     res.status(500).json({ error: 'Server error' })
   }
 })

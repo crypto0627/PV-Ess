@@ -1,11 +1,13 @@
 {
   "name": "pv-ess",
   "private": true,
+  "type": "module",
   "scripts": {
     "docker-rebuild": "docker-compose down -v && docker-compose build && docker-compose up -d",
-    "build": "turbo build && pnpm run format",
+    "build": "pnpm run format && pnpm run lint && turbo build ",
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "lint:fix": "turbo run lint -- --fix",
     "format": "prettier --write \"**/*.{js,ts,tsx,vue,md,json}\""
   },
   "devDependencies": {

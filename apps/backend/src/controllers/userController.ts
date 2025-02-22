@@ -44,26 +44,4 @@ export class UserController {
       res.status(400).json({ message: (error as Error).message })
     }
   }
-
-  async updatePassword(req: Request, res: Response) {
-    try {
-      const { userId, oldPassword, newPassword } = req.body
-
-      // Validate input
-      if (!userId || !oldPassword || !newPassword) {
-        return res.status(400).json({ error: 'Missing required fields' })
-      }
-
-      // Update password
-      const updatedUser = await this.userService.updatePassword(
-        userId,
-        oldPassword,
-        newPassword
-      )
-
-      res.json({ message: 'Password updated successfully' })
-    } catch (err) {
-      res.status(400).json({ error: (err as Error).message })
-    }
-  }
 }

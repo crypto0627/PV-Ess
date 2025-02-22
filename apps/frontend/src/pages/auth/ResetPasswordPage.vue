@@ -28,9 +28,9 @@
               >Email</label
             >
             <input
-              type="email"
               id="email"
               v-model="email"
+              type="email"
               class="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-50"
               required
             />
@@ -45,9 +45,9 @@
               >{{ $t('auth.new_password') }}</label
             >
             <input
-              type="password"
               id="newPassword"
               v-model="newPassword"
+              type="password"
               class="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-50"
               required
             />
@@ -60,9 +60,9 @@
               >{{ $t('auth.confirm_new_password') }}</label
             >
             <input
-              type="password"
               id="confirmPassword"
               v-model="confirmPassword"
+              type="password"
               class="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-green-50"
               required
             />
@@ -91,11 +91,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import Swal from 'sweetalert2'
-import { useAuthStore } from '@/store/auth'
 import BackgroundElemt from '@/components/common/BackgroundElemt.vue'
+import { useAuthStore } from '@/store/auth'
+import Swal from 'sweetalert2'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
@@ -132,17 +132,6 @@ onMounted(async () => {
 })
 
 const hasResetToken = computed(() => !!resetToken.value)
-const pageTitle = computed(() =>
-  hasResetToken.value ? 'Reset Password' : 'Forgot Password'
-)
-const pageDescription = computed(() =>
-  hasResetToken.value
-    ? 'Enter your new password below.'
-    : "Enter your email address and we'll send you a link to reset your password."
-)
-const submitButtonText = computed(() =>
-  hasResetToken.value ? 'Reset Password' : 'Send Reset Link'
-)
 
 const handleSubmit = async () => {
   loading.value = true

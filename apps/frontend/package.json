@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "cy:run": "cypress run"
+    "lint": "pnpm exec eslint . --fix",
+    "lint:check": "pnpm exec eslint ."
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
@@ -36,6 +37,7 @@
     "@vue/tsconfig": "^0.7.0",
     "autoprefixer": "^10.4.20",
     "cypress": "^14.0.3",
+    "eslint": "^9.20.1",
     "postcss": "^8.5.2",
     "tailwindcss": "^4.0.6",
     "typescript": "~5.7.2",

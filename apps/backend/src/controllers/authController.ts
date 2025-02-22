@@ -1,11 +1,11 @@
-import { Request, Response } from 'express'
-import { AuthService } from '../services/authService'
-import { successResponse, errorResponse } from '../utils/response'
-import { UserService } from '../services/userService'
-import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import { Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
 import { redisClient } from '../config/redis'
+import { AuthService } from '../services/authService'
 import { PasswordResetService } from '../services/passwordResetService'
+import { UserService } from '../services/userService'
+import { errorResponse, successResponse } from '../utils/response'
 
 dotenv.config()
 
@@ -119,8 +119,10 @@ export class AuthController {
         resetToken as string
       )
       return res.json(result)
-    } catch (error: any) {
-      return res.status(500).json({ success: false, message: error.message })
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: false, message: (error as Error).message })
     }
   }
 

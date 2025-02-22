@@ -1,8 +1,8 @@
-import { redisClient } from '../config/redis'
-import { v4 as uuidv4 } from 'uuid'
-import nodemailer from 'nodemailer'
 import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv'
+import nodemailer from 'nodemailer'
+import { v4 as uuidv4 } from 'uuid'
+import { redisClient } from '../config/redis'
 import AppDataSource from '../data-source'
 import { User } from '../entities/User'
 
