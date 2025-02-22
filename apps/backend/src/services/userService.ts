@@ -8,23 +8,9 @@ export class UserService {
   }
   private userRepository = AppDataSource.getRepository(User)
 
-  async getAllUsers() {
-    // Check if user exists
-    const user = await this.userRepository.findOne({ where: { id: 1 } })
-    if (!user) throw new Error('User not found')
-
-    // Only allow user with id = 1
-    if (user.id !== 1)
-      throw new Error('Forbidden: Only user with ID 1 can access this')
-
-    // Fetch all users with relations (e.g., roles)
-    return await this.userRepository.find({ relations: ['roles'] })
-  }
-
   async getUserById(id: number) {
     return await this.userRepository.findOne({
-      where: { id },
-      relations: ['roles']
+      where: { id }
     })
   }
 

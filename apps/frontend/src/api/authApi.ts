@@ -8,8 +8,8 @@ const api = axios.create({
 })
 
 export function useAuthApi() {
-  const login = async (email: string, password: string, config = {}) => {
-    return api.post('/auth/login', { email, password }, config)
+  const login = async (email: string, password: string) => {
+    return api.post('/auth/login', { email, password })
   }
 
   const register = async (

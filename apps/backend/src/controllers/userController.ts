@@ -1,22 +1,23 @@
 import { Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
 import { UserService } from '../services/userService'
 
 export class UserController {
   private userService = new UserService()
 
-  async getAllUsers(req: Request, res: Response) {
-    try {
-      const users = await this.userService.getAllUsers()
-      res.json(users)
-    } catch (error) {
-      res.status(403).json({ message: (error as Error).message }) // Use 403 Forbidden for unauthorized access
-    }
-  }
-
   async getUserById(req: Request, res: Response) {
     try {
-      const user = await this.userService.getUserById(parseInt(req.params.id))
-      if (!user) return res.status(404).json({ message: 'User not found' })
+      const token = req.cookies.token
+      if (!token) {
+        return res.status(401).json({ message: 'Unauthorized' })
+      }
+      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
+        userId: number
+      }
+      const user = await this.userService.getUserById(decoded.userId)
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' })
+      }
       res.json(user)
     } catch (error) {
       res.status(500).json({ message: (error as Error).message })

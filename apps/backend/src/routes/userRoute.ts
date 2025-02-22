@@ -5,16 +5,8 @@ import { authMiddleware } from '../middleware/authMiddleware'
 const router = express.Router()
 const userController = new UserController()
 
-// Need auth API
-router.get('/', authMiddleware, async (req, res) => {
-  try {
-    await userController.getAllUsers(req, res)
-  } catch {
-    res.status(500).json({ error: 'Server error' })
-  }
-})
-
-router.get('/:id', authMiddleware, async (req, res) => {
+// Get user profile
+router.get('/profile', authMiddleware, async (req, res) => {
   try {
     await userController.getUserById(req, res)
   } catch {

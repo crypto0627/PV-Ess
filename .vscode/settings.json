@@ -5,5 +5,10 @@
     "source.organizeImports": "explicit"
   },
   "eslint.validate": ["javascript", "typescript", "vue"],
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "eslint.useFlatConfig": true,
+  "eslint.options": {
+    "configFile": "packages/eslint-config/vue3-express.js"
+  }
 }
