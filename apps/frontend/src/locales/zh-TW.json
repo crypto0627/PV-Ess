@@ -95,5 +95,55 @@
         "description": "運用人工智慧技術優化能源配置與使用效率"
       }
     }
+  },
+  "main": {
+    "sidebar": {
+      "dashboard": "首頁",
+      "financial": "財務報告",
+      "schedule": "排程",
+      "monitor": "Grafana監控",
+      "profile": "個人資訊",
+      "settings": "設定",
+      "logout": "登出"
+    },
+    "settings": {
+      "title": "設定",
+      "language": "語言",
+      "theme": "主題",
+      "theme_dark": "暗色",
+      "theme_light": "亮色",
+      "theme_system": "系統",
+      "export_report": "匯出報告",
+      "export": "匯出"
+    },
+    "profile": {
+      "title": "用戶資訊",
+      "information": "資訊",
+      "update": "更新",
+      "update_information": "更新資訊",
+      "update_password": "更新密碼",
+      "time_information": "時間資訊",
+      "join_date": "加入日期",
+      "loading": "加載中...",
+      "old_password": "舊密碼",
+      "new_password": "新密碼",
+      "confirm_update": "確認更新"
+    },
+    "dashboard": {
+      "today_accumulated_income": "本日累積收入",
+      "this_month_accumulated_income": "本月累積收入",
+      "today_generation_degree": "本日發電度數",
+      "abandon_light": "棄光",
+      "none": "無",
+      "today_PV_accumulated_amount_kWh": "本日PV累積量(kWh)",
+      "generation_amount": "發電量",
+      "grid_output": "併網輸出",
+      "today_BESS_accumulated_amount_kWh": "本日BESS累積量(kWh)",
+      "today_charging_amount": "今日充電量",
+      "discharge_amount": "放電量",
+      "factory_generation_amount": "案廠發電量",
+      "individual_battery_cabinet_amount": "各電池櫃個別電量",
+      "total_energy": "總電量"
+    }
   }
 }

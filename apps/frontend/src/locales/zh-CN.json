@@ -95,5 +95,55 @@
         "description": "运用人工智慧技术优化能源配置与使用效率"
       }
     }
+  },
+  "main": {
+    "sidebar": {
+      "dashboard": "首页",
+      "financial": "财务报告",
+      "schedule": "排程",
+      "monitor": "Grafana监控",
+      "profile": "个人信息",
+      "settings": "设定",
+      "logout": "退出登录"
+    },
+    "settings": {
+      "title": "设定",
+      "language": "语言",
+      "theme": "主题",
+      "theme_dark": "暗色",
+      "theme_light": "亮色",
+      "theme_system": "系统",
+      "export_report": "导出报告",
+      "export": "导出"
+    },
+    "profile": {
+      "title": "用户信息",
+      "information": "信息",
+      "update": "更新",
+      "update_information": "更新信息",
+      "update_password": "更新密码",
+      "time_information": "时间信息",
+      "join_date": "加入日期",
+      "loading": "加载中...",
+      "old_password": "旧密码",
+      "new_password": "新密码",
+      "confirm_update": "确认更新"
+    },
+    "dashboard": {
+      "today_accumulated_income": "本日累积收入",
+      "this_month_accumulated_income": "本月累积收入",
+      "today_generation_degree": "本日发电度数",
+      "abandon_light": "弃光",
+      "none": "无",
+      "today_PV_accumulated_amount_kWh": "本日PV累积量(kWh)",
+      "generation_amount": "发电量",
+      "grid_output": "并网输出",
+      "today_BESS_accumulated_amount_kWh": "本日BESS累积量(kWh)",
+      "today_charging_amount": "今日充电量",
+      "discharge_amount": "放电量",
+      "factory_generation_amount": "案厂发电量",
+      "individual_battery_cabinet_amount": "各电池柜个别电量",
+      "total_energy": "总电量"
+    }
   }
 }

@@ -1,21 +1,27 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900">
+  <div class="min-h-screen bg-gradient-to-br from-blue-900/60 to-purple-900/80">
     <DashboardNavbar />
     <Sidebar @logout="handleLogout" />
-    <main class="ml-[290px] mt-20 p-4">
-      <slot />
-    </main>
+    <div class="fixed bottom-4 right-4 z-50">
+      <LanguageSwitcher direction="up" />
+    </div>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
 <script setup>
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 import DashboardNavbar from '@/components/dashboard/DashboardNavbar.vue'
 import Sidebar from '@/components/dashboard/Sidebar.vue'
-import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 import Swal from 'sweetalert2'
-import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -48,3 +54,15 @@ const handleLogout = async () => {
   }
 }
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

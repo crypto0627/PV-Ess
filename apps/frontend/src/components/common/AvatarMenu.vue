@@ -33,13 +33,13 @@
       @mouseleave="handleDropdownLeave"
     >
       <router-link
-        to="/profile"
+        to="/main/profile"
         class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors duration-150"
       >
         {{ $t('navbar.profile') }}
       </router-link>
       <router-link
-        to="/settings"
+        to="/main/settings"
         class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors duration-150"
       >
         {{ $t('navbar.settings') }}
@@ -78,11 +78,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import Swal from 'sweetalert2'
 import { useAuthStore } from '@/store/auth'
+import Swal from 'sweetalert2'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const isLoading = ref(false)

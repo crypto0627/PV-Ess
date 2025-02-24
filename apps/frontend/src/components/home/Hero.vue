@@ -58,7 +58,7 @@
             >
               <div class="rounded-md shadow">
                 <router-link
-                  to="/dashboard"
+                  to="/main/dashboard"
                   class="animated-border w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 transform hover:scale-105 transition-all duration-300 md:py-4 md:text-lg md:px-10 relative overflow-hidden"
                 >
                   {{ $t('home.hero.button') }}

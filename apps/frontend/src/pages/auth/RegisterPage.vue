@@ -2,6 +2,9 @@
   <div
     class="flex h-screen items-center justify-center bg-gradient-to-br from-green-400 to-green-100 overflow-hidden"
   >
+    <div class="fixed bottom-4 right-4 z-50">
+      <LanguageSwitcher direction="up" />
+    </div>
     <BackgroundElemt />
     <div
       class="relative z-[2] bg-white rounded-[24px] p-[72px_32px_48px] w-[340px] flex flex-col items-center justify-center text-center shadow-[0_10px_50px_rgb(96_68_121_/_10%)]"
@@ -110,11 +113,12 @@
 </template>
 
 <script setup>
+import BackgroundElemt from '@/components/common/BackgroundElemt.vue'
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
+import { useAuthStore } from '@/store/auth'
+import Swal from 'sweetalert2'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import Swal from 'sweetalert2'
-import { useAuthStore } from '@/store/auth'
-import BackgroundElemt from '@/components/common/BackgroundElemt.vue'
 
 const username = ref('')
 const email = ref('')

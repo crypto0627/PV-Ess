@@ -10,16 +10,38 @@ export const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/profile',
-    name: 'Profile',
-    component: () => import('@/pages/profile/Profile.vue'),
+    path: '/testchart',
+    name: 'Testchart',
+    component: () => import('@/pages/chart/TestChart.vue'),
     meta: { requiresAuth: true }
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('@/pages/dashboard/DashboardPage.vue'),
-    meta: { requiresAuth: true }
+    path: '/main',
+    component: () => import('@/layouts/DashboardLayout.vue'),
+    children: [
+      {
+        path: 'main',
+        redirect: 'main'
+      },
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/pages/dashboard/DashboardPage.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/pages/profile/ProfilePage.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'settings',
+        name: 'Settings',
+        component: () => import('@/pages/settings/SettingsPage.vue'),
+        meta: { requiresAuth: true }
+      }
+    ]
   },
   // 尚未登入可使用isPublic代表公開的 requireGuest代表登入後不可造訪
   {

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative z-50">
     <button
       class="flex items-center gap-2 px-4 py-2 rounded-lg hover:scale-105 bg-gradient-to-r from-[rgb(30,193,106)] via-[rgb(130,212,165)] to-[rgb(181,220,154)] shadow-lg transition-all duration-300 text-white border-cyan-700 hover:from-[rgb(25,165,90)] hover:via-[rgb(110,190,140)] hover:to-[rgb(160,200,130)]"
       @mouseenter="handleMouseEnter"
