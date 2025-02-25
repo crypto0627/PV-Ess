@@ -101,7 +101,8 @@
       "dashboard": "首頁",
       "financial": "財務報告",
       "schedule": "排程",
-      "monitor": "Grafana監控",
+      "system-monitor": "系統監控",
+      "system-controller": "系統控制",
       "profile": "個人資訊",
       "settings": "設定",
       "logout": "登出"

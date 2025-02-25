@@ -30,6 +30,22 @@ export const routes: Array<RouteRecordRaw> = [
         meta: { requiresAuth: true }
       },
       {
+        path: 'schedule',
+        name: 'Schedule',
+        component: () => import('@/pages/schedule/SchedulePage.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'system-monitor',
+        name: 'System-monitor',
+        component: () => import('@/pages/system/SystemMonitor.vue')
+      },
+      {
+        path: 'system-controller',
+        name: 'System-controller',
+        component: () => import('@/pages/system/SystemController.vue')
+      },
+      {
         path: 'profile',
         name: 'Profile',
         component: () => import('@/pages/profile/ProfilePage.vue'),

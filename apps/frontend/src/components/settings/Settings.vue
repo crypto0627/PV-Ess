@@ -1,106 +1,66 @@
 <template>
   <div
-    class="absolute top-[102px] md:left-[290px] left-6 right-6 bottom-11 rounded-2xl bg-white/10 backdrop-blur-[30px] border border-white/10 shadow-lg p-4 md:p-6 z-10"
+    v-if="userStore.user"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
   >
+    <!-- 歡迎卡片 -->
     <div
-      v-if="userStore.user"
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+      class="col-span-full bg-white/10 backdrop-blur-[30px] rounded-2xl p-4 md:p-6 border border-white/10"
     >
-      <!-- 歡迎卡片 -->
-      <div
-        class="col-span-full bg-white/10 backdrop-blur-[30px] rounded-2xl p-4 md:p-6 border border-white/10"
-      >
-        <h1 class="text-2xl md:text-3xl font-bold text-white text-center">
-          {{ $t('main.settings.title') }}
-        </h1>
-      </div>
+      <h1 class="text-2xl md:text-3xl font-bold text-white text-center">
+        {{ $t('main.settings.title') }}
+      </h1>
+    </div>
 
-      <!-- 語言設定卡片 -->
-      <div
-        class="bg-white/10 backdrop-blur-[30px] rounded-2xl p-4 md:p-6 border border-white/10"
-      >
-        <h2 class="text-lg md:text-xl font-semibold text-white mb-4">
-          {{ $t('main.settings.language') }}
-        </h2>
-        <div class="space-y-3">
-          <select
-            v-model="selectedLanguage"
-            class="w-full px-4 py-2 bg-white/10 text-white rounded-lg border border-white/20 focus:outline-none focus:border-cyan-500"
-            @change="selectLanguage"
-          >
-            <option
-              v-for="(label, lang) in languages"
-              :key="lang"
-              :value="lang"
-            >
-              {{ label }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 主題設定卡片 -->
-      <div
-        class="bg-white/10 backdrop-blur-[30px] rounded-2xl p-4 md:p-6 border border-white/10"
-      >
-        <h2 class="text-lg md:text-xl font-semibold text-white mb-4">
-          {{ $t('main.settings.theme') }}
-        </h2>
-        <div class="space-y-3">
-          <select
-            v-model="selectedTheme"
-            class="w-full px-4 py-2 bg-white/10 text-white rounded-lg border border-white/20 focus:outline-none focus:border-cyan-500"
-            @change="changeTheme"
-          >
-            <option value="dark">{{ $t('main.settings.theme_dark') }}</option>
-            <option value="light">{{ $t('main.settings.theme_light') }}</option>
-            <option value="system">
-              {{ $t('main.settings.theme_system') }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 財報匯出卡片 -->
-      <div
-        class="bg-white/10 backdrop-blur-[30px] rounded-2xl p-4 md:p-6 border border-white/10"
-      >
-        <h2 class="text-lg md:text-xl font-semibold text-white mb-4">
-          {{ $t('main.settings.export_report') }}
-        </h2>
-        <div class="space-y-3">
-          <div class="grid gap-3">
-            <div class="flex items-center gap-2">
-              <input
-                type="date"
-                v-model="startDate"
-                class="flex-1 px-4 py-2 bg-white/10 text-white rounded-lg border border-white/20 focus:outline-none focus:border-cyan-500"
-              />
-              <span class="text-white">to</span>
-              <input
-                type="date"
-                v-model="endDate"
-                class="flex-1 px-4 py-2 bg-white/10 text-white rounded-lg border border-white/20 focus:outline-none focus:border-cyan-500"
-              />
-            </div>
-            <button
-              @click="exportReport"
-              class="w-full px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors duration-200"
-            >
-              {{ $t('main.settings.export') }}
-            </button>
-          </div>
-        </div>
+    <!-- 語言設定卡片 -->
+    <div
+      class="bg-white/10 backdrop-blur-[30px] rounded-2xl p-4 md:p-6 border border-white/10"
+    >
+      <h2 class="text-lg md:text-xl font-semibold text-white mb-4">
+        {{ $t('main.settings.language') }}
+      </h2>
+      <div class="space-y-3">
+        <select
+          v-model="selectedLanguage"
+          class="w-full px-4 py-2 bg-white/10 text-white rounded-lg border border-white/20 focus:outline-none focus:border-cyan-500"
+          @change="selectLanguage"
+        >
+          <option v-for="(label, lang) in languages" :key="lang" :value="lang">
+            {{ label }}
+          </option>
+        </select>
       </div>
     </div>
 
-    <!-- 載入中狀態 -->
-    <div v-else class="flex flex-col items-center justify-center min-h-[50vh]">
-      <div
-        class="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-4 border-white border-t-transparent"
-      ></div>
-      <p class="text-base md:text-lg text-white mt-4">Loading...</p>
+    <!-- 主題設定卡片 -->
+    <div
+      class="bg-white/10 backdrop-blur-[30px] rounded-2xl p-4 md:p-6 border border-white/10"
+    >
+      <h2 class="text-lg md:text-xl font-semibold text-white mb-4">
+        {{ $t('main.settings.theme') }}
+      </h2>
+      <div class="space-y-3">
+        <select
+          v-model="selectedTheme"
+          class="w-full px-4 py-2 bg-white/10 text-white rounded-lg border border-white/20 focus:outline-none focus:border-cyan-500"
+          @change="changeTheme"
+        >
+          <option value="dark">{{ $t('main.settings.theme_dark') }}</option>
+          <option value="light">{{ $t('main.settings.theme_light') }}</option>
+          <option value="system">
+            {{ $t('main.settings.theme_system') }}
+          </option>
+        </select>
+      </div>
     </div>
+  </div>
+
+  <!-- 載入中狀態 -->
+  <div v-else class="flex flex-col items-center justify-center min-h-[50vh]">
+    <div
+      class="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-4 border-white border-t-transparent"
+    ></div>
+    <p class="text-base md:text-lg text-white mt-4">Loading...</p>
   </div>
 </template>
 

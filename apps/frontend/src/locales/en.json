@@ -101,7 +101,8 @@
       "dashboard": "Dashboard",
       "financial": "Financial Report",
       "schedule": "Schedule",
-      "monitor": "Grafana Monitor",
+      "system-monitor": "System Monitor",
+      "system-controller": "System Controller",
       "profile": "Profile",
       "settings": "Settings",
       "logout": "Logout"

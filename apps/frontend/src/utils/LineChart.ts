@@ -128,6 +128,7 @@ export const Pv_data = {
   ]
 }
 
+import { TooltipItem } from 'chart.js'
 export const Pv_config = {
   responsive: true, // Ensure the chart is responsive
   maintainAspectRatio: false, // Allow the chart to resize with its container
@@ -143,44 +144,45 @@ export const Pv_config = {
     },
     tooltip: {
       callbacks: {
-        label: function (tooltipItem: any) {
-          return `${tooltipItem.dataset.label}: ${tooltipItem.raw.toFixed(2)} kW` // Format tooltips with unit (kW)
+        label: function (tooltipItem: TooltipItem<'line'>) {
+          // 這裡的 'line' 是圖表類型
+          return `${tooltipItem.dataset.label}: ${(tooltipItem.raw as number).toFixed(2)} kW`
         }
       }
-    }
-  },
+    },
 
-  // Scales configuration
-  scales: {
-    x: {
-      type: 'category', // The x-axis will use categories (time labels)
-      labels: Pv_data.labels, // Using the labels from Pv_data
-      ticks: {
-        maxRotation: 45, // Rotate labels for better readability
-        minRotation: 30
+    // Scales configuration
+    scales: {
+      x: {
+        type: 'category', // The x-axis will use categories (time labels)
+        labels: Pv_data.labels, // Using the labels from Pv_data
+        ticks: {
+          maxRotation: 45, // Rotate labels for better readability
+          minRotation: 30
+        }
+      },
+      y: {
+        type: 'linear', // Y-axis will be linear scale
+        beginAtZero: true, // Ensure the Y-axis starts from 0
+        title: {
+          display: true,
+          text: 'Power (kW)' // Title for the Y-axis
+        },
+        grid: {
+          drawOnChartArea: true // Grid lines will be shown
+        },
+        ticks: {
+          stepSize: 500 // Step size for Y-axis ticks, adjust based on data range
+        }
       }
     },
-    y: {
-      type: 'linear', // Y-axis will be linear scale
-      beginAtZero: true, // Ensure the Y-axis starts from 0
-      title: {
-        display: true,
-        text: 'Power (kW)' // Title for the Y-axis
-      },
-      grid: {
-        drawOnChartArea: true // Grid lines will be shown
-      },
-      ticks: {
-        stepSize: 500 // Step size for Y-axis ticks, adjust based on data range
+    layout: {
+      padding: {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 10
       }
-    }
-  },
-  layout: {
-    padding: {
-      left: 10,
-      right: 10,
-      top: 10,
-      bottom: 10
     }
   }
 }

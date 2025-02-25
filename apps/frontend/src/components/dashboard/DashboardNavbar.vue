@@ -1,10 +1,10 @@
 <template>
   <nav
-    class="absolute top-6 right-6 flex items-center justify-between gap-4 h-[72px] rounded-2xl p-4 bg-white/10 backdrop-blur-[30px] shadow-lg border border-white/10 z-30 md:left-[290px] left-6"
+    class="absolute top-6 right-6 flex items-center justify-between gap-4 h-[72px] rounded-2xl p-4 bg-white/10 backdrop-blur-[30px] shadow-lg border border-white/10 z-30 xl:left-[280px] left-6"
   >
     <!-- 漢堡選單按鈕 -->
     <button
-      class="md:hidden p-2.5 rounded-lg hover:bg-white/20 active:bg-white/30 transition-all duration-300 text-white/90"
+      class="xl:hidden p-2.5 rounded-lg hover:bg-white/20 active:bg-white/30 transition-all duration-300 text-white/90"
       @click="toggleMobileMenu"
     >
       <div class="relative w-6 h-6">
@@ -152,23 +152,20 @@ const menuItems = [
     link: '/main/schedule'
   },
   {
-    id: 'monitor',
-    label: 'Grafana Monitor',
+    id: 'system-monitor',
+    label: 'System',
     icon: 'ai-chart',
-    link: '/main/monitor'
+    hasSubmenu: true,
+    submenu: [
+      { label: 'System-monitor', link: '/main/system-monitor' },
+      { label: 'System-controller', link: '/main/system-controller' }
+    ]
   },
   { id: 'profile', label: 'Profile', icon: 'ai-user', link: '/main/profile' },
   {
     id: 'settings',
     label: 'Settings',
     icon: 'ai-gear',
-    hasSubmenu: true,
-    submenu: [
-      { label: 'General', link: '/main/settings/general' },
-      { label: 'Security', link: '/main/settings/security' },
-      { label: 'Notifications', link: '/main/settings/notifications' },
-      { label: 'Appearance', link: '/main/settings/appearance' }
-    ],
     link: '/main/settings'
   },
   { id: 'logout', label: 'Logout', icon: 'ai-log-out', link: '/logout' }

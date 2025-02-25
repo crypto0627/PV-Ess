@@ -5,7 +5,3 @@
     </div>
   </footer>
 </template>
-
-<script setup lang="ts">
-import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
-</script>
