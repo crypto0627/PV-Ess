@@ -48,7 +48,9 @@ export class AuthService {
       { userId: user.id, email: user.email },
       process.env.JWT_SECRET as string,
       {
+        algorithm: 'HS256',
         expiresIn: '1h'
+        // issuer: '' // domain name
       }
     )
     const userWithoutPassword = { ...user, password: undefined }

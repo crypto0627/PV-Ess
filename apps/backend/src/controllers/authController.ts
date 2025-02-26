@@ -38,7 +38,7 @@ export class AuthController {
       res.cookie('token', token, {
         httpOnly: true, // 防止 XSS 攻擊
         secure: true, // HTTPS 限制
-        sameSite: 'none', // 限制 CSRF 攻擊
+        sameSite: 'strict', // 限制 CSRF 攻擊
         maxAge: 3600000 // 1 小時
       })
 

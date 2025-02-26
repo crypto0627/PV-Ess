@@ -99,7 +99,7 @@
   "main": {
     "sidebar": {
       "dashboard": "Dashboard",
-      "financial": "Financial Report",
+      "report": "Financial Report",
       "schedule": "Schedule",
       "system-monitor": "System Monitor",
       "system-controller": "System Controller",

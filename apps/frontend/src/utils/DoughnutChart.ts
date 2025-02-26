@@ -13,18 +13,7 @@ export const data = {
 export const options = {
   responsive: true,
   maintainAspectRatio: false,
-  scales: {
-    x: {
-      ticks: {
-        autoSkip: true,
-        maxRotation: 45,
-        minRotation: 0
-      }
-    },
-    y: {
-      beginAtZero: true
-    }
-  },
+  cutout: '50%', // 調整圓心大小，使圓形更飽滿
   plugins: {
     legend: {
       labels: {
@@ -32,11 +21,43 @@ export const options = {
         display: true,
         position: 'top'
       }
+    },
+    centerText: {
+      text: '59%', // 設定要顯示的文字
+      color: '#ffffff', // 設定文字顏色
+      font: {
+        size: '18', // 設定字型大小
+        weight: 'bold' // 設定字型粗細
+      }
     }
   },
   elements: {
     arc: {
       borderWidth: 2 // 確保邊框寬度設置正確
     }
+  }
+}
+
+// Custom plugin to draw text in the center
+export const centerTextPlugin = {
+  id: 'centerText',
+  beforeDraw(chart: { options?: any; width?: any; height?: any; ctx?: any }) {
+    const { width, height, ctx } = chart
+    ctx.save()
+
+    // 設定字型大小
+    const fontSize = (height / 8).toFixed(2)
+    ctx.font = `${fontSize}px Arial`
+    ctx.textBaseline = 'middle'
+    ctx.textAlign = 'center'
+
+    // 取得設定的文字
+    const text = chart.options.plugins.centerText.text || ''
+    const textX = width / 2
+    const textY = height / 2
+
+    ctx.fillStyle = chart.options.plugins.centerText.color // 使用設定的顏色
+    ctx.fillText(text, textX, textY)
+    ctx.restore()
   }
 }

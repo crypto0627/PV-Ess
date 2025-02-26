@@ -47,83 +47,93 @@
         </div>
 
         <!-- 第一個資訊區塊：優化在小螢幕上的顯示 -->
-        <div
-          class="grid grid-rows-3 text-white/90 gap-1 border border-white/20 rounded-lg overflow-hidden"
-        >
-          <!-- 上方 1/3 區塊 -->
-          <div
-            class="bg-blue-500/40 flex flex-col justify-center text-center text-base sm:text-lg font-semibold p-2"
-          >
-            {{ $t('main.dashboard.today_PV_accumulated_amount_kWh') }}
-          </div>
-          <!-- 下方 2/3 區塊 -->
-          <div class="row-span-2 grid grid-cols-2 gap-1">
-            <div
-              class="bg-blue-700/30 flex flex-col justify-center text-center p-2 text-sm md:text-base font-medium"
-            >
-              {{ $t('main.dashboard.generation_amount') }}
-            </div>
-            <div
-              class="bg-blue-700/30 flex flex-col justify-center text-center p-2 text-sm md:text-base font-medium"
-            >
-              {{ $t('main.dashboard.grid_output') }}
-            </div>
-            <div
-              class="bg-blue-900 flex flex-col justify-center text-center p-2 text-sm md:text-base"
-            >
-              22145.75
-            </div>
-            <div
-              class="bg-blue-900 flex flex-col justify-center text-center p-2 text-sm md:text-base"
-            >
-              16384.875
-            </div>
-          </div>
+        <div class="border border-white/20 rounded-lg overflow-hidden">
+          <table class="w-full text-white/90">
+            <!-- 表頭 -->
+            <thead>
+              <tr>
+                <th
+                  colspan="2"
+                  class="bg-blue-500/40 text-center text-base sm:text-lg font-semibold p-2"
+                >
+                  {{ $t('main.dashboard.today_PV_accumulated_amount_kWh') }}
+                </th>
+              </tr>
+            </thead>
+            <!-- 表格內容 -->
+            <tbody>
+              <tr>
+                <td
+                  class="bg-blue-700/30 text-center p-2 text-sm md:text-base font-medium"
+                >
+                  {{ $t('main.dashboard.generation_amount') }}
+                </td>
+                <td
+                  class="bg-blue-900 text-center p-2 text-sm md:text-base font-medium"
+                >
+                  22145.75
+                </td>
+              </tr>
+              <tr>
+                <td class="bg-blue-700/30 text-center p-2 text-sm md:text-base">
+                  {{ $t('main.dashboard.grid_output') }}
+                </td>
+                <td class="bg-blue-900 text-center p-2 text-sm md:text-base">
+                  16384.875
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <!-- 第二個資訊區塊：優化在小螢幕上的顯示 -->
-        <div
-          class="grid grid-rows-3 text-white/90 gap-1 border border-white/20 rounded-lg overflow-hidden"
-        >
-          <!-- 上方 1/3 區塊 -->
-          <div
-            class="bg-blue-500/40 flex flex-col justify-center text-center text-base sm:text-lg font-semibold p-2"
-          >
-            {{ $t('main.dashboard.today_BESS_accumulated_amount_kWh') }}
-          </div>
-          <!-- 下方 2/3 區塊：在小螢幕上調整為更合適的排列 -->
-          <div class="row-span-2 grid grid-cols-2 gap-1">
-            <div
-              class="bg-blue-700/30 flex flex-col justify-center text-center p-2 text-sm md:text-base font-medium"
-            >
-              {{ $t('main.dashboard.today_charging_amount') }}
-            </div>
-            <div
-              class="bg-blue-700/30 flex flex-col justify-center text-center p-2 text-sm md:text-base font-medium"
-            >
-              SOC
-            </div>
-            <div
-              class="bg-blue-700/30 flex flex-col justify-center text-center p-2 text-sm md:text-base font-medium"
-            >
-              {{ $t('main.dashboard.discharge_amount') }}
-            </div>
-            <div
-              class="bg-blue-900 flex flex-col justify-center text-center p-2 text-sm md:text-base"
-            >
-              5760.875
-            </div>
-            <div
-              class="bg-blue-900 flex flex-col justify-center text-center p-2 text-sm md:text-base"
-            >
-              6737
-            </div>
-            <div
-              class="bg-blue-900 flex flex-col justify-center text-center p-2 text-sm md:text-base"
-            >
-              0
-            </div>
-          </div>
+        <div class="border border-white/20 rounded-lg overflow-hidden">
+          <table class="w-full text-white/90">
+            <!-- 表頭 -->
+            <thead>
+              <tr>
+                <th
+                  colspan="2"
+                  class="bg-blue-500/40 text-center text-base sm:text-lg font-semibold p-2"
+                >
+                  {{ $t('main.dashboard.today_BESS_accumulated_amount_kWh') }}
+                </th>
+              </tr>
+            </thead>
+            <!-- 表格內容 -->
+            <tbody>
+              <tr>
+                <td
+                  class="bg-blue-700/30 text-center p-2 text-sm md:text-base font-medium"
+                >
+                  {{ $t('main.dashboard.today_charging_amount') }}
+                </td>
+                <td
+                  class="bg-blue-900 text-center p-2 text-sm md:text-base font-medium"
+                >
+                  5760.875
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="bg-blue-700/30 text-center p-2 text-sm md:text-base font-medium"
+                >
+                  {{ $t('main.dashboard.discharge_amount') }}
+                </td>
+                <td class="bg-blue-900 text-center p-2 text-sm md:text-base">
+                  0
+                </td>
+              </tr>
+              <tr>
+                <td class="bg-blue-700/30 text-center p-2 text-sm md:text-base">
+                  SOC
+                </td>
+                <td class="bg-blue-900 text-center p-2 text-sm md:text-base">
+                  6737
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -190,5 +200,5 @@
 <script setup lang="ts">
 import BarChart from '@/components/dashboard/BarChart.vue'
 import DoughnutChart from '@/components/dashboard/DoughnutChart.vue'
-import LineChart from '@/components/dashboard/LineChart.vue'
+import LineChart from '@/components/dashboard/LineChart.vue' /* PartiallyEnd: #3632/scriptSetup.vue */
 </script>

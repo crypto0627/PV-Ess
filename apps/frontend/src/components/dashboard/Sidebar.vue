@@ -5,7 +5,7 @@
       :class="{ hidden: !isSidebarOpen }"
     >
       <header
-        class="flex items-center justify-start h-[72px] pt-2.5 border-b border-white/[0.08]"
+        class="flex items-center justify-center h-[72px] pt-2.5 border-b border-white/[0.08]"
       >
         <h1 class="text-4xl font-bold text-white">PV ESS</h1>
         <button
@@ -148,9 +148,9 @@ const menuItems = [
     link: '/main/dashboard'
   },
   {
-    id: 'financial',
+    id: 'report',
     icon: 'ai-money',
-    link: '/main/financial'
+    link: '/main/report'
   },
   {
     id: 'schedule',

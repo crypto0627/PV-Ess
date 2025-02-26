@@ -30,6 +30,12 @@ export const routes: Array<RouteRecordRaw> = [
         meta: { requiresAuth: true }
       },
       {
+        path: 'report',
+        name: 'Report',
+        component: () => import('@/pages/reports/Report.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
         path: 'schedule',
         name: 'Schedule',
         component: () => import('@/pages/schedule/SchedulePage.vue'),

@@ -1,4 +1,4 @@
-export const Pv_data = {
+export const data = {
   labels: [
     '00:00',
     '00:15',
@@ -129,7 +129,7 @@ export const Pv_data = {
 }
 
 import { TooltipItem } from 'chart.js'
-export const Pv_config = {
+export const option = {
   responsive: true, // Ensure the chart is responsive
   maintainAspectRatio: false, // Allow the chart to resize with its container
 
@@ -155,7 +155,7 @@ export const Pv_config = {
     scales: {
       x: {
         type: 'category', // The x-axis will use categories (time labels)
-        labels: Pv_data.labels, // Using the labels from Pv_data
+        labels: data.labels, // Using the labels from Pv_data
         ticks: {
           maxRotation: 45, // Rotate labels for better readability
           minRotation: 30

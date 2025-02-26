@@ -1,4 +1,4 @@
-export const Pv_data = {
+export const data = {
   labels: ['SOC 1', 'SOC 2', 'SOC 3', 'SOC 4', 'SOC 5', 'SOC 6'],
   datasets: [
     {
@@ -20,7 +20,7 @@ export const Pv_data = {
   ]
 }
 
-export const Pv_config = {
+export const config = {
   responsive: true, // 確保圖表是響應式的
   maintainAspectRatio: false, // 允許圖表隨容器調整大小
   width: 600, // 設定圖表寬度

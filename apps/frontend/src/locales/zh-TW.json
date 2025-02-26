@@ -99,7 +99,7 @@
   "main": {
     "sidebar": {
       "dashboard": "首頁",
-      "financial": "財務報告",
+      "report": "財務報告",
       "schedule": "排程",
       "system-monitor": "系統監控",
       "system-controller": "系統控制",
