@@ -1,11 +1,10 @@
 <template>
   <div
-    class="flex h-screen items-center justify-center bg-gradient-to-br from-green-400 to-green-100 overflow-hidden"
+    class="flex h-screen items-center justify-center bg-gray-300 overflow-hidden"
   >
     <div class="fixed bottom-4 right-4 z-50">
       <LanguageSwitcher direction="up" />
     </div>
-    <BackgroundElemt />
     <div
       class="relative z-[2] bg-white rounded-[24px] p-[72px_32px_48px] w-[340px] flex flex-col items-center justify-center text-center shadow-[0_10px_50px_rgb(96_68_121_/_10%)]"
     >
@@ -27,6 +26,5 @@
 
 <script setup lang="ts">
 import LoginForm from '@/components/auth/LoginForm.vue'
-import BackgroundElemt from '@/components/common/BackgroundElemt.vue'
-import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue' /* PartiallyEnd: #3632/scriptSetup.vue */
 </script>

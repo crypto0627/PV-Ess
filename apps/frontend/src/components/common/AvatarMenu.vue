@@ -6,7 +6,7 @@
       @mouseleave="handleAvatarLeave"
     >
       <div
-        class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md hover:shadow-lg transition-shadow duration-200"
+        class="w-8 h-8 rounded-full border border-black/20 bg-white flex items-center justify-center shadow-md hover:shadow-lg transition-shadow duration-200"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

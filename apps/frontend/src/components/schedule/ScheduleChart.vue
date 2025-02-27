@@ -44,8 +44,6 @@ ChartJS.register(
 
 // 🔄 使用 ref 來確保 chartData 是 reactive
 const isChartReady = ref(false)
-const chartDataRef = ref(chartData)
-const chartOptionsRef = ref(chartOptions)
 
 // ✅ 監聽數據變化，確保圖表正確載入
 watchEffect(() => {

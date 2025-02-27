@@ -8,7 +8,7 @@
           type="date"
           v-model="selectedDate"
           @change="handleDateChange"
-          class="bg-gray-7/50 border border-gray-600 rounded-md px-4 py-2 w-64 text-white focus:outline-none focus:ring-2 focus:ring-gray-500"
+          class="bg-gray-7/50 border border-gray-600 rounded-md px-4 py-2 w-64 text-black focus:outline-none focus:ring-2 focus:ring-gray-500"
         />
         <CalendarIcon
           class="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none"
@@ -19,7 +19,6 @@
         class="bg-gray-700/50 hover:bg-gray-700 text-white px-4 py-2 rounded-md flex items-center"
         @click="saveSchedule"
       >
-        <SaveIcon class="mr-2 h-5 w-5" />
         Save Schedule
       </button>
     </div>
@@ -29,16 +28,14 @@
         <table class="w-full text-white/90">
           <thead>
             <tr>
-              <th class="bg-blue-500/40 p-2 text-center">Schedule Time</th>
-              <th class="bg-blue-500/40 p-2 text-center">
-                Schedule Power (kW)
-              </th>
+              <th class="bg-[#0a3726] p-2 text-center">Schedule Time</th>
+              <th class="bg-[#0a3726] p-2 text-center">Schedule Power (kW)</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="time in times" :key="time">
-              <td class="bg-blue-700/30 p-2 text-center">{{ time }}</td>
-              <td class="bg-blue-900 p-2">
+              <td class="bg-[#0a3726] p-2 text-center">{{ time }}</td>
+              <td class="bg-gray-300 p-2">
                 <input
                   type="range"
                   min="0"
@@ -55,16 +52,14 @@
         <table class="w-full text-white/90">
           <thead>
             <tr>
-              <th class="bg-blue-500/40 p-2 text-center">Schedule Time</th>
-              <th class="bg-blue-500/40 p-2 text-center">
-                Schedule Power (kW)
-              </th>
+              <th class="bg-[#0a3726] p-2 text-center">Schedule Time</th>
+              <th class="bg-[#0a3726] p-2 text-center">Schedule Power (kW)</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="time in times" :key="time">
-              <td class="bg-blue-700/30 p-2 text-center">{{ time }}</td>
-              <td class="bg-blue-900 p-2">
+              <td class="bg-[#0a3726] p-2 text-center">{{ time }}</td>
+              <td class="bg-gray-300 p-2">
                 <input
                   type="range"
                   min="0"

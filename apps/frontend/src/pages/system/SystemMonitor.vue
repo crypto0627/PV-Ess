@@ -8,7 +8,7 @@
         :class="[
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
           currentSelection === 'meter'
-            ? 'bg-blue-600 text-white'
+            ? 'bg-green-800/70 text-white'
             : 'bg-gray-300 text-gray-700'
         ]"
       >
@@ -21,7 +21,7 @@
         :class="[
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
           currentSelection === 'pcs'
-            ? 'bg-blue-600 text-white'
+            ? 'bg-green-800/70 text-white'
             : 'bg-gray-300 text-gray-700'
         ]"
       >
@@ -34,7 +34,7 @@
         :class="[
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
           currentSelection === 'battery'
-            ? 'bg-blue-600 text-white'
+            ? 'bg-green-800/70 text-white'
             : 'bg-gray-300 text-gray-700'
         ]"
       >

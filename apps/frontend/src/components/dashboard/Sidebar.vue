@@ -1,102 +1,130 @@
 <template>
-  <div>
-    <aside
-      class="absolute top-6 left-6 bottom-0 flex-col gap-2 rounded-2xl p-4 bg-white/10 backdrop-blur-[30px] border border-white/10 shadow-lg transition-all duration-400 hover:shadow-xl z-20 xl:block"
-      :class="{ hidden: !isSidebarOpen }"
-    >
-      <header
-        class="flex items-center justify-center h-[72px] pt-2.5 border-b border-white/[0.08]"
+  <div
+    :class="[
+      'bg-[#0a3726] text-white h-full flex flex-col transition-all duration-300 ease-in-out fixed lg:relative z-40',
+      isSidebarOpen ? 'w-64' : 'w-0 -ml-64 lg:w-64 lg:ml-0'
+    ]"
+  >
+    <!-- Sidebar Header -->
+    <div class="p-4 border-b border-[#1a5a40]">
+      <div class="flex items-center gap-2">
+        <Layers class="h-6 w-6" />
+        <RouterLink to="/home" class="text-xl font-bold">PV ESS</RouterLink>
+      </div>
+      <button
+        class="md:hidden p-2 rounded-lg hover:bg-white/10 active:bg-white/20 transition-all duration-300 text-white/90"
+        @click="toggleSidebar"
       >
-        <h1 class="text-4xl font-bold text-white">PV ESS</h1>
-        <button
-          class="md:hidden p-2 rounded-lg hover:bg-white/10 active:bg-white/20 transition-all duration-300 text-white/90"
-          @click="toggleSidebar"
-        >
-          <i class="ai-cross text-xl"></i>
-        </button>
-      </header>
+        <i class="ai-cross text-xl"></i>
+      </button>
+    </div>
 
-      <ul class="grid gap-2 list-none p-0 m-0 w-full">
-        <li v-for="item in menuItems" :key="item.id">
-          <input
-            :id="item.id"
-            v-model="activeSidebar"
-            type="radio"
-            name="sidebar"
-            class="scale-0 absolute"
-            :value="item.id"
-            @click="handleClick(item)"
-          />
-          <label
-            :for="item.id"
-            class="relative flex gap-4 items-center h-[50px] w-full rounded-lg font-normal text-base leading-none p-4 text-white/95 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer"
-            :class="{ 'bg-cyan-500/20': activeSidebar === item.id }"
-          >
-            <i :class="item.icon + ' text-xl w-5 min-w-5 max-w-5'"></i>
-            <p class="flex-1">{{ $t(`main.sidebar.${item.id}`) }}</p>
-            <svg
+    <!-- Sidebar Content -->
+    <div class="flex-1 overflow-y-auto">
+      <!-- Main Navigation -->
+      <div class="p-4">
+        <ul class="space-y-1">
+          <li v-for="item in menuItems" :key="item.id">
+            <input
+              :id="item.id"
+              v-model="activeSidebar"
+              type="radio"
+              name="sidebar"
+              class="scale-0 absolute"
+              :value="item.id"
+              @click="handleClick(item)"
+            />
+            <label
+              :for="item.id"
+              class="relative flex gap-4 items-center h-[50px] w-full rounded-md font-normal text-base leading-none p-4 text-white/95 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer"
+              :class="{ 'bg-cyan-500/20': activeSidebar === item.id }"
+            >
+              <component :is="item.lucideIcon" class="h-5 w-5" />
+              <p class="flex-1">{{ $t(`main.sidebar.${item.id}`) }}</p>
+              <svg
+                v-if="item.hasSubmenu"
+                class="w-4 h-4 transition-transform duration-300"
+                :class="{ 'rotate-180': activeSidebar === item.id }"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </label>
+
+            <div
               v-if="item.hasSubmenu"
-              class="w-4 h-4 transition-transform duration-300"
-              :class="{ 'rotate-180': activeSidebar === item.id }"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+              class="relative overflow-hidden transition-all duration-500"
+              :style="{
+                height:
+                  activeSidebar === item.id
+                    ? item.submenu.length * 50 + 'px'
+                    : '0px'
+              }"
             >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </label>
+              <ul
+                class="absolute top-0 left-0 grid gap-1 list-none p-2 m-0 w-full"
+              >
+                <li v-for="subItem in item.submenu" :key="subItem.id">
+                  <button
+                    type="button"
+                    class="relative pl-[52px] font-normal text-base leading-none text-white/95 transition-all duration-300 h-[42px] w-full rounded-md hover:bg-white/10 hover:translate-x-1 cursor-pointer before:content-[''] before:absolute before:top-1/2 before:left-6 before:-translate-y-1/2 before:w-[5px] before:h-[5px] before:rounded-full before:bg-white/35"
+                    :class="{ 'bg-cyan-500/20': activeSubItem === subItem.id }"
+                    @click="handleSubItemClick(subItem)"
+                  >
+                    {{ $t(`main.sidebar.${subItem.id}`) }}
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-          <div
-            v-if="item.hasSubmenu"
-            class="relative overflow-hidden transition-all duration-500"
-            :style="{
-              height:
-                activeSidebar === item.id
-                  ? item.submenu.length * 50 + 'px'
-                  : '0px'
-            }"
+    <!-- Sidebar Footer -->
+    <div class="p-4 border-t border-[#1a5a40]">
+      <ul class="space-y-1">
+        <li v-for="item in footerNavItems" :key="item.name">
+          <a
+            href="#"
+            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#1a5a40] text-white"
           >
-            <ul
-              class="absolute top-0 left-0 grid gap-1 list-none p-2 m-0 w-full"
-            >
-              <li v-for="subItem in item.submenu" :key="subItem.id">
-                <button
-                  type="button"
-                  class="relative pl-[52px] font-normal text-base leading-none text-white/95 transition-all duration-300 h-[42px] w-full rounded-lg hover:bg-white/10 hover:translate-x-1 cursor-pointer before:content-[''] before:absolute before:top-1/2 before:left-6 before:-translate-y-1/2 before:w-[5px] before:h-[5px] before:rounded-full before:bg-white/35"
-                  :class="{ 'bg-cyan-500/20': activeSubItem === subItem.id }"
-                  @click="handleSubItemClick(subItem)"
-                >
-                  {{ $t(`main.sidebar.${subItem.id}`) }}
-                </button>
-              </li>
-            </ul>
-          </div>
+            <component :is="item.icon" class="h-5 w-5" />
+            <RouterLink :to="item.link">{{ item.name }}</RouterLink>
+          </a>
         </li>
       </ul>
-    </aside>
+    </div>
   </div>
-  <!-- 移動端遮罩層 -->
-  <div
-    v-show="isSidebarOpen"
-    class="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-10"
-    @click="toggleSidebar"
-  ></div>
 </template>
 
 <script setup>
-import { defineEmits, ref } from 'vue'
+import {
+  Activity,
+  Calendar,
+  Headset,
+  Layers,
+  LayoutDashboard,
+  LogOut,
+  Settings,
+  Settings as SettingsIcon,
+  User,
+  Wallet
+} from 'lucide-vue-next'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 
 const router = useRouter()
-const emit = defineEmits(['logout'])
+const { t } = useI18n()
 
 const activeSidebar = ref('dashboard')
 const activeSubItem = ref('')
 const isSidebarOpen = ref(false)
-const { t } = useI18n()
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value
@@ -104,13 +132,12 @@ const toggleSidebar = () => {
 
 const handleClick = async (item) => {
   if (item.hasSubmenu) {
-    // 如果是有子選單的項目，只展開/收起，不進行導航
     activeSidebar.value = activeSidebar.value === item.id ? '' : item.id
     return
   }
 
   if (item.id === 'logout') {
-    emit('logout')
+    alert('Logout clicked')
     return
   }
 
@@ -144,22 +171,22 @@ const handleSubItemClick = async (subItem) => {
 const menuItems = [
   {
     id: 'dashboard',
-    icon: 'ai-dashboard',
+    lucideIcon: LayoutDashboard,
     link: '/main/dashboard'
   },
   {
     id: 'report',
-    icon: 'ai-money',
+    lucideIcon: Wallet,
     link: '/main/report'
   },
   {
     id: 'schedule',
-    icon: 'ai-calendar',
+    lucideIcon: Calendar,
     link: '/main/schedule'
   },
   {
     id: 'system-monitor',
-    icon: 'ai-chart',
+    lucideIcon: Activity,
     hasSubmenu: true,
     submenu: [
       { id: 'system-monitor', link: '/main/system-monitor' },
@@ -168,17 +195,44 @@ const menuItems = [
   },
   {
     id: 'profile',
-    icon: 'ai-user',
+    lucideIcon: User,
     link: '/main/profile'
   },
   {
     id: 'settings',
-    icon: 'ai-gear',
+    lucideIcon: SettingsIcon,
     link: '/main/settings'
   },
   {
     id: 'logout',
-    icon: 'ai-log-out'
+    lucideIcon: LogOut
   }
 ]
+
+const footerNavItems = [
+  { name: 'Settings', icon: Settings, link: '/main/settings' },
+  { name: 'Contact us', icon: Headset, link: '/contact' }
+]
+
+// Resize handler (move here for sidebar responsiveness)
+const handleResize = () => {
+  if (window.innerWidth >= 1024) {
+    isSidebarOpen.value = true
+  } else {
+    isSidebarOpen.value = false
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize)
+  handleResize() // 初始化時檢查一次
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize)
+})
+
+defineExpose({
+  toggleSidebar
+})
 </script>

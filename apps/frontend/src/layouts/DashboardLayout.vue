@@ -1,19 +1,17 @@
 <template>
-  <div
-    class="min-h-screen bg-gradient-to-br from-blue-900/60 to-purple-900/80 pt-26"
-  >
-    <DashboardNavbar />
-    <Sidebar @logout="handleLogout" />
-    <div
-      class="flex-1 md:mt-0 mx-5 xl:ml-70 rounded-2xl bg-white/10 backdrop-blur-[30px] border border-white/10 shadow-lg z-10 p-4"
-    >
-      <router-view v-slot="{ Component }">
-        <transition name="fade" mode="out-in">
-          <div :key="route.name">
-            <component :is="Component || 'div'" />
-          </div>
-        </transition>
-      </router-view>
+  <div class="flex h-screen w-full overflow-hidde">
+    <Sidebar ref="sidebar" @logout="handleLogout" />
+    <div class="flex-1 flex flex-col bg-white overflow-hidden">
+      <DashboardNavbar @toggle-sidebar="toggleSidebar" />
+      <main class="overflow-y-auto p-6 bg-gray-50" @click="closeSidebar">
+        <router-view v-slot="{ Component }">
+          <transition name="fade" mode="out-in">
+            <div :key="$route.name">
+              <component :is="Component || 'div'" />
+            </div>
+          </transition>
+        </router-view>
+      </main>
     </div>
   </div>
 </template>
@@ -25,9 +23,8 @@ import { useAuthStore } from '@/store/auth'
 import Swal from 'sweetalert2'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
-const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 const { t } = useI18n()
@@ -57,6 +54,18 @@ const handleLogout = async () => {
   } finally {
     isLoading.value = false
   }
+}
+
+const sidebar = ref(null)
+const isSidebarOpen = ref(false)
+
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value
+  sidebar.value?.toggleSidebar()
+}
+
+const closeSidebar = () => {
+  isSidebarOpen.value = false
 }
 </script>
 

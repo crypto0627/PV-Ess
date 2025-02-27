@@ -73,20 +73,20 @@ const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
-    legend: { display: true, labels: { color: '#ffffff' } },
+    legend: { display: true, labels: { color: '#000000' } },
     title: {
       display: true,
       text: props.title,
-      color: '#ffffff'
+      color: '#000000'
     }
   },
   scales: {
-    x: { ticks: { color: '#ffffff' } },
+    x: { ticks: { color: '#000000' } },
     y: {
       beginAtZero: true,
       max: props.maxY,
-      title: { display: true, text: props.label, color: '#ffffff' },
-      ticks: { color: '#ffffff' }
+      title: { display: true, text: props.label, color: '#000000' },
+      ticks: { color: '#000000' }
     }
   }
 }

@@ -8,7 +8,7 @@
         :class="[
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
           batteryEnabled
-            ? 'bg-blue-600 text-white'
+            ? 'bg-green-800/70 text-white'
             : 'bg-gray-300 text-gray-700'
         ]"
       >
@@ -20,7 +20,9 @@
         @click="togglePCS"
         :class="[
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
-          pcsEnabled ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-700'
+          pcsEnabled
+            ? 'bg-green-800/70 text-white'
+            : 'bg-gray-300 text-gray-700'
         ]"
       >
         Power Control System: {{ pcsEnabled ? 'ON' : 'OFF' }}

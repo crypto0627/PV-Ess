@@ -25,14 +25,14 @@ const option = {
   plugins: {
     legend: {
       labels: {
-        color: '#ffffff',
+        color: '#000000',
         display: true,
         position: 'top'
       }
     },
     centerText: {
       text: '59%', // 設定要顯示的文字
-      color: '#ffffff', // 設定文字顏色
+      color: '#000000', // 設定文字顏色
       font: {
         size: '18', // 設定字型大小
         weight: 'bold' // 設定字型粗細

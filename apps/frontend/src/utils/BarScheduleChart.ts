@@ -66,7 +66,7 @@ export const chartOptions: ChartOptions<'bar'> = {
   scales: {
     x: {
       ticks: {
-        color: '#ffffff'
+        color: '#000000'
       }
     },
     y: {

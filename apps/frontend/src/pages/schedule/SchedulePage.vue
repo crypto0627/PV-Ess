@@ -2,7 +2,7 @@
   <div class="flex flex-col h-full gap-5">
     <!-- 上半部 (固定大小) -->
     <div class="flex flex-col items-center">
-      <h1 class="text-xl text-white/80 mb-4">
+      <h1 class="text-xl text-black mb-4">
         {{ $t('main.dashboard.factory_generation_amount') }}
       </h1>
 

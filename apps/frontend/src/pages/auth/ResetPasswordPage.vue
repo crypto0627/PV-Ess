@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-screen items-center justify-center bg-gradient-to-br from-green-400 to-green-100"
+    class="flex h-screen items-center justify-center bg-gray-300 to-green-100"
   >
     <BackgroundElemt />
     <div

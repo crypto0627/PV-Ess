@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-screen items-center justify-center bg-gradient-to-br from-green-400 to-green-100 overflow-hidden"
+    class="flex h-screen items-center justify-center bg-gray-300 overflow-hidden"
   >
     <div class="fixed bottom-4 right-4 z-50">
       <LanguageSwitcher direction="up" />
