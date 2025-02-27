@@ -5,7 +5,6 @@
     <div class="fixed bottom-4 right-4 z-50">
       <LanguageSwitcher direction="up" />
     </div>
-    <BackgroundElemt />
     <div
       class="relative z-[2] bg-white rounded-[24px] p-[72px_32px_48px] w-[340px] flex flex-col items-center justify-center text-center shadow-[0_10px_50px_rgb(96_68_121_/_10%)]"
     >
@@ -113,7 +112,6 @@
 </template>
 
 <script setup>
-import BackgroundElemt from '@/components/common/BackgroundElemt.vue'
 import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 import { useAuthStore } from '@/store/auth'
 import Swal from 'sweetalert2'

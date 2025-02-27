@@ -10,9 +10,9 @@ export const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/testchart',
-    name: 'Testchart',
-    component: () => import('@/pages/chart/TestChart.vue'),
+    path: '/contact',
+    name: 'Contact',
+    component: () => import('@/pages/contact/Contact.vue'),
     meta: { requiresAuth: true }
   },
   {
