@@ -66,6 +66,7 @@ const toggleSidebar = () => {
 
 const closeSidebar = () => {
   isSidebarOpen.value = false
+  sidebar.value?.toggleSidebar()
 }
 </script>
 

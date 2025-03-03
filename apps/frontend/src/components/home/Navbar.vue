@@ -1,13 +1,13 @@
 <template>
   <!-- Navigation -->
   <nav
-    class="bg-gradient-to-r from-[rgb(30,193,106)] via-[rgb(130,212,165)] to-[rgb(181,220,154)] shadow-lg transition-all duration-300 relative z-50"
+    class="bg-gradient-to-r from-[#1a365d] via-[#2d4a7c] to-[#3d5a9b] shadow-lg transition-all duration-300 relative z-50"
   >
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex justify-between items-center h-16">
         <div class="flex items-center">
           <span
-            class="text-2xl font-bold text-white hover:text-green-100 transition-colors duration-200"
+            class="text-2xl font-bold text-white hover:text-blue-100 transition-colors duration-200"
             >PV ESS</span
           >
         </div>
@@ -16,7 +16,7 @@
             v-for="link in navLinks"
             :key="link.key"
             :to="link.link"
-            class="text-white hover:text-green-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white hover:after:w-full after:transition-all after:duration-300"
+            class="text-white hover:text-blue-100 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-white hover:after:w-full after:transition-all after:duration-300"
           >
             {{ $t(link.key) }}
           </router-link>
@@ -53,30 +53,32 @@
       :class="{ block: isMenuOpen, hidden: !isMenuOpen }"
       class="md:hidden transition-all duration-300"
     >
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <div
+        class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-[#1a365d]/95 backdrop-blur-sm"
+      >
         <router-link
           v-for="link in navLinks"
           :key="link.key"
           :to="link.link"
-          class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:bg-opacity-20 transition-all duration-150"
+          class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-800 transition-all duration-150"
         >
           {{ $t(link.key) }}
         </router-link>
         <router-link
           to="/profile"
-          class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:bg-opacity-20 transition-all duration-150"
+          class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-800 transition-all duration-150"
         >
           {{ $t('navbar.profile') }}
         </router-link>
         <router-link
           to="/settings"
-          class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:bg-opacity-20 transition-all duration-150"
+          class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-800 transition-all duration-150"
         >
           {{ $t('navbar.settings') }}
         </router-link>
         <button
           :disabled="isLoading"
-          class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:bg-opacity-20 transition-all duration-150"
+          class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-800 transition-all duration-150"
           @click="handleSubmit"
         >
           <span v-if="isLoading" class="flex items-center">
@@ -110,13 +112,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import Swal from 'sweetalert2'
-import { useAuthStore } from '@/store/auth'
-import { useI18n } from 'vue-i18n'
-import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 import AvatarMenu from '@/components/common/AvatarMenu.vue'
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
+import { useAuthStore } from '@/store/auth'
+import Swal from 'sweetalert2'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const isLoading = ref(false)

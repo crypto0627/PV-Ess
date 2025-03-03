@@ -7,7 +7,7 @@ import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
 
 const data = {
-  labels: ['charged', 'remain'],
+  labels: ['charged', 'recharged'],
   datasets: [
     {
       backgroundColor: ['#2b8a3e', '#495057'],
@@ -21,7 +21,7 @@ const data = {
 const option = {
   responsive: true,
   maintainAspectRatio: false,
-  cutout: '50%', // 調整圓心大小，使圓形更飽滿
+  cutout: '50%',
   plugins: {
     legend: {
       labels: {
@@ -31,17 +31,17 @@ const option = {
       }
     },
     centerText: {
-      text: '59%', // 設定要顯示的文字
-      color: '#000000', // 設定文字顏色
+      text: '59%',
+      color: '#000000',
       font: {
-        size: '18', // 設定字型大小
-        weight: 'bold' // 設定字型粗細
+        size: '18',
+        weight: 'bold'
       }
     }
   },
   elements: {
     arc: {
-      borderWidth: 2 // 確保邊框寬度設置正確
+      borderWidth: 2
     }
   }
 }
@@ -53,18 +53,20 @@ const centerTextPlugin = {
     const { width, height, ctx } = chart
     ctx.save()
 
-    // 設定字型大小
-    const fontSize = (height / 8).toFixed(2)
+    // 根據視窗寬度調整字型大小
+    const minFontSize = 12 // 最小字型大小
+    const maxFontSize = (height / 8).toFixed(2) // 最大字型大小
+    const fontSize = Math.max(minFontSize, Number(maxFontSize))
+
     ctx.font = `${fontSize}px Arial`
     ctx.textBaseline = 'middle'
     ctx.textAlign = 'center'
 
-    // 取得設定的文字
     const text = chart.options.plugins.centerText.text || ''
     const textX = width / 2
     const textY = height / 2
 
-    ctx.fillStyle = chart.options.plugins.centerText.color // 使用設定的顏色
+    ctx.fillStyle = chart.options.plugins.centerText.color
     ctx.fillText(text, textX, textY)
     ctx.restore()
   }

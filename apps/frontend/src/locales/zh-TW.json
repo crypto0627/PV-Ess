@@ -144,7 +144,11 @@
       "discharge_amount": "放電量",
       "factory_generation_amount": "案廠發電量",
       "individual_battery_cabinet_amount": "各電池櫃個別電量",
-      "total_energy": "總電量"
+      "total_energy": "2.61倍充電量",
+      "real_time_monitoring": "即時監控"
+    },
+    "weather": {
+      "solar_energy": "太陽能量"
     }
   }
 }

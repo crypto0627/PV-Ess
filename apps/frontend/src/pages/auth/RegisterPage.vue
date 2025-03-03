@@ -1,22 +1,22 @@
 <template>
   <div
-    class="flex h-screen items-center justify-center bg-gray-300 overflow-hidden"
+    class="flex h-screen items-center justify-center bg-gray-50 overflow-hidden"
   >
     <div class="fixed bottom-4 right-4 z-50">
       <LanguageSwitcher direction="up" />
     </div>
     <div
-      class="relative z-[2] bg-white rounded-[24px] p-[72px_32px_48px] w-[340px] flex flex-col items-center justify-center text-center shadow-[0_10px_50px_rgb(96_68_121_/_10%)]"
+      class="relative z-[2] bg-white rounded-lg p-12 w-[420px] flex flex-col items-center justify-center text-center shadow-md"
     >
-      <img src="/logo.png" class="w-24 mb-8" />
-      <h2 class="text-lg font-medium mb-1.5">
+      <img src="/logo.png" class="w-16 mb-8" />
+      <h2 class="text-2xl font-medium text-gray-800 mb-2">
         {{ $t('auth.create_account') }}
       </h2>
-      <h3 class="text-[13px] text-[#ada5b4] font-medium mb-8">
+      <h3 class="text-sm text-gray-500 font-normal mb-8">
         {{ $t('auth.welcome_description') }}
       </h3>
 
-      <form class="grid gap-3 w-full mb-5" @submit.prevent="handleSubmit">
+      <form class="grid gap-4 w-full mb-6" @submit.prevent="handleSubmit">
         <div class="relative">
           <input
             id="username"
@@ -74,14 +74,14 @@
             id="agreeTerms"
             v-model="agreeTerms"
             type="checkbox"
-            class="h-4 w-4 text-green-600 focus:ring-green-500 border-green-300 rounded"
+            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             required
           />
-          <label for="agreeTerms" class="ml-2 text-sm text-green-700">
+          <label for="agreeTerms" class="ml-2 text-sm text-gray-600">
             {{ $t('auth.terms_agreement') }}
             <router-link
               to="/terms-conditions"
-              class="text-green-600 hover:text-green-800 font-medium"
+              class="text-blue-600 hover:text-blue-800"
             >
               {{ $t('auth.terms_conditions') }}
             </router-link>
@@ -91,7 +91,7 @@
         <button
           type="submit"
           :disabled="isLoading"
-          class="text-[#f9f9f9] bg-gradient-to-r from-green-700 via-green-500 to-green-300 h-[52px] font-inherit text-[15px] px-3 border-0 rounded-lg"
+          class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition duration-200 disabled:opacity-50 font-medium"
         >
           {{
             isLoading
@@ -101,9 +101,9 @@
         </button>
       </form>
 
-      <p class="text-[14px] text-[#ada5b4]">
+      <p class="text-sm text-gray-500">
         {{ $t('auth.already_have_account') }}
-        <router-link to="/login" class="text-green-700">
+        <router-link to="/login" class="text-blue-600 hover:text-blue-800">
           {{ $t('auth.sign_in_redirect') }}
         </router-link>
       </p>

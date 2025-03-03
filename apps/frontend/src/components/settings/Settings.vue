@@ -31,7 +31,7 @@
     </div>
 
     <!-- 主題設定卡片 -->
-    <div class="bg-white rounded-2xl p-4 md:p-6 border border-gray-200">
+    <!-- <div class="bg-white rounded-2xl p-4 md:p-6 border border-gray-200">
       <h2 class="text-lg md:text-xl font-semibold text-gray-900 mb-4">
         {{ $t('main.settings.theme') }}
       </h2>
@@ -48,7 +48,7 @@
           </option>
         </select>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- 載入中狀態 -->

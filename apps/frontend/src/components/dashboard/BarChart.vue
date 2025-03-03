@@ -28,7 +28,7 @@ const data: ChartData<'bar'> = {
       barPercentage: 0.7
     },
     {
-      label: 'remain',
+      label: 'recharged',
       data: [100, 100, 100, 100, 100, 100],
       backgroundColor: '#ffc107',
       borderWidth: 1,

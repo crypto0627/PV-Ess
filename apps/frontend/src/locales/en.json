@@ -144,7 +144,11 @@
       "discharge_amount": "Discharge Amount",
       "factory_generation_amount": "Factory Generation Amount",
       "individual_battery_cabinet_amount": "Individual Battery Cabinet Amount",
-      "total_energy": "Total Energy"
+      "total_energy": "2.61x Charging Amount",
+      "real_time_monitoring": "Real-time Monitoring"
+    },
+    "weather": {
+      "solar_energy": "Solar Energy"
     }
   }
 }

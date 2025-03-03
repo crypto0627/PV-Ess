@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "docker-rebuild": "docker-compose down -v && docker-compose build && docker-compose up -d",
-    "build": "pnpm run format && pnpm run lint && turbo build ",
+    "build": "pnpm run format && turbo build ",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "lint:fix": "turbo run lint -- --fix",

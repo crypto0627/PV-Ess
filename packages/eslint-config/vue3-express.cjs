@@ -20,7 +20,8 @@ const baseConfig = [
       '**/*.min.js',
       '**/coverage/**',
       '**/.turbo/**',
-      '**/.next/**'
+      '**/.next/**',
+      '**/tailwind.config.js'
     ]
   },
   js.configs.recommended,

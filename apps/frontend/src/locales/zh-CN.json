@@ -144,7 +144,11 @@
       "discharge_amount": "放电量",
       "factory_generation_amount": "案厂发电量",
       "individual_battery_cabinet_amount": "各电池柜个别电量",
-      "total_energy": "总电量"
+      "total_energy": "2.61倍充电量",
+      "real_time_monitoring": "实时监控"
+    },
+    "weather": {
+      "solar_energy": "太阳能能量"
     }
   }
 }

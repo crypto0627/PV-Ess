@@ -1,22 +1,24 @@
 <template>
   <div
-    class="flex h-screen items-center justify-center bg-gray-300 overflow-hidden"
+    class="flex h-screen items-center justify-center bg-gray-50 overflow-hidden"
   >
     <div class="fixed bottom-4 right-4 z-50">
       <LanguageSwitcher direction="up" />
     </div>
     <div
-      class="relative z-[2] bg-white rounded-[24px] p-[72px_32px_48px] w-[340px] flex flex-col items-center justify-center text-center shadow-[0_10px_50px_rgb(96_68_121_/_10%)]"
+      class="relative z-[2] bg-white rounded-lg p-12 w-[400px] flex flex-col items-center justify-center text-center shadow-md"
     >
-      <img src="/logo.png" class="w-24 mb-8" />
-      <h2 class="text-lg font-medium mb-1.5">{{ $t('auth.welcome') }}</h2>
-      <h3 class="text-[13px] text-[#ada5b4] font-medium mb-8">
+      <img src="/logo.png" class="w-16 mb-6" />
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">
+        {{ $t('auth.welcome') }}
+      </h2>
+      <h3 class="text-sm text-gray-500 font-normal mb-8">
         {{ $t('auth.welcome_description') }}
       </h3>
       <LoginForm />
-      <p class="text-[14px] text-[#ada5b4]">
+      <p class="text-sm text-gray-500 mt-6">
         {{ $t('auth.sign_up_prompt') }}
-        <router-link to="/register" class="text-green-700">{{
+        <router-link to="/register" class="text-blue-600 hover:text-blue-800">{{
           $t('auth.sign_up')
         }}</router-link>
       </p>

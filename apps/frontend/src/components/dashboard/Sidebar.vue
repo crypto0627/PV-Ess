@@ -103,6 +103,7 @@
 </template>
 
 <script setup>
+import { useAuthStore } from '@/store/auth'
 import {
   Activity,
   Calendar,
@@ -115,13 +116,15 @@ import {
   User,
   Wallet
 } from 'lucide-vue-next'
+import Swal from 'sweetalert2'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterLink, useRouter } from 'vue-router'
 
 const router = useRouter()
+const authStore = useAuthStore()
 const { t } = useI18n()
-
+const isLoading = ref(false)
 const activeSidebar = ref('dashboard')
 const activeSubItem = ref('')
 const isSidebarOpen = ref(false)
@@ -137,8 +140,29 @@ const handleClick = async (item) => {
   }
 
   if (item.id === 'logout') {
-    alert('Logout clicked')
-    return
+    if (isLoading.value) return
+
+    isLoading.value = true
+    try {
+      await authStore.logout()
+      await Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: t('navbar.logout_success'),
+        timer: 1500,
+        showConfirmButton: false
+      })
+      router.push('/login')
+    } catch (error) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: error.message,
+        confirmButtonText: 'OK'
+      })
+    } finally {
+      isLoading.value = false
+    }
   }
 
   if (item.link) {
