@@ -4,7 +4,7 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "explicit"
   },
-  "eslint.validate": ["javascript", "typescript", "vue"],
+  "eslint.validate": ["javascript", "typescript", "vue", "yaml", "dockerfile"],
   "editor.formatOnSave": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.useFlatConfig": true,

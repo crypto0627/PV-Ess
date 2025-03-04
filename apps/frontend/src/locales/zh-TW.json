@@ -145,7 +145,18 @@
       "factory_generation_amount": "案廠發電量",
       "individual_battery_cabinet_amount": "各電池櫃個別電量",
       "total_energy": "2.61倍充電量",
-      "real_time_monitoring": "即時監控"
+      "real_time_monitoring": "即時監控",
+      "old_pv_system": "舊光儲系統",
+      "new_pv_system": "新光儲系統",
+      "point_c": "點C",
+      "energy_storage_system": "儲能系統",
+      "battery_status": "電池狀態",
+      "error": "錯誤",
+      "warning": "警告",
+      "normal": "正常",
+      "point_a": "點A",
+      "point_b": "點B",
+      "frequency": "頻率"
     },
     "weather": {
       "solar_energy": "太陽能量"

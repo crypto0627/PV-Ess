@@ -145,7 +145,18 @@
       "factory_generation_amount": "案厂发电量",
       "individual_battery_cabinet_amount": "各电池柜个别电量",
       "total_energy": "2.61倍充电量",
-      "real_time_monitoring": "实时监控"
+      "real_time_monitoring": "实时监控",
+      "old_pv_system": "旧光储系统",
+      "new_pv_system": "新光储系统",
+      "point_c": "点C",
+      "energy_storage_system": "储能系统",
+      "battery_status": "电池状态",
+      "error": "错误",
+      "warning": "警告",
+      "normal": "正常",
+      "point_a": "点A",
+      "point_b": "点B",
+      "frequency": "频率"
     },
     "weather": {
       "solar_energy": "太阳能能量"

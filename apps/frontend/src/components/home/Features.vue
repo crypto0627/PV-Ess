@@ -4,7 +4,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2
-          class="text-4xl font-bold text-white sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400"
+          class="text-4xl font-bold text-white sm:text-5xl bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400"
         >
           {{ $t('home.features.monitoring.title') }}
         </h2>

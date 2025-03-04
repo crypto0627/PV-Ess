@@ -145,7 +145,18 @@
       "factory_generation_amount": "Factory Generation Amount",
       "individual_battery_cabinet_amount": "Individual Battery Cabinet Amount",
       "total_energy": "2.61x Charging Amount",
-      "real_time_monitoring": "Real-time Monitoring"
+      "real_time_monitoring": "Real-time Monitoring",
+      "old_pv_system": "Old PV System",
+      "new_pv_system": "New PV System",
+      "point_c": "Point C",
+      "energy_storage_system": "Energy Storage System",
+      "battery_status": "Battery Status",
+      "error": "Error",
+      "warning": "Warning",
+      "normal": "Normal",
+      "point_a": "Point A",
+      "point_b": "Point B",
+      "frequency": "Frequency"
     },
     "weather": {
       "solar_energy": "Solar Energy"
