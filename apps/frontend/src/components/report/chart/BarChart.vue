@@ -12,7 +12,7 @@ import {
   Legend,
   LinearScale,
   Title,
-  Tooltip
+  Tooltip,
 } from 'chart.js'
 import { ref, watch } from 'vue'
 import { Bar } from 'vue-chartjs'
@@ -29,12 +29,16 @@ const props = defineProps<{
 const getLabels = () => {
   switch (props.reportType) {
     case 'monthly':
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       return Array.from({ length: 30 }, (_, i) => (i + 1).toString())
     case 'quarterly':
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       return Array.from({ length: 4 }, (_, i) => (i + 1).toString())
     case 'yearly':
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       return Array.from({ length: 12 }, (_, i) => (i + 1).toString())
     default:
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       return Array.from({ length: 30 }, (_, i) => (i + 1).toString())
   }
 }
@@ -58,13 +62,13 @@ const generateChartData = () => ({
     {
       label: props.label,
       data: Array.from({ length: getDataLength() }, () =>
-        Math.floor(Math.random() * props.maxY)
+        Math.floor(Math.random() * props.maxY),
       ),
       backgroundColor: 'rgba(54, 162, 235, 0.5)',
       borderColor: 'rgba(54, 162, 235, 1)',
-      borderWidth: 1
-    }
-  ]
+      borderWidth: 1,
+    },
+  ],
 })
 
 const chartData = ref(generateChartData())
@@ -77,8 +81,8 @@ const chartOptions = {
     title: {
       display: true,
       text: props.title,
-      color: '#000000'
-    }
+      color: '#000000',
+    },
   },
   scales: {
     x: { ticks: { color: '#000000' } },
@@ -86,9 +90,9 @@ const chartOptions = {
       beginAtZero: true,
       max: props.maxY,
       title: { display: true, text: props.label, color: '#000000' },
-      ticks: { color: '#000000' }
-    }
-  }
+      ticks: { color: '#000000' },
+    },
+  },
 }
 
 // 監聽 `reportType` 變化
@@ -96,6 +100,6 @@ watch(
   () => props.reportType,
   () => {
     chartData.value = generateChartData()
-  }
+  },
 )
 </script>

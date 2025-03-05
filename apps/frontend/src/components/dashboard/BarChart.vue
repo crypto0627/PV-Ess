@@ -11,7 +11,7 @@ import {
   LinearScale,
   Title,
   Tooltip,
-  type ChartData
+  type ChartData,
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
 
@@ -25,16 +25,16 @@ const data: ChartData<'bar'> = {
       data: [50, 50, 50, 50, 50, 50],
       backgroundColor: '#2b8a3e',
       borderWidth: 0,
-      barPercentage: 0.7
+      barPercentage: 0.7,
     },
     {
       label: 'recharged',
       data: [100, 100, 100, 100, 100, 100],
       backgroundColor: '#ffc107',
       borderWidth: 1,
-      barPercentage: 0.7
-    }
-  ]
+      barPercentage: 0.7,
+    },
+  ],
 }
 
 const option = {
@@ -48,21 +48,21 @@ const option = {
       text: 'capacity',
       font: {
         size: 18,
-        color: 'black'
-      }
+        color: 'black',
+      },
     },
     legend: {
       labels: {
-        color: 'black'
-      }
-    }
+        color: 'black',
+      },
+    },
   },
   scales: {
     x: {
       stacked: true,
       ticks: {
-        color: 'black'
-      }
+        color: 'black',
+      },
     },
     y: {
       beginAtZero: true,
@@ -72,12 +72,12 @@ const option = {
       title: {
         display: true,
         text: 'Capacity',
-        color: 'black'
+        color: 'black',
       },
       ticks: {
-        color: 'black'
-      }
-    }
-  }
+        color: 'black',
+      },
+    },
+  },
 }
 </script>

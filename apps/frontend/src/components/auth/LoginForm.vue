@@ -182,6 +182,24 @@ const showPassword = ref(false)
 const router = useRouter()
 const authStore = useAuthStore()
 
+const startCooldown = (seconds: number) => {
+  cooldown.value = seconds
+  localStorage.setItem(
+    'loginCooldown',
+    JSON.stringify({
+      expiry: Date.now() + seconds * 1000,
+    }),
+  )
+
+  const interval = setInterval(() => {
+    cooldown.value -= 1
+    if (cooldown.value <= 0) {
+      clearInterval(interval)
+      localStorage.removeItem('loginCooldown')
+    }
+  }, 1000)
+}
+
 const handleSubmit = async () => {
   if (isLoading.value || cooldown.value > 0) return
 
@@ -196,7 +214,7 @@ const handleSubmit = async () => {
       title: 'Success!',
       text: res.data.message,
       timer: 1500,
-      showConfirmButton: false
+      showConfirmButton: false,
     })
 
     isNavigating.value = true
@@ -214,7 +232,7 @@ const handleSubmit = async () => {
       icon: 'error',
       title: 'Error',
       text: error.response.data.message,
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
     })
   } finally {
     isLoading.value = false
@@ -234,24 +252,6 @@ const checkStoredCooldown = () => {
       localStorage.removeItem('loginCooldown')
     }
   }
-}
-
-const startCooldown = (seconds: number) => {
-  cooldown.value = seconds
-  localStorage.setItem(
-    'loginCooldown',
-    JSON.stringify({
-      expiry: Date.now() + seconds * 1000
-    })
-  )
-
-  const interval = setInterval(() => {
-    cooldown.value--
-    if (cooldown.value <= 0) {
-      clearInterval(interval)
-      localStorage.removeItem('loginCooldown')
-    }
-  }, 1000)
 }
 
 onMounted(() => {

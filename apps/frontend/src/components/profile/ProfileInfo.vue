@@ -206,10 +206,10 @@ const isLoading = ref(false)
 
 const handleUpdatePassword = async () => {
   if (!oldPassword.value || !newPassword.value) {
-    Swal.fire({
+    await Swal.fire({
       icon: 'error',
       title: '錯誤',
-      text: '請填寫完整密碼資訊'
+      text: '請填寫完整密碼資訊',
     })
     return
   }
@@ -219,24 +219,24 @@ const handleUpdatePassword = async () => {
     // 這裡需要實作更新密碼的API呼叫
     await userStore.updatePassword({
       oldPassword: oldPassword.value,
-      newPassword: newPassword.value
+      newPassword: newPassword.value,
     })
 
     showPasswordModal.value = false
     oldPassword.value = ''
     newPassword.value = ''
 
-    Swal.fire({
+    await Swal.fire({
       icon: 'success',
       title: '成功',
-      text: '密碼已更新成功，請重新登入'
+      text: '密碼已更新成功，請重新登入',
     })
     await authStore.logout()
   } catch (error) {
-    Swal.fire({
+    await Swal.fire({
       icon: 'error',
       title: '錯誤',
-      text: error.message || '密碼更新失敗，請稍後再試'
+      text: error.message || '密碼更新失敗，請稍後再試',
     })
   } finally {
     isLoading.value = false

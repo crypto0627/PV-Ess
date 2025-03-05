@@ -3,7 +3,7 @@ import {
   BeforeUpdate,
   Column,
   Entity,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
 } from 'typeorm'
 
 @Entity('users')
@@ -21,21 +21,20 @@ export class User {
   password!: string
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
-  created_at!: Date
+  createdAt!: Date
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
-  updated_at!: Date
+  updatedAt!: Date
 
-  // 設置 created_at 和 updated_at 自動填充
   @BeforeInsert()
   setCreatedAt() {
     const currentDate = new Date()
-    this.created_at = currentDate
-    this.updated_at = currentDate
+    this.createdAt = currentDate
+    this.updatedAt = currentDate
   }
 
   @BeforeUpdate()
   setUpdatedAt() {
-    this.updated_at = new Date()
+    this.updatedAt = new Date()
   }
 }

@@ -95,7 +95,7 @@ export const data = {
     '23:00',
     '23:15',
     '23:30',
-    '23:45'
+    '23:45',
   ],
   datasets: [
     {
@@ -114,18 +114,18 @@ export const data = {
         727.381, 422.621, 235.715, 143.419, 29.1795, 0, 0, 0.2705, 2.6065,
         3.592, 3.9775, 3.577, 3.526, 3.1675, 2.7685, 2.507, 2.358, 2.1585,
         1.9045, 1.8645, 1.7915, 1.776, 1.7205, 3.271, 3.9965, 5.5485, 5.794,
-        4.0605, 0, 2.019
+        4.0605, 0, 2.019,
       ],
       pointRadius: 0, // 不顯示圓點
-      pointHoverRadius: 0 // 不顯示圓點的懸停效果
+      pointHoverRadius: 0, // 不顯示圓點的懸停效果
     },
     {
       label: 'newPvSystem',
       backgroundColor: '#ffc107',
       borderColor: '#ffc107',
-      yAxisID: 'y'
-    }
-  ]
+      yAxisID: 'y',
+    },
+  ],
 }
 
 import { TooltipItem } from 'chart.js'
@@ -139,16 +139,16 @@ export const option = {
       display: true,
       text: 'PV System Prediction', // Title of the chart
       font: {
-        size: 18
-      }
+        size: 18,
+      },
     },
     tooltip: {
       callbacks: {
         label: function (tooltipItem: TooltipItem<'line'>) {
           // 這裡的 'line' 是圖表類型
           return `${tooltipItem.dataset.label}: ${(tooltipItem.raw as number).toFixed(2)} kW`
-        }
-      }
+        },
+      },
     },
 
     // Scales configuration
@@ -158,31 +158,31 @@ export const option = {
         labels: data.labels, // Using the labels from Pv_data
         ticks: {
           maxRotation: 45, // Rotate labels for better readability
-          minRotation: 30
-        }
+          minRotation: 30,
+        },
       },
       y: {
         type: 'linear', // Y-axis will be linear scale
         beginAtZero: true, // Ensure the Y-axis starts from 0
         title: {
           display: true,
-          text: 'Power (kW)' // Title for the Y-axis
+          text: 'Power (kW)', // Title for the Y-axis
         },
         grid: {
-          drawOnChartArea: true // Grid lines will be shown
+          drawOnChartArea: true, // Grid lines will be shown
         },
         ticks: {
-          stepSize: 500 // Step size for Y-axis ticks, adjust based on data range
-        }
-      }
+          stepSize: 500, // Step size for Y-axis ticks, adjust based on data range
+        },
+      },
     },
     layout: {
       padding: {
         left: 10,
         right: 10,
         top: 10,
-        bottom: 10
-      }
-    }
-  }
+        bottom: 10,
+      },
+    },
+  },
 }

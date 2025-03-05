@@ -8,7 +8,7 @@ const failedLoginAttempts: Record<
 export const loginRateLimiter = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const { email } = req.body
   const currentTime = Date.now()
@@ -37,7 +37,7 @@ export const recordFailedLogin = (email: string) => {
     failedLoginAttempts[email] = { count: 0, lockUntil: 0 }
   }
 
-  failedLoginAttempts[email].count++
+  failedLoginAttempts[email].count = failedLoginAttempts[email].count + 1
 
   if (failedLoginAttempts[email].count >= 3) {
     failedLoginAttempts[email].lockUntil = Date.now() + 30 * 1000 // 鎖定 30 秒

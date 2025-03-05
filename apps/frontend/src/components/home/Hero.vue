@@ -41,7 +41,7 @@
               :enter="{
                 opacity: 1,
                 y: 0,
-                transition: { duration: 800, delay: 200 }
+                transition: { duration: 800, delay: 200 },
               }"
             >
               {{ $t('home.hero.description') }}
@@ -53,7 +53,7 @@
               :enter="{
                 opacity: 1,
                 scale: 1,
-                transition: { duration: 500, delay: 400 }
+                transition: { duration: 500, delay: 400 },
               }"
             >
               <div class="rounded-md shadow">

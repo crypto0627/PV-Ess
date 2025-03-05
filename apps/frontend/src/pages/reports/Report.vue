@@ -57,7 +57,7 @@
           :key="type"
           class="text-black px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-500 focus:outline-none transition-all"
           :class="{
-            'bg-blue-500 hover:bg-blue-600 text-white': reportType === type
+            'bg-blue-500 hover:bg-blue-600 text-white': reportType === type,
           }"
           @click="reportType = type as 'monthly' | 'quarterly' | 'yearly'"
         >
@@ -126,7 +126,7 @@ const chartComponents = {
   ReportAuxChart,
   ReportHighOutputChart,
   ReportHighInputChart,
-  ReportHighPowerChart
+  ReportHighPowerChart,
 }
 
 // 圖表標題對應表
@@ -135,12 +135,12 @@ const chartTitles = {
   ReportAuxChart: 'Auxiliary Power Consumption (kWh)',
   ReportHighOutputChart: 'High Voltage Side Output Power (kWh)',
   ReportHighInputChart: 'High Voltage Side Input Power (kWh)',
-  ReportHighPowerChart: 'High Voltage Side Power Loss (kWh)'
+  ReportHighPowerChart: 'High Voltage Side Power Loss (kWh)',
 }
 
 // 當前選擇的圖表，預設第一個
 const selectedChart = ref<keyof typeof chartComponents>(
-  Object.keys(chartComponents)[0] as keyof typeof chartComponents
+  Object.keys(chartComponents)[0] as keyof typeof chartComponents,
 )
 
 // 控制選單開關
@@ -159,15 +159,15 @@ const handleSelectedChart = (key: keyof typeof chartComponents) => {
 const tableData = computed(() => {
   const data = []
   if (reportType.value === 'monthly') {
-    for (let day = 1; day <= 30; day++) {
+    for (let day = 1; day <= 30; day += 1) {
       data.push({ date: `Day ${day}`, value: 'Sample Data' })
     }
   } else if (reportType.value === 'quarterly') {
-    for (let month = 1; month <= 4; month++) {
+    for (let month = 1; month <= 4; month += 1) {
       data.push({ date: `Q${month}`, value: 'Sample Data' })
     }
   } else {
-    for (let month = 1; month <= 12; month++) {
+    for (let month = 1; month <= 12; month += 1) {
       data.push({ date: `Month ${month}`, value: 'Sample Data' })
     }
   }

@@ -1,16 +1,16 @@
 import bcrypt from 'bcryptjs'
-import AppDataSource from '../data-source'
+import appDataSource from '../data-source'
 import { User } from '../entities/User'
 
 export class UserService {
   static updatePassword() {
     throw new Error('Method not implemented.')
   }
-  private userRepository = AppDataSource.getRepository(User)
+  private userRepository = appDataSource.getRepository(User)
 
   async getUserById(id: number) {
     return await this.userRepository.findOne({
-      where: { id }
+      where: { id },
     })
   }
 
@@ -46,7 +46,7 @@ export class UserService {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
     if (!passwordRegex.test(newPassword)) {
       throw new Error(
-        'New password must have at least 8 characters, including uppercase, lowercase, and a number'
+        'New password must have at least 8 characters, including uppercase, lowercase, and a number',
       )
     }
 

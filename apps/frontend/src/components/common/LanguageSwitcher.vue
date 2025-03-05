@@ -23,7 +23,7 @@
       class="absolute left-1/2 bg-white border rounded-lg shadow-xl min-w-[140px] overflow-hidden transform -translate-x-1/2 origin-top transition-all duration-300"
       :class="[
         direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2',
-        isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        isOpen ? 'opacity-100 visible' : 'opacity-0 invisible',
       ]"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleDropdownLeave"
@@ -34,7 +34,7 @@
           :key="lang"
           class="px-4 py-2.5 text-left hover:bg-gray-50 transition-colors duration-200 flex items-center gap-2"
           :class="{
-            'bg-cyan-50 text-cyan-600 font-medium': currentLocale === lang
+            'bg-cyan-50 text-cyan-600 font-medium': currentLocale === lang,
           }"
           @click="selectLanguage(lang)"
         >
@@ -73,7 +73,7 @@ defineProps<{
 const languages: Record<LanguageKey, string> = {
   en: 'English',
   zh_TW: '繁體中文',
-  zh_CN: '简体中文'
+  zh_CN: '简体中文',
 }
 
 let timeoutId: number | null = null

@@ -7,7 +7,7 @@ export const data = {
       backgroundColor: '#2b8a3e',
       borderWidth: 0,
       barPercentage: 0.7,
-      type: 'bar' // 添加type以顯示為bar
+      type: 'bar', // 添加type以顯示為bar
     },
     {
       label: 'remain',
@@ -15,9 +15,9 @@ export const data = {
       backgroundColor: '#ffc107', // 添加背景顏色以便於顯示
       borderWidth: 1,
       barPercentage: 0.7,
-      type: 'bar' // 確保remain也顯示為bar
-    }
-  ]
+      type: 'bar', // 確保remain也顯示為bar
+    },
+  ],
 }
 
 export const config = {
@@ -32,15 +32,15 @@ export const config = {
       text: 'capacity', // 圖表標題
       font: {
         size: 18,
-        color: 'white' // 新增文字顏色為白色
-      }
-    }
+        color: 'white', // 新增文字顏色為白色
+      },
+    },
   },
 
   // Scales configuration
   scales: {
     x: {
-      stacked: true
+      stacked: true,
     },
     y: {
       beginAtZero: true, // 確保Y軸從0開始
@@ -50,8 +50,8 @@ export const config = {
       title: {
         display: true,
         text: 'Capacity', // Y軸標題
-        color: 'white' // 新增文字顏色為白色
-      }
-    }
-  }
+        color: 'white', // 新增文字顏色為白色
+      },
+    },
+  },
 }

@@ -98,7 +98,7 @@ const saveSchedule = () => {
 }
 
 const times: string[] = []
-for (let hour = 0; hour < 24; hour++) {
+for (let hour = 0; hour < 24; hour += 1) {
   for (let minute = 0; minute < 60; minute += 15) {
     const endMinute =
       minute + 15 >= 60 ? '00' : String(minute + 15).padStart(2, '0')
@@ -107,7 +107,7 @@ for (let hour = 0; hour < 24; hour++) {
         ? String(hour + 1).padStart(2, '0')
         : String(hour).padStart(2, '0')
     times.push(
-      `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} -> ${endHour}:${endMinute}`
+      `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} -> ${endHour}:${endMinute}`,
     )
   }
 }

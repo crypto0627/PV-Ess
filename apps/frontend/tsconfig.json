@@ -27,5 +27,11 @@
     "src/**/*.tsx",
     "src/**/*.vue"
   ],
-  "exclude": ["node_modules", "dist", "tailwind.config.js"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tailwind.config.js",
+    "eslint.config.js",
+    "out"
+  ]
 }

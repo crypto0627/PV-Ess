@@ -1,18 +1,18 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import AppDataSource from '../data-source'
+import appDataSource from '../data-source'
 import { User } from '../entities/User'
 import {
   clearFailedLogin,
-  recordFailedLogin
+  recordFailedLogin,
 } from '../middleware/loginRateLimiter'
 
 export class AuthService {
-  private userRepository = AppDataSource.getRepository(User)
+  private userRepository = appDataSource.getRepository(User)
 
   async register(username: string, email: string, password: string) {
     const existingUser = await this.userRepository.findOne({
-      where: [{ username }, { email }]
+      where: [{ username }, { email }],
     })
     if (existingUser) {
       throw new Error('Username or email already exists')
@@ -21,7 +21,7 @@ export class AuthService {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/ // 至少一個小寫字母、一個大寫字母、一個數字
     if (!passwordRegex.test(password)) {
       throw new Error(
-        'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
       )
     }
     // 密碼加密
@@ -29,7 +29,7 @@ export class AuthService {
     const user = this.userRepository.create({
       username,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     })
     return await this.userRepository.save(user)
   }
@@ -49,15 +49,15 @@ export class AuthService {
       process.env.JWT_SECRET as string,
       {
         algorithm: 'HS256',
-        expiresIn: '1h'
+        expiresIn: '1h',
         // issuer: '' // domain name
-      }
+      },
     )
     const userWithoutPassword = { ...user, password: undefined }
     return { user: userWithoutPassword, token }
   }
 
-  async logout() {
+  logout() {
     return { message: 'Logout successfully!' }
   }
 }

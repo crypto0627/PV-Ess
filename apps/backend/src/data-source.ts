@@ -1,11 +1,11 @@
+import * as dotenv from 'dotenv'
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
-import dotenv from 'dotenv'
 import { User } from './entities/User'
 
 dotenv.config()
 
-const AppDataSource = new DataSource({
+const appDataSource = new DataSource({
   type: 'postgres',
   host: process.env.POSTGRES_HOST || 'postgres',
   port: Number(process.env.POSTGRES_PORT) || 5432,
@@ -18,6 +18,6 @@ const AppDataSource = new DataSource({
       ? ['dist/migration/*.js']
       : ['src/migration/*.ts'],
   synchronize: true,
-  logging: true
+  logging: true,
 })
-export default AppDataSource
+export default appDataSource

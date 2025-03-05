@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store/auth'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 // 全局路由守衛

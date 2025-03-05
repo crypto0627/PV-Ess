@@ -3,19 +3,19 @@ import dotenv from 'dotenv'
 import nodemailer from 'nodemailer'
 import { v4 as uuidv4 } from 'uuid'
 import { redisClient } from '../config/redis'
-import AppDataSource from '../data-source'
+import appDataSource from '../data-source'
 import { User } from '../entities/User'
 
 dotenv.config()
 
 export class PasswordResetService {
-  private userRepository = AppDataSource.getRepository(User)
+  private userRepository = appDataSource.getRepository(User)
   private transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
+      pass: process.env.EMAIL_PASS,
+    },
   })
 
   // 生成密碼重設 Token和email做存儲
@@ -46,7 +46,7 @@ export class PasswordResetService {
             <p>Best regards,</p>
             <p>華城電機 儲能中心開發課 郭來鴻</p>
           </div>
-        `
+        `,
     }
 
     try {

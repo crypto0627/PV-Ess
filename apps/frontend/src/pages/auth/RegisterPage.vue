@@ -111,7 +111,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup async>
 import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 import { useAuthStore } from '@/store/auth'
 import Swal from 'sweetalert2'
@@ -134,7 +134,7 @@ const handleSubmit = async () => {
       icon: 'warning',
       title: 'Password Mismatch',
       text: 'Passwords do not match.',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
     })
     return
   }
@@ -145,7 +145,7 @@ const handleSubmit = async () => {
     const res = await authStore.register(
       username.value,
       email.value,
-      password.value
+      password.value,
     )
 
     // Ensure API responds with a message
@@ -155,9 +155,9 @@ const handleSubmit = async () => {
         title: 'Success!',
         text: res.data.message,
         timer: 1500,
-        showConfirmButton: false
+        showConfirmButton: false,
       })
-      router.push('/login')
+      await router.push('/login')
     }
   } catch (error) {
     // Safely parse error message
@@ -166,7 +166,7 @@ const handleSubmit = async () => {
       icon: 'error',
       title: 'Error!',
       text: errorMessage,
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
     })
   } finally {
     isLoading.value = false

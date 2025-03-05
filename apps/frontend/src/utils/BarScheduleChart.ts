@@ -1,6 +1,7 @@
 import { ChartData, ChartOptions } from 'chart.js'
 
 export const chartData: ChartData<'bar' | 'line'> = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   labels: Array.from({ length: 96 }, (_, i) => {
     const hours = String(Math.floor(i / 4)).padStart(2, '0')
     const minutes = String((i % 4) * 15).padStart(2, '0')
@@ -15,7 +16,7 @@ export const chartData: ChartData<'bar' | 'line'> = {
       borderWidth: 2,
       pointRadius: 0,
       yAxisID: 'y',
-      data: Array.from({ length: 96 }, () => Math.random() * 100)
+      data: Array.from({ length: 96 }, () => Math.random() * 100),
     },
     {
       label: 'PV Power Prediction',
@@ -25,7 +26,7 @@ export const chartData: ChartData<'bar' | 'line'> = {
       borderWidth: 2,
       pointRadius: 0,
       yAxisID: 'y',
-      data: Array.from({ length: 96 }, () => Math.random() * 100)
+      data: Array.from({ length: 96 }, () => Math.random() * 100),
     },
     {
       label: 'Battery Charged Power',
@@ -35,7 +36,7 @@ export const chartData: ChartData<'bar' | 'line'> = {
       borderWidth: 2,
       pointRadius: 0,
       yAxisID: 'y',
-      data: Array.from({ length: 96 }, () => Math.random() * 100)
+      data: Array.from({ length: 96 }, () => Math.random() * 100),
     },
     {
       label: 'Schedule',
@@ -45,9 +46,9 @@ export const chartData: ChartData<'bar' | 'line'> = {
       borderWidth: 1,
       hoverBorderWidth: 2,
       yAxisID: 'y',
-      data: Array.from({ length: 96 }, () => Math.random() * 100)
-    }
-  ]
+      data: Array.from({ length: 96 }, () => Math.random() * 100),
+    },
+  ],
 }
 
 export const chartOptions: ChartOptions<'bar'> = {
@@ -56,21 +57,21 @@ export const chartOptions: ChartOptions<'bar'> = {
   plugins: {
     legend: {
       display: true,
-      position: 'top'
+      position: 'top',
     },
     title: {
       display: true,
-      text: 'Sales & Revenue Report'
-    }
+      text: 'Sales & Revenue Report',
+    },
   },
   scales: {
     x: {
       ticks: {
-        color: '#000000'
-      }
+        color: '#000000',
+      },
     },
     y: {
-      beginAtZero: true
-    }
-  }
+      beginAtZero: true,
+    },
+  },
 }

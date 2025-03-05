@@ -2,7 +2,7 @@
   <div
     :class="[
       'bg-[#0a3726] text-white h-full flex flex-col transition-all duration-300 ease-in-out fixed lg:relative z-40',
-      isSidebarOpen ? 'w-64' : 'w-0 -ml-64 lg:w-64 lg:ml-0'
+      isSidebarOpen ? 'w-64' : 'w-0 -ml-64 lg:w-64 lg:ml-0',
     ]"
   >
     <!-- Sidebar Header -->
@@ -62,7 +62,7 @@
                 height:
                   activeSidebar === item.id
                     ? item.submenu.length * 50 + 'px'
-                    : '0px'
+                    : '0px',
               }"
             >
               <ul
@@ -114,7 +114,7 @@ import {
   Settings,
   Settings as SettingsIcon,
   User,
-  Wallet
+  Wallet,
 } from 'lucide-vue-next'
 import Swal from 'sweetalert2'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
@@ -150,15 +150,15 @@ const handleClick = async (item) => {
         title: 'Success!',
         text: t('navbar.logout_success'),
         timer: 1500,
-        showConfirmButton: false
+        showConfirmButton: false,
       })
-      router.push('/login')
+      await router.push('/login')
     } catch (error) {
       await Swal.fire({
         icon: 'error',
         title: 'Error!',
         text: error.message,
-        confirmButtonText: 'OK'
+        confirmButtonText: 'OK',
       })
     } finally {
       isLoading.value = false
@@ -196,17 +196,17 @@ const menuItems = [
   {
     id: 'dashboard',
     lucideIcon: LayoutDashboard,
-    link: '/main/dashboard'
+    link: '/main/dashboard',
   },
   {
     id: 'report',
     lucideIcon: Wallet,
-    link: '/main/report'
+    link: '/main/report',
   },
   {
     id: 'schedule',
     lucideIcon: Calendar,
-    link: '/main/schedule'
+    link: '/main/schedule',
   },
   {
     id: 'system-monitor',
@@ -214,28 +214,28 @@ const menuItems = [
     hasSubmenu: true,
     submenu: [
       { id: 'system-monitor', link: '/main/system-monitor' },
-      { id: 'system-controller', link: '/main/system-controller' }
-    ]
+      { id: 'system-controller', link: '/main/system-controller' },
+    ],
   },
   {
     id: 'profile',
     lucideIcon: User,
-    link: '/main/profile'
+    link: '/main/profile',
   },
   {
     id: 'settings',
     lucideIcon: SettingsIcon,
-    link: '/main/settings'
+    link: '/main/settings',
   },
   {
     id: 'logout',
-    lucideIcon: LogOut
-  }
+    lucideIcon: LogOut,
+  },
 ]
 
 const footerNavItems = [
   { name: 'Settings', icon: Settings, link: '/main/settings' },
-  { name: 'Contact us', icon: Headset, link: '/contact' }
+  { name: 'Contact us', icon: Headset, link: '/contact' },
 ]
 
 // Resize handler (move here for sidebar responsiveness)
@@ -257,6 +257,6 @@ onBeforeUnmount(() => {
 })
 
 defineExpose({
-  toggleSidebar
+  toggleSidebar,
 })
 </script>

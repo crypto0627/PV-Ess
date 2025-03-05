@@ -30,7 +30,7 @@ router.post('/logout', authMiddleware, async (req: Request, res: Response) => {
   }
 })
 
-router.get('/me', authMiddleware, async (req, res) => {
+router.get('/me', authMiddleware, (req, res) => {
   res.json(req.body.userId)
 })
 

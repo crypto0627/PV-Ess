@@ -4,7 +4,7 @@ export default defineConfig({
   env: {
     register_url: '/register',
     login_url: '/login',
-    home_url: '/home'
+    home_url: '/home',
   },
   video: false,
   viewportWidth: 1000,
@@ -14,13 +14,13 @@ export default defineConfig({
     specPattern: 'cypress/*.cy.{js,jsx,ts,tsx}',
     baseUrl: 'http://localhost:5173',
     pageLoadTimeout: 30000,
-    supportFile: false
+    supportFile: false,
   },
 
   component: {
     devServer: {
       framework: 'vue',
-      bundler: 'vite'
-    }
-  }
+      bundler: 'vite',
+    },
+  },
 })

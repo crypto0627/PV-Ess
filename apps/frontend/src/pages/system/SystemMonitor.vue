@@ -9,7 +9,7 @@
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
           currentSelection === 'meter'
             ? 'bg-green-800/70 text-white'
-            : 'bg-gray-300 text-gray-700'
+            : 'bg-gray-300 text-gray-700',
         ]"
       >
         Meter
@@ -22,7 +22,7 @@
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
           currentSelection === 'pcs'
             ? 'bg-green-800/70 text-white'
-            : 'bg-gray-300 text-gray-700'
+            : 'bg-gray-300 text-gray-700',
         ]"
       >
         Power Control System
@@ -35,7 +35,7 @@
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
           currentSelection === 'battery'
             ? 'bg-green-800/70 text-white'
-            : 'bg-gray-300 text-gray-700'
+            : 'bg-gray-300 text-gray-700',
         ]"
       >
         Battery

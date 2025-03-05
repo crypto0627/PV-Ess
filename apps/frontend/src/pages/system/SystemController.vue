@@ -9,7 +9,7 @@
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
           batteryEnabled
             ? 'bg-green-800/70 text-white'
-            : 'bg-gray-300 text-gray-700'
+            : 'bg-gray-300 text-gray-700',
         ]"
       >
         Battery: {{ batteryEnabled ? 'ON' : 'OFF' }}
@@ -22,7 +22,7 @@
           'px-12 py-4 sm:px-6 sm:py-2 rounded-lg transition-all',
           pcsEnabled
             ? 'bg-green-800/70 text-white'
-            : 'bg-gray-300 text-gray-700'
+            : 'bg-gray-300 text-gray-700',
         ]"
       >
         Power Control System: {{ pcsEnabled ? 'ON' : 'OFF' }}
@@ -89,16 +89,15 @@ import { computed, nextTick, ref, watch } from 'vue'
 const batteryEnabled = ref(false) // Battery 初始關閉
 const pcsEnabled = ref(false) // Power Control System 初始關閉
 const isFullscreen = ref(false) // 全螢幕狀態
-const imageKey = ref(0) // 用於確保 Vue 正確更新圖片
 
 // 切換 Battery 狀態
-const toggleBattery = () => {
+const toggleBattery = async () => {
   if (pcsEnabled.value) {
-    Swal.fire({
+    await Swal.fire({
       icon: 'warning',
       title: 'Can not close Battery',
       text: 'Please close Power Control System first, then Battery button can close.',
-      confirmButtonText: 'Confirm'
+      confirmButtonText: 'Confirm',
     })
   } else {
     batteryEnabled.value = !batteryEnabled.value
@@ -106,13 +105,13 @@ const toggleBattery = () => {
 }
 
 // 切換 Power Control System 狀態
-const togglePCS = () => {
+const togglePCS = async () => {
   if (!batteryEnabled.value) {
-    Swal.fire({
+    await Swal.fire({
       icon: 'warning',
       title: 'Can not open Power Control System',
       text: 'Please open Battery first, then open Power Control System.',
-      confirmButtonText: 'Confirm'
+      confirmButtonText: 'Confirm',
     })
   } else {
     pcsEnabled.value = !pcsEnabled.value

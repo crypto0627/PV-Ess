@@ -130,7 +130,7 @@ const navLinks = [
   { key: 'navbar.home', link: '/home' },
   { key: 'navbar.products', link: '/products' },
   { key: 'navbar.solutions', link: '/solutions' },
-  { key: 'navbar.contact', link: '/contact' }
+  { key: 'navbar.contact', link: '/contact' },
 ]
 
 const handleSubmit = async () => {
@@ -144,15 +144,15 @@ const handleSubmit = async () => {
       title: 'Success!',
       text: t('navbar.logout_success'),
       timer: 1500,
-      showConfirmButton: false
+      showConfirmButton: false,
     })
-    router.push('/login')
+    await router.push('/login')
   } catch (error) {
     await Swal.fire({
       icon: 'error',
       title: 'Error!',
       text: (error as Error).message,
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
     })
   } finally {
     isLoading.value = false

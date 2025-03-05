@@ -1,5 +1,5 @@
 export type StatusType = 'normal' | 'warning' | 'error'
-export type borderColorType =
+export type BorderColorType =
   | 'border-success'
   | 'border-warning'
   | 'border-danger'

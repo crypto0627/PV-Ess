@@ -110,8 +110,8 @@ const handleSubmit = async () => {
     if (res.data?.success) {
       successMessage.value =
         'Password reset link sent successfully! Please check your email.'
-      setTimeout(() => {
-        router.push('/reset-password')
+      setTimeout(async () => {
+        await router.push('/reset-password')
       }, 2000)
     } else {
       errorMessage.value = 'Failed to send reset link. Please try again.'

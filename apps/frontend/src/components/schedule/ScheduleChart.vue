@@ -23,7 +23,7 @@ import {
   LineElement,
   PointElement,
   Title,
-  Tooltip
+  Tooltip,
 } from 'chart.js'
 import { ref, watchEffect } from 'vue'
 import { Chart } from 'vue-chartjs'
@@ -39,7 +39,7 @@ ChartJS.register(
   LinearScale,
   Legend,
   Title,
-  Tooltip
+  Tooltip,
 )
 
 // 🔄 使用 ref 來確保 chartData 是 reactive

@@ -131,22 +131,22 @@ const showAlert = (title: string, text: string, icon: 'success' | 'error') => {
     title,
     text,
     icon,
-    confirmButtonText: 'OK'
+    confirmButtonText: 'OK',
   })
 }
 
 onMounted(async () => {
   try {
-    const res = await authStore.verify_reset_token(resetToken.value)
+    const res = await authStore.verifyResetToken(resetToken.value)
     await showAlert('Success!', res.data.message, 'success')
   } catch (error) {
     console.error('Error verifying token:', error)
     await showAlert(
       'Error!',
       'An error occurred while verifying the token.',
-      'error'
+      'error',
     )
-    router.push('/forgot-password')
+    await router.push('/forgot-password')
   }
 })
 
@@ -162,15 +162,15 @@ const handleSubmit = async () => {
         return
       }
 
-      const res = await authStore.reset_password(
+      const res = await authStore.resetPassword(
         resetToken.value,
-        newPassword.value
+        newPassword.value,
       )
 
       await showAlert('Success!', res.data.message, 'success')
-      router.push('/login')
+      await router.push('/login')
     } else {
-      router.push('/forgot-password')
+      await router.push('/forgot-password')
     }
   } catch (error) {
     console.error(error)

@@ -63,7 +63,6 @@
 <script setup lang="ts">
 import { useLanguage } from '@/lib/useLanguage'
 import { useUserStore } from '@/store/user'
-import Swal from 'sweetalert2'
 import { computed, onMounted, ref } from 'vue'
 
 const userStore = useUserStore()
@@ -77,7 +76,7 @@ const selectedLanguage = ref(currentLocale.value)
 const languages: Record<LanguageKey, string> = {
   en: 'English',
   zh_TW: '繁體中文',
-  zh_CN: '简体中文'
+  zh_CN: '简体中文',
 }
 
 const selectLanguage = () => {
@@ -108,36 +107,6 @@ const changeTheme = () => {
   }
 
   localStorage.setItem('theme', theme)
-}
-
-// 其他原有的變數
-const startDate = ref('')
-const endDate = ref('')
-
-// 匯出報表邏輯
-const exportReport = async () => {
-  try {
-    if (!startDate.value || !endDate.value) {
-      throw new Error('請選擇日期範圍')
-    }
-
-    // 這裡實作匯出報表的邏輯
-
-    await Swal.fire({
-      icon: 'success',
-      title: '成功',
-      text: '報表已成功匯出',
-      timer: 1500,
-      showConfirmButton: false
-    })
-  } catch (error) {
-    await Swal.fire({
-      icon: 'error',
-      title: '錯誤',
-      text: (error as Error).message,
-      confirmButtonText: '確定'
-    })
-  }
 }
 
 onMounted(async () => {

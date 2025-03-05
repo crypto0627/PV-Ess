@@ -13,9 +13,9 @@ const data = {
       backgroundColor: ['#2b8a3e', '#495057'],
       borderWidth: 1,
       borderColor: '#ffffff',
-      data: [60, 40]
-    }
-  ]
+      data: [60, 40],
+    },
+  ],
 }
 
 const option = {
@@ -27,23 +27,23 @@ const option = {
       labels: {
         color: '#000000',
         display: true,
-        position: 'top'
-      }
+        position: 'top',
+      },
     },
     centerText: {
       text: '59%',
       color: '#000000',
       font: {
         size: '18',
-        weight: 'bold'
-      }
-    }
+        weight: 'bold',
+      },
+    },
   },
   elements: {
     arc: {
-      borderWidth: 2
-    }
-  }
+      borderWidth: 2,
+    },
+  },
 }
 
 // Custom plugin to draw text in the center
@@ -69,7 +69,7 @@ const centerTextPlugin = {
     ctx.fillStyle = chart.options.plugins.centerText.color
     ctx.fillText(text, textX, textY)
     ctx.restore()
-  }
+  },
 }
 
 ChartJS.register(ArcElement, Tooltip, Legend, centerTextPlugin)

@@ -90,8 +90,8 @@ export default {
         name: '',
         email: '',
         subject: '',
-        message: ''
-      }
+        message: '',
+      },
     }
   },
   methods: {
@@ -105,9 +105,9 @@ export default {
         name: '',
         email: '',
         subject: '',
-        message: ''
+        message: '',
       }
-    }
-  }
+    },
+  },
 }
 </script>

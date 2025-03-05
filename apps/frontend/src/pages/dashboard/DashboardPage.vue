@@ -104,6 +104,6 @@ const stats = [
   { title: 'today_accumulated_income', value: '$62,263' },
   { title: 'this_month_accumulated_income', value: '$2,100,000' },
   { title: 'today_generation_degree', value: '16,384,875' },
-  { title: 'abandon_light', value: 'None' }
+  { title: 'abandon_light', value: 'None' },
 ]
 </script>

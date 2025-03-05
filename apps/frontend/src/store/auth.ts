@@ -4,7 +4,7 @@ import { useAuthApi } from '@/api/authApi'
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
-    isAuthenticated: null as boolean | null
+    isAuthenticated: null as boolean | null,
   }),
   actions: {
     async login(email: string, password: string) {
@@ -39,20 +39,20 @@ export const useAuthStore = defineStore('auth', {
         this.isAuthenticated = false
       }
     },
-    async forgot_password(email: string) {
-      const { forgot_password } = useAuthApi()
-      const res = await forgot_password(email)
+    async forgotPassword(email: string) {
+      const { forgotPassword } = useAuthApi()
+      const res = await forgotPassword(email)
       return res
     },
-    async verify_reset_token(resetToken: string) {
-      const { verify_reset_token } = useAuthApi()
-      const res = await verify_reset_token(resetToken)
+    async verifyResetToken(resetToken: string) {
+      const { verifyResetToken } = useAuthApi()
+      const res = await verifyResetToken(resetToken)
       return res
     },
-    async reset_password(token: string, password: string) {
-      const { reset_password } = useAuthApi()
-      const res = await reset_password(token, password)
+    async resetPassword(token: string, password: string) {
+      const { resetPassword } = useAuthApi()
+      const res = await resetPassword(token, password)
       return res
-    }
-  }
+    },
+  },
 })

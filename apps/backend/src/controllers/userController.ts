@@ -29,7 +29,7 @@ export class UserController {
       const user = await this.userService.updateUser(
         parseInt(req.params.id),
         req.body.username,
-        req.body.email
+        req.body.email,
       )
       res.json(user)
     } catch (error) {

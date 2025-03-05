@@ -6,7 +6,7 @@ import { errorResponse } from '../utils/response'
 export const authMiddleware = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const token = req.cookies?.token // 取得 HTTP-only cookie 的 token
 

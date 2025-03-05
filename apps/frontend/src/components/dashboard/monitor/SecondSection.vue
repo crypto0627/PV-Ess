@@ -2,23 +2,8 @@
 import RightIcon from '@/components/dashboard/monitor/icons/RightIcon.vue'
 import SolarpanelIcon from '@/components/dashboard/monitor/icons/SolarpanelIcon.vue'
 import UpIcon from '@/components/dashboard/monitor/icons/UpIcon.vue'
-import { StatusType, borderColorType } from '@/types'
-import type { ComputedRef, Ref } from 'vue'
-import { computed, ref } from 'vue'
 
 const pvdata = 0
-const oldPvStatus: Ref<StatusType> = ref('normal')
-
-const oldPvStatusClass: ComputedRef<borderColorType> = computed(() => {
-  switch (oldPvStatus.value) {
-    case 'normal':
-      return 'border-success'
-    case 'warning':
-      return 'border-warning'
-    case 'error':
-      return 'border-danger'
-  }
-})
 </script>
 <template>
   <div class="w-full h-full relative">
@@ -56,19 +41,13 @@ const oldPvStatusClass: ComputedRef<borderColorType> = computed(() => {
         </h4>
         <h4 class="text-sm md:text-base">
           {{ $t('main.dashboard.battery_status') }}
-          <span
-            v-if="oldPvStatus === 'error'"
-            class="text-red-500 font-bold text-lg md:text-xl"
-          >
+          <span class="text-red-500 font-bold text-lg md:text-xl">
             {{ $t('main.dashboard.error') }}</span
           >
-          <span
-            v-else-if="oldPvStatus === 'warning'"
-            class="text-yellow-500 font-bold text-lg md:text-xl"
-          >
+          <span class="text-yellow-500 font-bold text-lg md:text-xl">
             {{ $t('main.dashboard.warning') }}</span
           >
-          <span v-else class="text-green-500 font-bold text-lg md:text-xl">
+          <span class="text-green-500 font-bold text-lg md:text-xl">
             {{ $t('main.dashboard.normal') }}</span
           >
         </h4>

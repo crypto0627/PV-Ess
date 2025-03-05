@@ -9,6 +9,6 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.useFlatConfig": true,
   "eslint.options": {
-    "configFile": "packages/eslint-config/vue3-express.js"
+    "overrideConfigFile": "eslint.config.js"
   }
 }

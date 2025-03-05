@@ -50,7 +50,7 @@ const updateTime = () => {
   const now = new Date()
   currentTime.value = now.toLocaleTimeString('zh-TW', {
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 

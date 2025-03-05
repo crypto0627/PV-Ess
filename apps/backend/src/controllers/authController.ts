@@ -19,7 +19,7 @@ export class AuthController {
       const user = await this.authService.register(
         req.body.username,
         req.body.email,
-        req.body.password
+        req.body.password,
       )
       successResponse(res, user)
     } catch (error) {
@@ -31,7 +31,7 @@ export class AuthController {
     try {
       const { token, user } = await this.authService.login(
         req.body.email,
-        req.body.password
+        req.body.password,
       )
 
       // 設置 HttpOnly Cookie
@@ -39,7 +39,7 @@ export class AuthController {
         httpOnly: true, // 防止 XSS 攻擊
         secure: true, // HTTPS 限制
         sameSite: 'strict', // 限制 CSRF 攻擊
-        maxAge: 3600000 // 1 小時
+        maxAge: 3600000, // 1 小時
       })
 
       res.status(200).json({ user })
@@ -70,7 +70,7 @@ export class AuthController {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
-        path: '/'
+        path: '/',
       })
 
       res.status(200).json({ message: 'Logged out successfully' })
@@ -98,7 +98,7 @@ export class AuthController {
       await this.passwordResetService.sendResetEmail(email, resetToken)
 
       successResponse(res, {
-        message: 'Password reset link has been sent to your email.'
+        message: 'Password reset link has been sent to your email.',
       })
     } catch (error) {
       errorResponse(res, (error as Error).message)
@@ -116,7 +116,7 @@ export class AuthController {
 
     try {
       const result = await this.passwordResetService.verifyResetToken(
-        resetToken as string
+        resetToken as string,
       )
       return res.json(result)
     } catch (error) {
@@ -130,7 +130,7 @@ export class AuthController {
     try {
       const user = await this.passwordResetService.resetPassword(
         req.body.token,
-        req.body.password
+        req.body.password,
       )
       successResponse(res, user)
     } catch (error) {
