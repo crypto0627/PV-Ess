@@ -1,3 +1,74 @@
+<script setup lang="ts">
+import { useAuthStore } from '@/store/auth'
+import Swal from 'sweetalert2'
+import { computed, onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
+
+const email = ref('')
+const newPassword = ref('')
+const confirmPassword = ref('')
+const resetToken = ref((route.query.token as string) || '')
+const loading = ref(false)
+
+const showAlert = (title: string, text: string, icon: 'success' | 'error') => {
+  return Swal.fire({
+    title,
+    text,
+    icon,
+    confirmButtonText: 'OK',
+  })
+}
+
+onMounted(async () => {
+  try {
+    const res = await authStore.verifyResetToken(resetToken.value)
+    await showAlert('Success!', res.data.message, 'success')
+  } catch (error) {
+    console.error('Error verifying token:', error)
+    await showAlert(
+      'Error!',
+      'An error occurred while verifying the token.',
+      'error',
+    )
+    await router.push('/forgot-password')
+  }
+})
+
+const hasResetToken = computed(() => !!resetToken.value)
+
+const handleSubmit = async () => {
+  loading.value = true
+
+  try {
+    if (hasResetToken.value) {
+      if (newPassword.value !== confirmPassword.value) {
+        await showAlert('Error!', 'Passwords do not match!', 'error')
+        return
+      }
+
+      const res = await authStore.resetPassword(
+        resetToken.value,
+        newPassword.value,
+      )
+
+      await showAlert('Success!', res.data.message, 'success')
+      await router.push('/login')
+    } else {
+      await router.push('/forgot-password')
+    }
+  } catch (error) {
+    console.error(error)
+    await showAlert('Error!', 'An error occurred. Please try again.', 'error')
+  } finally {
+    loading.value = false
+  }
+}
+</script>
+
 <template>
   <div class="flex h-screen items-center justify-center bg-gray-50">
     <div
@@ -109,74 +180,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useAuthStore } from '@/store/auth'
-import Swal from 'sweetalert2'
-import { computed, onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-
-const route = useRoute()
-const router = useRouter()
-const authStore = useAuthStore()
-
-const email = ref('')
-const newPassword = ref('')
-const confirmPassword = ref('')
-const resetToken = ref((route.query.token as string) || '')
-const loading = ref(false)
-
-const showAlert = (title: string, text: string, icon: 'success' | 'error') => {
-  return Swal.fire({
-    title,
-    text,
-    icon,
-    confirmButtonText: 'OK',
-  })
-}
-
-onMounted(async () => {
-  try {
-    const res = await authStore.verifyResetToken(resetToken.value)
-    await showAlert('Success!', res.data.message, 'success')
-  } catch (error) {
-    console.error('Error verifying token:', error)
-    await showAlert(
-      'Error!',
-      'An error occurred while verifying the token.',
-      'error',
-    )
-    await router.push('/forgot-password')
-  }
-})
-
-const hasResetToken = computed(() => !!resetToken.value)
-
-const handleSubmit = async () => {
-  loading.value = true
-
-  try {
-    if (hasResetToken.value) {
-      if (newPassword.value !== confirmPassword.value) {
-        await showAlert('Error!', 'Passwords do not match!', 'error')
-        return
-      }
-
-      const res = await authStore.resetPassword(
-        resetToken.value,
-        newPassword.value,
-      )
-
-      await showAlert('Success!', res.data.message, 'success')
-      await router.push('/login')
-    } else {
-      await router.push('/forgot-password')
-    }
-  } catch (error) {
-    console.error(error)
-    await showAlert('Error!', 'An error occurred. Please try again.', 'error')
-  } finally {
-    loading.value = false
-  }
-}
-</script>

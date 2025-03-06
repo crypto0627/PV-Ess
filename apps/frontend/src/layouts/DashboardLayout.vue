@@ -1,21 +1,3 @@
-<template>
-  <div class="flex h-screen w-full overflow-hidde">
-    <Sidebar ref="sidebar" @logout="handleLogout" />
-    <div class="flex-1 flex flex-col bg-white overflow-hidden">
-      <DashboardNavbar @toggle-sidebar="toggleSidebar" />
-      <main class="overflow-y-auto p-6 bg-gray-50" @click="closeSidebar">
-        <router-view v-slot="{ Component }">
-          <transition name="fade" mode="out-in">
-            <div :key="$route.name">
-              <component :is="Component || 'div'" />
-            </div>
-          </transition>
-        </router-view>
-      </main>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import DashboardNavbar from '@/components/dashboard/DashboardNavbar.vue'
 import Sidebar from '@/components/dashboard/Sidebar.vue'
@@ -69,6 +51,24 @@ const closeSidebar = () => {
   sidebar.value?.toggleSidebar()
 }
 </script>
+
+<template>
+  <div class="flex h-screen w-full overflow-hidde">
+    <Sidebar ref="sidebar" @logout="handleLogout" />
+    <div class="flex-1 flex flex-col bg-white overflow-hidden">
+      <DashboardNavbar @toggle-sidebar="toggleSidebar" />
+      <main class="overflow-y-auto p-6 bg-gray-50" @click="closeSidebar">
+        <router-view v-slot="{ Component }">
+          <transition name="fade" mode="out-in">
+            <div :key="$route.name">
+              <component :is="Component || 'div'" />
+            </div>
+          </transition>
+        </router-view>
+      </main>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .fade-enter-active,

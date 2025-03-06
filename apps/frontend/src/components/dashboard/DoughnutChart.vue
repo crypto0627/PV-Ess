@@ -1,7 +1,3 @@
-<template>
-  <Doughnut :data="data" :options="option" />
-</template>
-
 <script setup lang="ts">
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
@@ -74,3 +70,7 @@ const centerTextPlugin = {
 
 ChartJS.register(ArcElement, Tooltip, Legend, centerTextPlugin)
 </script>
+
+<template>
+  <Doughnut :data="data" :options="option" />
+</template>

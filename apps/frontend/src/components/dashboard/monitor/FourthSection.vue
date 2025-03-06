@@ -4,14 +4,14 @@ import DownIcon from '@/components/dashboard/monitor/icons/DownIcon.vue'
 import LeftIcon from '@/components/dashboard/monitor/icons/LeftIcon.vue'
 import RightIcon from '@/components/dashboard/monitor/icons/RightIcon.vue'
 import UpIcon from '@/components/dashboard/monitor/icons/UpIcon.vue'
-import { StatusType, borderColorType } from '@/types'
+import { StatusType, BorderColorType } from '@/types'
 import type { ComputedRef, Ref } from 'vue'
 import { computed, ref } from 'vue'
 
 const batteryStatus: Ref<StatusType> = ref('error')
 const esdata = 0
 
-const batteryStatusClass: ComputedRef<borderColorType> = computed(() => {
+const batteryStatusClass: ComputedRef<BorderColorType> = computed(() => {
   switch (batteryStatus.value) {
     case 'normal':
       return 'border-success'
@@ -29,107 +29,129 @@ const batteryStatusClass: ComputedRef<borderColorType> = computed(() => {
     ></div>
     <div
       v-if="esdata < 0"
-      class="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 z-10 absolute left-[1004.5px] top-[1020px] flex justify-around items-start"
+      class="w-6 sm:w-8 md:w-10 lg:w-12 h-6 sm:h-8 md:h-10 lg:h-12 z-10 absolute left-[70%] top-[70%] flex justify-around items-start"
     >
-      <down-icon class="animate-arrow-delay w-full h-full fill-danger" />
+      <DownIcon class="animate-arrow-delay w-full h-full fill-danger" />
     </div>
     <div
       v-if="esdata < 0"
-      class="w-3/4 h-8 sm:h-10 md:h-12 z-10 absolute left-0 top-[1004px] flex justify-around items-center"
+      class="w-3/4 h-6 sm:h-8 md:h-10 lg:h-12 z-10 absolute left-0 top-[70%] flex justify-around items-center"
     >
-      <right-icon class="animate-arrow-slower w-full h-full fill-danger" />
-      <right-icon class="animate-arrow-slower w-full h-full fill-danger" />
-      <right-icon class="animate-arrow-slower w-full h-full fill-danger" />
+      <RightIcon class="animate-arrow-slower w-full h-full fill-danger" />
+      <RightIcon class="animate-arrow-slower w-full h-full fill-danger" />
+      <RightIcon class="animate-arrow-slower w-full h-full fill-danger" />
     </div>
     <div
       v-else-if="esdata > 0"
-      class="w-3/4 h-8 sm:h-10 md:h-12 z-10 absolute left-0 top-[1004px] flex justify-around items-center"
+      class="w-3/4 h-6 sm:h-8 md:h-10 lg:h-12 z-10 absolute left-0 top-[70%] flex justify-around items-center"
     >
-      <left-icon
+      <LeftIcon
         class="animate-arrow-slower-reverse w-full h-full fill-warning"
       />
-      <left-icon
+      <LeftIcon
         class="animate-arrow-slower-reverse w-full h-full fill-warning"
       />
-      <left-icon
+      <LeftIcon
         class="animate-arrow-slower-reverse w-full h-full fill-warning"
       />
     </div>
     <div
       v-if="esdata > 0"
-      class="w-8 sm:w-10 md:w-12 h-24 sm:h-28 md:h-32 z-10 absolute left-[69.5%] top-0 flex flex-col justify-around items-center"
+      class="w-6 sm:w-8 md:w-10 lg:w-12 h-20 sm:h-24 md:h-28 lg:h-32 z-10 absolute left-[69.5%] top-0 flex flex-col justify-around items-center"
     >
-      <up-icon
+      <UpIcon
         class="animate-arrow-slower-reverse w-[70%] h-full fill-warning"
       />
-      <up-icon
+      <UpIcon
         class="animate-arrow-slower-reverse w-[70%] h-full fill-warning"
       />
     </div>
     <div
       v-else-if="esdata < 0"
-      class="w-8 sm:w-10 md:w-12 h-24 sm:h-28 md:h-32 z-10 absolute left-[69.5%] top-0 flex flex-col justify-around items-center"
+      class="w-6 sm:w-8 md:w-10 lg:w-12 h-20 sm:h-24 md:h-28 lg:h-32 z-10 absolute left-[69.5%] top-0 flex flex-col justify-around items-center"
     >
-      <down-icon class="animate-arrow-slower w-[70%] h-full fill-danger" />
-      <down-icon class="animate-arrow-slower w-[70%] h-full fill-danger" />
+      <DownIcon class="animate-arrow-slower w-[70%] h-full fill-danger" />
+      <DownIcon class="animate-arrow-slower w-[70%] h-full fill-danger" />
     </div>
     <div class="flex flex-col items-end justify-end w-full h-full">
       <div
-        class="w-[10%] sm:w-[15%] md:w-[20%] aspect-square p-2 rounded border-dashed border-4"
+        class="w-[10%] sm:w-[15%] md:w-[20%] aspect-square p-1 sm:p-1.5 md:p-2 rounded border-dashed border-2 sm:border-3 md:border-4"
         :class="batteryStatusClass"
       >
-        <battery-icon class="w-full h-full fill-whiteblack" />
+        <BatteryIcon class="w-full h-full fill-whiteblack" />
       </div>
-      <div class="p-3 rounded border-2 border-info mt-2">
-        <h3 class="font-bold">
+      <div
+        class="p-2 sm:p-2.5 md:p-3 rounded border-2 border-info mt-1 sm:mt-1.5 md:mt-2"
+      >
+        <h3 class="text-xs sm:text-sm md:text-base font-bold">
           {{ $t('main.dashboard.energy_storage_system') }}
         </h3>
-        <h4 v-if="esdata < 0">
+        <h4 v-if="esdata < 0" class="text-xs sm:text-sm md:text-base">
           {{ $t('main.dashboard.today_charging_amount') }} 1000 kW
         </h4>
-        <h4 v-else>{{ $t('main.dashboard.discharge_amount') }} 1000 kW</h4>
-        <h4>
+        <h4 v-else class="text-xs sm:text-sm md:text-base">
+          {{ $t('main.dashboard.discharge_amount') }} 1000 kW
+        </h4>
+        <h4 class="text-xs sm:text-sm md:text-base">
           {{ $t('main.dashboard.battery_status') }}
           <span
             v-if="batteryStatus === 'error'"
-            class="text-red-500 font-bold text-xl"
+            class="text-red-500 font-bold text-sm sm:text-base md:text-xl"
           >
             {{ $t('main.dashboard.error') }}</span
           >
           <span
             v-else-if="batteryStatus === 'warning'"
-            class="text-yellow-500 font-bold text-xl"
+            class="text-yellow-500 font-bold text-sm sm:text-base md:text-xl"
           >
             {{ $t('main.dashboard.warning') }}</span
           >
-          <span v-else class="text-green-500 font-bold text-xl">正常</span>
+          <span
+            v-else
+            class="text-green-500 font-bold text-sm sm:text-base md:text-xl"
+            >正常</span
+          >
         </h4>
       </div>
     </div>
     <div
       class="absolute z-20 -top-[2%] right-[40%] flex flex-col items-start justify-start"
     >
-      <div class="rounded-full p-1 border-dashed border-4 sm:border-5"></div>
-      <div class="p-3 rounded border-2 border-info mt-5 sm:mt-4 xl:mt-2">
-        <h3 class="font-bold">{{ $t('main.dashboard.point_b') }}</h3>
-        <h4 v-if="esdata < 0">
+      <div
+        class="rounded-full p-0.5 sm:p-0.75 md:p-1 border-dashed border-2 sm:border-3 md:border-4"
+      ></div>
+      <div
+        class="p-2 sm:p-2.5 md:p-3 rounded border-2 border-info mt-1 sm:mt-1.5 md:mt-2"
+      >
+        <h3 class="text-xs sm:text-sm md:text-base font-bold">
+          {{ $t('main.dashboard.point_b') }}
+        </h3>
+        <h4 v-if="esdata < 0" class="text-xs sm:text-sm md:text-base">
           {{ $t('main.dashboard.today_charging_amount') }} 1000 kW
         </h4>
-        <h4 v-else>{{ $t('main.dashboard.discharge_amount') }} 1000 kW</h4>
+        <h4 v-else class="text-xs sm:text-sm md:text-base">
+          {{ $t('main.dashboard.discharge_amount') }} 1000 kW
+        </h4>
       </div>
     </div>
     <div
-      class="absolute opacity-100 sm:opacity-0 z-20 w-3/4 h-1/2 top-[1033px] left-[1004.5px] flex flex-col items-end justify-start"
+      class="absolute opacity-100 sm:opacity-0 z-20 w-3/4 h-1/2 top-[70%] left-[70%] flex flex-col items-end justify-start"
     >
-      <div class="p-3 rounded border-2 border-info mt-5 sm:mt-4 xl:mt-2">
-        <h3 class="font-bold">{{ $t('main.dashboard.point_b') }}</h3>
-        <h4 v-if="esdata < 0">
+      <div
+        class="p-2 sm:p-2.5 md:p-3 rounded border-2 border-info mt-1 sm:mt-1.5 md:mt-2"
+      >
+        <h3 class="text-xs sm:text-sm md:text-base font-bold">
+          {{ $t('main.dashboard.point_b') }}
+        </h3>
+        <h4 v-if="esdata < 0" class="text-xs sm:text-sm md:text-base">
           {{ $t('main.dashboard.today_charging_amount') }} 1000 kW
         </h4>
-        <h4 v-else>{{ $t('main.dashboard.discharge_amount') }} 1000 kW</h4>
+        <h4 v-else class="text-xs sm:text-sm md:text-base">
+          {{ $t('main.dashboard.discharge_amount') }} 1000 kW
+        </h4>
       </div>
       <div
-        class="rounded-[5px] p-1 w-[2.5rem] sm:w-[3rem] md:w-[3.5rem] h-[2.5rem] sm:h-[3rem] md:h-60 border-dashed border-4 sm:border-5"
+        class="rounded-[5px] p-0.5 sm:p-0.75 md:p-1 w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 border-dashed border-2 sm:border-3 md:border-4"
       ></div>
     </div>
   </div>

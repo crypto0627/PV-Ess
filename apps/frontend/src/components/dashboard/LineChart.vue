@@ -1,7 +1,3 @@
-<template>
-  <Line :data="data" :options="option" />
-</template>
-
 <script setup lang="ts">
 import {
   CategoryScale,
@@ -214,3 +210,7 @@ const option = {
   },
 }
 </script>
+
+<template>
+  <Line :data="data" :options="option" />
+</template>

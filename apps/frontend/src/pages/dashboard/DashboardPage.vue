@@ -1,3 +1,17 @@
+<script setup>
+import BarChart from '@/components/dashboard/BarChart.vue'
+import DoughnutChart from '@/components/dashboard/DoughnutChart.vue'
+import LineChart from '@/components/dashboard/LineChart.vue'
+import TheSystem from '@/components/dashboard/monitor/TheSystem.vue'
+
+const stats = [
+  { title: 'today_accumulated_income', value: '$62,263' },
+  { title: 'this_month_accumulated_income', value: '$2,100,000' },
+  { title: 'today_generation_degree', value: '16,384,875' },
+  { title: 'abandon_light', value: 'None' },
+]
+</script>
+
 <template>
   <div class="flex flex-col gap-4">
     <!-- Stats Cards -->
@@ -15,10 +29,10 @@
     </div>
 
     <!-- Main Content -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <!-- 系統監控區域 -->
       <div
-        class="lg:col-span-2 bg-gray-900/30 backdrop-blur-[30px] rounded-2xl p-4"
+        class="lg:col-span-1 bg-gray-900/30 backdrop-blur-[30px] rounded-2xl p-4"
       >
         <h1 class="text-base mb-2">
           {{ $t('main.dashboard.real_time_monitoring') }}
@@ -28,7 +42,7 @@
 
       <!-- 右側圓餅圖 -->
       <div
-        class="bg-white/10 backdrop-blur-[30px] rounded-2xl p-3 border border-white/10"
+        class="lg:col-span-1 bg-white/10 backdrop-blur-[30px] rounded-2xl p-3 border border-white/10"
       >
         <h1 class="text-base mb-2">
           {{ $t('main.dashboard.total_energy') }}: 11.5MWh
@@ -65,7 +79,7 @@
 
       <!-- 長條圖 -->
       <div
-        class="bg-white/10 backdrop-blur-[30px] rounded-2xl p-3 border border-white/10"
+        class="lg:col-span-1 bg-white/10 backdrop-blur-[30px] rounded-2xl p-3 border border-white/10"
       >
         <h1 class="text-base mb-2">
           {{ $t('main.dashboard.individual_battery_cabinet_amount') }}
@@ -79,7 +93,7 @@
 
       <!-- 折線圖 -->
       <div
-        class="lg:col-span-2 bg-white/10 backdrop-blur-[30px] rounded-2xl p-3 border border-white/10"
+        class="lg:col-span-1 bg-white/10 backdrop-blur-[30px] rounded-2xl p-3 border border-white/10"
       >
         <h1 class="text-base mb-2">
           {{ $t('main.dashboard.factory_generation_amount') }}
@@ -93,17 +107,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import BarChart from '@/components/dashboard/BarChart.vue'
-import DoughnutChart from '@/components/dashboard/DoughnutChart.vue'
-import LineChart from '@/components/dashboard/LineChart.vue'
-import TheSystem from '@/components/dashboard/monitor/TheSystem.vue'
-
-const stats = [
-  { title: 'today_accumulated_income', value: '$62,263' },
-  { title: 'this_month_accumulated_income', value: '$2,100,000' },
-  { title: 'today_generation_degree', value: '16,384,875' },
-  { title: 'abandon_light', value: 'None' },
-]
-</script>

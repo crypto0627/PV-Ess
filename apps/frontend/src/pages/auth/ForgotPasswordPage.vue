@@ -1,3 +1,42 @@
+<script setup>
+import { useAuthStore } from '@/store/auth'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const email = ref('')
+const isLoading = ref(false)
+const successMessage = ref('')
+const errorMessage = ref('')
+const router = useRouter()
+const authStore = useAuthStore()
+
+const handleSubmit = async () => {
+  isLoading.value = true
+  successMessage.value = ''
+  errorMessage.value = ''
+
+  try {
+    const res = await authStore.forgot_password(email.value)
+
+    if (res.data?.success) {
+      successMessage.value =
+        'Password reset link sent successfully! Please check your email.'
+      setTimeout(async () => {
+        await router.push('/reset-password')
+      }, 2000)
+    } else {
+      errorMessage.value = 'Failed to send reset link. Please try again.'
+    }
+  } catch (error) {
+    errorMessage.value =
+      error.response?.data?.message ||
+      'An error occurred. Please try again later.'
+  } finally {
+    isLoading.value = false
+  }
+}
+</script>
+
 <template>
   <div class="flex h-screen items-center justify-center bg-gray-50">
     <div
@@ -86,42 +125,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { useAuthStore } from '@/store/auth'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const email = ref('')
-const isLoading = ref(false)
-const successMessage = ref('')
-const errorMessage = ref('')
-const router = useRouter()
-const authStore = useAuthStore()
-
-const handleSubmit = async () => {
-  isLoading.value = true
-  successMessage.value = ''
-  errorMessage.value = ''
-
-  try {
-    const res = await authStore.forgot_password(email.value)
-
-    if (res.data?.success) {
-      successMessage.value =
-        'Password reset link sent successfully! Please check your email.'
-      setTimeout(async () => {
-        await router.push('/reset-password')
-      }, 2000)
-    } else {
-      errorMessage.value = 'Failed to send reset link. Please try again.'
-    }
-  } catch (error) {
-    errorMessage.value =
-      error.response?.data?.message ||
-      'An error occurred. Please try again later.'
-  } finally {
-    isLoading.value = false
-  }
-}
-</script>

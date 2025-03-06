@@ -1,3 +1,66 @@
+<script setup async>
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
+import { useAuthStore } from '@/store/auth'
+import Swal from 'sweetalert2'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const username = ref('')
+const email = ref('')
+const password = ref('')
+const confirmPassword = ref('')
+const agreeTerms = ref(false)
+const isLoading = ref(false)
+const router = useRouter()
+const authStore = useAuthStore()
+
+const handleSubmit = async () => {
+  // Ensure passwords match
+  if (password.value !== confirmPassword.value) {
+    await Swal.fire({
+      icon: 'warning',
+      title: 'Password Mismatch',
+      text: 'Passwords do not match.',
+      confirmButtonText: 'OK',
+    })
+    return
+  }
+
+  isLoading.value = true
+  try {
+    // Call API to register
+    const res = await authStore.register(
+      username.value,
+      email.value,
+      password.value,
+    )
+
+    // Ensure API responds with a message
+    if (res?.data?.message) {
+      await Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: res.data.message,
+        timer: 1500,
+        showConfirmButton: false,
+      })
+      await router.push('/login')
+    }
+  } catch (error) {
+    // Safely parse error message
+    const errorMessage = error.response?.data?.message || 'Something went wrong'
+    await Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: errorMessage,
+      confirmButtonText: 'OK',
+    })
+  } finally {
+    isLoading.value = false
+  }
+}
+</script>
+
 <template>
   <div
     class="flex h-screen items-center justify-center bg-gray-50 overflow-hidden"
@@ -110,69 +173,6 @@
     </div>
   </div>
 </template>
-
-<script setup async>
-import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
-import { useAuthStore } from '@/store/auth'
-import Swal from 'sweetalert2'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const username = ref('')
-const email = ref('')
-const password = ref('')
-const confirmPassword = ref('')
-const agreeTerms = ref(false)
-const isLoading = ref(false)
-const router = useRouter()
-const authStore = useAuthStore()
-
-const handleSubmit = async () => {
-  // Ensure passwords match
-  if (password.value !== confirmPassword.value) {
-    await Swal.fire({
-      icon: 'warning',
-      title: 'Password Mismatch',
-      text: 'Passwords do not match.',
-      confirmButtonText: 'OK',
-    })
-    return
-  }
-
-  isLoading.value = true
-  try {
-    // Call API to register
-    const res = await authStore.register(
-      username.value,
-      email.value,
-      password.value,
-    )
-
-    // Ensure API responds with a message
-    if (res?.data?.message) {
-      await Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: res.data.message,
-        timer: 1500,
-        showConfirmButton: false,
-      })
-      await router.push('/login')
-    }
-  } catch (error) {
-    // Safely parse error message
-    const errorMessage = error.response?.data?.message || 'Something went wrong'
-    await Swal.fire({
-      icon: 'error',
-      title: 'Error!',
-      text: errorMessage,
-      confirmButtonText: 'OK',
-    })
-  } finally {
-    isLoading.value = false
-  }
-}
-</script>
 
 <style scoped>
 .textbox-label,

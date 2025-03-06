@@ -1,26 +1,114 @@
+<script setup lang="ts">
+import { useAuthStore } from '@/store/auth'
+import Swal from 'sweetalert2'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const email = ref('')
+const password = ref('')
+const staySignedIn = ref(false)
+const errorMessage = ref('')
+const isLoading = ref(false)
+const isNavigating = ref(false)
+const cooldown = ref(0)
+const showPassword = ref(false)
+const router = useRouter()
+const authStore = useAuthStore()
+
+const startCooldown = (seconds: number) => {
+  cooldown.value = seconds
+  localStorage.setItem(
+    'loginCooldown',
+    JSON.stringify({
+      expiry: Date.now() + seconds * 1000,
+    }),
+  )
+
+  const interval = setInterval(() => {
+    cooldown.value -= 1
+    if (cooldown.value <= 0) {
+      clearInterval(interval)
+      localStorage.removeItem('loginCooldown')
+    }
+  }, 1000)
+}
+
+const handleSubmit = async () => {
+  if (isLoading.value || cooldown.value > 0) return
+
+  isLoading.value = true
+  errorMessage.value = ''
+
+  try {
+    const res = await authStore.login(email.value, password.value)
+
+    await Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: res.data.message,
+      timer: 1500,
+      showConfirmButton: false,
+    })
+
+    isNavigating.value = true
+    await router.push('/home')
+  } catch (error: any) {
+    if (error.response && error.response.status === 429) {
+      const retryAfter = error.response.data.retryAfter || 30
+      errorMessage.value = `Too many requests. Please wait ${retryAfter} seconds.`
+      startCooldown(retryAfter)
+    } else {
+      errorMessage.value = 'Login failed. Please check your credentials.'
+    }
+
+    await Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: error.response.data.message,
+      confirmButtonText: 'OK',
+    })
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const checkStoredCooldown = () => {
+  const storedCooldown = localStorage.getItem('loginCooldown')
+  if (storedCooldown) {
+    const cooldownData = JSON.parse(storedCooldown)
+    const now = Date.now()
+    const timeLeft = Math.ceil((cooldownData.expiry - now) / 1000)
+
+    if (timeLeft > 0) {
+      startCooldown(timeLeft)
+    } else {
+      localStorage.removeItem('loginCooldown')
+    }
+  }
+}
+
+onMounted(() => {
+  checkStoredCooldown()
+})
+</script>
+
 <template>
   <form class="w-full max-w-md" @submit.prevent="handleSubmit">
-    <div class="mb-6">
-      <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-        {{ $t('auth.email') }}
-      </label>
+    <div class="relative mb-6">
       <input
         id="email"
         v-model="email"
         type="email"
         required
         autocomplete="user-email"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+        class="textbox-input"
       />
+      <label for="email" class="textbox-label">
+        {{ $t('auth.email') }}
+      </label>
     </div>
 
-    <div class="mb-4">
-      <label
-        for="password"
-        class="block text-sm font-medium text-gray-700 mb-1"
-      >
-        {{ $t('auth.password') }}
-      </label>
+    <div class="relative mb-4">
       <div class="relative">
         <input
           id="password"
@@ -28,8 +116,11 @@
           :type="showPassword ? 'text' : 'password'"
           required
           autocomplete="current-password"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+          class="textbox-input"
         />
+        <label for="password" class="textbox-label">
+          {{ $t('auth.password') }}
+        </label>
         <button
           type="button"
           class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
@@ -165,96 +256,40 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { useAuthStore } from '@/store/auth'
-import Swal from 'sweetalert2'
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const email = ref('')
-const password = ref('')
-const staySignedIn = ref(false)
-const errorMessage = ref('')
-const isLoading = ref(false)
-const isNavigating = ref(false)
-const cooldown = ref(0)
-const showPassword = ref(false)
-const router = useRouter()
-const authStore = useAuthStore()
-
-const startCooldown = (seconds: number) => {
-  cooldown.value = seconds
-  localStorage.setItem(
-    'loginCooldown',
-    JSON.stringify({
-      expiry: Date.now() + seconds * 1000,
-    }),
-  )
-
-  const interval = setInterval(() => {
-    cooldown.value -= 1
-    if (cooldown.value <= 0) {
-      clearInterval(interval)
-      localStorage.removeItem('loginCooldown')
-    }
-  }, 1000)
+<style scoped>
+.textbox-label,
+.textbox-input {
+  transition: 0.3s;
 }
 
-const handleSubmit = async () => {
-  if (isLoading.value || cooldown.value > 0) return
-
-  isLoading.value = true
-  errorMessage.value = ''
-
-  try {
-    const res = await authStore.login(email.value, password.value)
-
-    await Swal.fire({
-      icon: 'success',
-      title: 'Success!',
-      text: res.data.message,
-      timer: 1500,
-      showConfirmButton: false,
-    })
-
-    isNavigating.value = true
-    await router.push('/home')
-  } catch (error: any) {
-    if (error.response && error.response.status === 429) {
-      const retryAfter = error.response.data.retryAfter || 30
-      errorMessage.value = `Too many requests. Please wait ${retryAfter} seconds.`
-      startCooldown(retryAfter)
-    } else {
-      errorMessage.value = 'Login failed. Please check your credentials.'
-    }
-
-    await Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: error.response.data.message,
-      confirmButtonText: 'OK',
-    })
-  } finally {
-    isLoading.value = false
-  }
+.textbox-label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translate(0, -50%);
+  transform-origin: 0 50%;
+  pointer-events: none;
+  color: #ada5b4;
+  font-size: 14px;
 }
 
-const checkStoredCooldown = () => {
-  const storedCooldown = localStorage.getItem('loginCooldown')
-  if (storedCooldown) {
-    const cooldownData = JSON.parse(storedCooldown)
-    const now = Date.now()
-    const timeLeft = Math.ceil((cooldownData.expiry - now) / 1000)
-
-    if (timeLeft > 0) {
-      startCooldown(timeLeft)
-    } else {
-      localStorage.removeItem('loginCooldown')
-    }
-  }
+.textbox-input {
+  width: 100%;
+  padding: 10px 12px 0;
+  background: #f4f1f7;
+  outline: none;
+  color: #2e2c2f;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px transparent;
 }
 
-onMounted(() => {
-  checkStoredCooldown()
-})
-</script>
+.textbox-input:focus {
+  box-shadow: 0 0 0 2px #7b00f1;
+}
+
+.textbox-input:is(:focus, :not(:invalid)) ~ .textbox-label {
+  scale: 0.725;
+  transform: translate(0, -112%);
+}
+</style>

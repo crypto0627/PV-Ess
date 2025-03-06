@@ -1,9 +1,3 @@
-<template>
-  <div class="w-full h-96">
-    <Bar :data="chartData" :options="chartOptions" />
-  </div>
-</template>
-
 <script setup lang="ts">
 import {
   BarElement,
@@ -29,16 +23,12 @@ const props = defineProps<{
 const getLabels = () => {
   switch (props.reportType) {
     case 'monthly':
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       return Array.from({ length: 30 }, (_, i) => (i + 1).toString())
     case 'quarterly':
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       return Array.from({ length: 4 }, (_, i) => (i + 1).toString())
     case 'yearly':
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       return Array.from({ length: 12 }, (_, i) => (i + 1).toString())
     default:
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       return Array.from({ length: 30 }, (_, i) => (i + 1).toString())
   }
 }
@@ -103,3 +93,9 @@ watch(
   },
 )
 </script>
+
+<template>
+  <div class="w-full h-96">
+    <Bar :data="chartData" :options="chartOptions" />
+  </div>
+</template>

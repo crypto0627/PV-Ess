@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import BarChart from './BarChart.vue'
+
+defineProps<{ reportType: 'monthly' | 'quarterly' | 'yearly' }>()
+</script>
+
 <template>
   <BarChart
     title="Average Execution Rate (%)"
@@ -6,9 +12,3 @@
     :reportType="reportType"
   />
 </template>
-
-<script setup lang="ts">
-import BarChart from './BarChart.vue'
-
-defineProps<{ reportType: 'monthly' | 'quarterly' | 'yearly' }>()
-</script>

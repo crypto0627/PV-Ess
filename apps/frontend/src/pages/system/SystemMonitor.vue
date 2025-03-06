@@ -1,5 +1,48 @@
+<script setup>
+import { computed, ref } from 'vue'
+
+const currentSelection = ref('meter') // 初始選擇為 Meter
+const isFullscreen = ref(false) // 全螢幕狀態
+
+// 切換選擇
+const selectMeter = () => {
+  currentSelection.value = 'meter'
+}
+
+const selectPCS = () => {
+  currentSelection.value = 'pcs'
+}
+
+const selectBattery = () => {
+  currentSelection.value = 'battery'
+}
+
+// 計算當前應顯示的圖片
+const currentImage = computed(() => {
+  if (currentSelection.value === 'meter') {
+    return '/meterImage.png'
+  } else if (currentSelection.value === 'pcs') {
+    return '/pcsStart.png'
+  } else if (currentSelection.value === 'battery') {
+    return '/bmsStart.png'
+  } else {
+    return '/bmsStop.png'
+  }
+})
+
+// 開啟全螢幕
+const openFullscreen = () => {
+  isFullscreen.value = true
+}
+
+// 關閉全螢幕
+const closeFullscreen = () => {
+  isFullscreen.value = false
+}
+</script>
+
 <template>
-  <div class="flex flex-col h-full">
+  <div class="relative flex flex-col h-full">
     <!-- 開關按鈕 -->
     <div class="flex flex-col sm:flex-row mx-auto justify-center gap-4 mb-4">
       <!-- Meter 按鈕 -->
@@ -58,81 +101,39 @@
         </transition>
       </div>
     </div>
-  </div>
 
-  <div
-    v-if="isFullscreen"
-    class="fixed top-20 bottom-20 right-20 left-20 rounded-2xl inset-0 bg-white bg-opacity-75 flex justify-center items-center z-50"
-  >
-    <button
-      class="absolute top-4 right-4 text-gray-700 hover:bg-white/10 hover:scale-110 hover:transition-all hover:duration-300"
-      @click="closeFullscreen"
+    <!-- 全螢幕顯示 -->
+    <div
+      v-if="isFullscreen"
+      class="fixed top-20 bottom-20 right-20 left-20 rounded-2xl inset-0 bg-white bg-opacity-75 flex justify-center items-center z-50"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
+      <button
+        class="absolute top-4 right-4 text-gray-700 hover:bg-white/10 hover:scale-110 hover:transition-all hover:duration-300"
+        @click="closeFullscreen"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M6 18L18 6M6 6l12 12"
-        />
-      </svg>
-    </button>
-    <img
-      :src="currentImage"
-      alt="Fullscreen Image"
-      class="max-w-full max-h-full object-contain"
-    />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+      <img
+        :src="currentImage"
+        alt="Fullscreen Image"
+        class="max-w-full max-h-full object-contain"
+      />
+    </div>
   </div>
 </template>
-
-<script setup>
-import { computed, ref } from 'vue'
-
-const currentSelection = ref('meter') // 初始選擇為 Meter
-const isFullscreen = ref(false) // 全螢幕狀態
-
-// 切換選擇
-const selectMeter = () => {
-  currentSelection.value = 'meter'
-}
-
-const selectPCS = () => {
-  currentSelection.value = 'pcs'
-}
-
-const selectBattery = () => {
-  currentSelection.value = 'battery'
-}
-
-// 計算當前應顯示的圖片
-const currentImage = computed(() => {
-  if (currentSelection.value === 'meter') {
-    return '/meterImage.png'
-  } else if (currentSelection.value === 'pcs') {
-    return '/pcsStart.png'
-  } else if (currentSelection.value === 'battery') {
-    return '/bmsStart.png'
-  } else {
-    return '/bmsStop.png'
-  }
-})
-
-// 開啟全螢幕
-const openFullscreen = () => {
-  isFullscreen.value = true
-}
-
-// 關閉全螢幕
-const closeFullscreen = () => {
-  isFullscreen.value = false
-}
-</script>
 
 <style>
 /* Vue 內建的 Transition 樣式 */

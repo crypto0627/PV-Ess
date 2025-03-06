@@ -1,3 +1,33 @@
+<script>
+export default {
+  data() {
+    return {
+      formData: {
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      },
+    }
+  },
+  methods: {
+    submitForm() {
+      console.log('表單已提交：', this.formData)
+      alert('感謝您的訊息，我們會盡快與您聯繫！')
+      this.resetForm()
+    },
+    resetForm() {
+      this.formData = {
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      }
+    },
+  },
+}
+</script>
+
 <template>
   <div class="max-w-2xl mx-auto p-6 space-y-8">
     <h1 class="text-3xl font-bold text-gray-800 mb-6">聯絡我們</h1>
@@ -81,33 +111,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      formData: {
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      },
-    }
-  },
-  methods: {
-    submitForm() {
-      console.log('表單已提交：', this.formData)
-      alert('感謝您的訊息，我們會盡快與您聯繫！')
-      this.resetForm()
-    },
-    resetForm() {
-      this.formData = {
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      }
-    },
-  },
-}
-</script>

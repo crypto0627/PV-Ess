@@ -1,3 +1,41 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 使用 ref 來儲存選擇的日期
+const selectedDate = ref<string>('')
+
+// 處理日期變更事件
+const handleDateChange = () => {
+  console.log('選擇的日期:', selectedDate.value)
+  // 這裡可以加入其他處理邏輯，例如更新圖表數據等
+}
+
+// 儲存排程功能
+const saveSchedule = () => {
+  if (!selectedDate.value) {
+    alert('請先選擇日期')
+    return
+  }
+  console.log('儲存排程，日期為:', selectedDate.value)
+  // 這裡可以加入儲存排程的API呼叫或其他邏輯
+}
+
+const times: string[] = []
+for (let hour = 0; hour < 24; hour += 1) {
+  for (let minute = 0; minute < 60; minute += 15) {
+    const endMinute =
+      minute + 15 >= 60 ? '00' : String(minute + 15).padStart(2, '0')
+    const endHour =
+      minute + 15 >= 60
+        ? String(hour + 1).padStart(2, '0')
+        : String(hour).padStart(2, '0')
+    times.push(
+      `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} -> ${endHour}:${endMinute}`,
+    )
+  }
+}
+</script>
+
 <template>
   <div class="flex-1 p-4">
     <div
@@ -74,41 +112,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-// 使用 ref 來儲存選擇的日期
-const selectedDate = ref<string>('')
-
-// 處理日期變更事件
-const handleDateChange = () => {
-  console.log('選擇的日期:', selectedDate.value)
-  // 這裡可以加入其他處理邏輯，例如更新圖表數據等
-}
-
-// 儲存排程功能
-const saveSchedule = () => {
-  if (!selectedDate.value) {
-    alert('請先選擇日期')
-    return
-  }
-  console.log('儲存排程，日期為:', selectedDate.value)
-  // 這裡可以加入儲存排程的API呼叫或其他邏輯
-}
-
-const times: string[] = []
-for (let hour = 0; hour < 24; hour += 1) {
-  for (let minute = 0; minute < 60; minute += 15) {
-    const endMinute =
-      minute + 15 >= 60 ? '00' : String(minute + 15).padStart(2, '0')
-    const endHour =
-      minute + 15 >= 60
-        ? String(hour + 1).padStart(2, '0')
-        : String(hour).padStart(2, '0')
-    times.push(
-      `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} -> ${endHour}:${endMinute}`,
-    )
-  }
-}
-</script>

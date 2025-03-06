@@ -1,15 +1,3 @@
-<template>
-  <div class="w-full h-96">
-    <Chart
-      v-if="isChartReady"
-      type="bar"
-      :data="chartData"
-      :options="chartOptions"
-      class="w-full h-full"
-    />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { chartData, chartOptions } from '@/utils/BarScheduleChart'
 import {
@@ -53,3 +41,15 @@ watchEffect(() => {
   }, 100)
 })
 </script>
+
+<template>
+  <div class="w-full h-96">
+    <Chart
+      v-if="isChartReady"
+      type="bar"
+      :data="chartData"
+      :options="chartOptions"
+      class="w-full h-full"
+    />
+  </div>
+</template>

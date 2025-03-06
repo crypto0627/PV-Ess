@@ -1,3 +1,72 @@
+<script setup lang="ts">
+import ReportAuxChart from '@/components/report/chart/ReportAuxChart.vue'
+import ReportAverageBarChart from '@/components/report/chart/ReportAverageBarChart.vue'
+import ReportHighInputChart from '@/components/report/chart/ReportHighInputChart.vue'
+import ReportHighOutputChart from '@/components/report/chart/ReportHighOutputChart.vue'
+import ReportHighPowerChart from '@/components/report/chart/ReportHighPowerChart.vue'
+import { computed, ref } from 'vue'
+
+// 當前選擇的月份
+const selectedMonth = ref(new Date().toISOString().slice(0, 7))
+
+// 當前選擇的報表類型
+const reportType = ref<'monthly' | 'quarterly' | 'yearly'>('monthly')
+
+// 可用的圖表組件
+const chartComponents = {
+  ReportAverageBarChart,
+  ReportAuxChart,
+  ReportHighOutputChart,
+  ReportHighInputChart,
+  ReportHighPowerChart,
+}
+
+// 圖表標題對應表
+const chartTitles = {
+  ReportAverageBarChart: 'Average Execution Rate (%)',
+  ReportAuxChart: 'Auxiliary Power Consumption (kWh)',
+  ReportHighOutputChart: 'High Voltage Side Output Power (kWh)',
+  ReportHighInputChart: 'High Voltage Side Input Power (kWh)',
+  ReportHighPowerChart: 'High Voltage Side Power Loss (kWh)',
+}
+
+// 當前選擇的圖表，預設第一個
+const selectedChart = ref<keyof typeof chartComponents>(
+  Object.keys(chartComponents)[0] as keyof typeof chartComponents,
+)
+
+// 控制選單開關
+const isMenuOpen = ref(false)
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
+// 處理圖表選擇
+const handleSelectedChart = (key: keyof typeof chartComponents) => {
+  selectedChart.value = key
+  isMenuOpen.value = false
+}
+
+// 計算表格數據
+const tableData = computed(() => {
+  const data = []
+  if (reportType.value === 'monthly') {
+    for (let day = 1; day <= 30; day += 1) {
+      data.push({ date: `Day ${day}`, value: 'Sample Data' })
+    }
+  } else if (reportType.value === 'quarterly') {
+    for (let month = 1; month <= 4; month += 1) {
+      data.push({ date: `Q${month}`, value: 'Sample Data' })
+    }
+  } else {
+    for (let month = 1; month <= 12; month += 1) {
+      data.push({ date: `Month ${month}`, value: 'Sample Data' })
+    }
+  }
+  return data
+})
+</script>
+
 <template>
   <div class="flex flex-col h-full gap-6 p-6 bg-white">
     <!-- 控制區 -->
@@ -105,72 +174,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import ReportAuxChart from '@/components/report/chart/ReportAuxChart.vue'
-import ReportAverageBarChart from '@/components/report/chart/ReportAverageBarChart.vue'
-import ReportHighInputChart from '@/components/report/chart/ReportHighInputChart.vue'
-import ReportHighOutputChart from '@/components/report/chart/ReportHighOutputChart.vue'
-import ReportHighPowerChart from '@/components/report/chart/ReportHighPowerChart.vue'
-import { computed, ref } from 'vue'
-
-// 當前選擇的月份
-const selectedMonth = ref(new Date().toISOString().slice(0, 7))
-
-// 當前選擇的報表類型
-const reportType = ref<'monthly' | 'quarterly' | 'yearly'>('monthly')
-
-// 可用的圖表組件
-const chartComponents = {
-  ReportAverageBarChart,
-  ReportAuxChart,
-  ReportHighOutputChart,
-  ReportHighInputChart,
-  ReportHighPowerChart,
-}
-
-// 圖表標題對應表
-const chartTitles = {
-  ReportAverageBarChart: 'Average Execution Rate (%)',
-  ReportAuxChart: 'Auxiliary Power Consumption (kWh)',
-  ReportHighOutputChart: 'High Voltage Side Output Power (kWh)',
-  ReportHighInputChart: 'High Voltage Side Input Power (kWh)',
-  ReportHighPowerChart: 'High Voltage Side Power Loss (kWh)',
-}
-
-// 當前選擇的圖表，預設第一個
-const selectedChart = ref<keyof typeof chartComponents>(
-  Object.keys(chartComponents)[0] as keyof typeof chartComponents,
-)
-
-// 控制選單開關
-const isMenuOpen = ref(false)
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-}
-
-// 處理圖表選擇
-const handleSelectedChart = (key: keyof typeof chartComponents) => {
-  selectedChart.value = key
-  isMenuOpen.value = false
-}
-
-// 計算表格數據
-const tableData = computed(() => {
-  const data = []
-  if (reportType.value === 'monthly') {
-    for (let day = 1; day <= 30; day += 1) {
-      data.push({ date: `Day ${day}`, value: 'Sample Data' })
-    }
-  } else if (reportType.value === 'quarterly') {
-    for (let month = 1; month <= 4; month += 1) {
-      data.push({ date: `Q${month}`, value: 'Sample Data' })
-    }
-  } else {
-    for (let month = 1; month <= 12; month += 1) {
-      data.push({ date: `Month ${month}`, value: 'Sample Data' })
-    }
-  }
-  return data
-})
-</script>

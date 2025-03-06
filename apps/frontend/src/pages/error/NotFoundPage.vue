@@ -1,3 +1,9 @@
+<script>
+export default {
+  name: 'NotFound',
+}
+</script>
+
 <template>
   <div
     class="min-h-screen bg-gray-100 flex flex-col justify-center items-center"
@@ -17,9 +23,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'NotFound',
-}
-</script>

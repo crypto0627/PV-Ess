@@ -1,7 +1,3 @@
-<template>
-  <Bar :data="data" :options="option" />
-</template>
-
 <script setup lang="ts">
 import {
   BarElement,
@@ -81,3 +77,7 @@ const option = {
   },
 }
 </script>
+
+<template>
+  <Bar :data="data" :options="option" />
+</template>

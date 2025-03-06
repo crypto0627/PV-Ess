@@ -1,3 +1,13 @@
+<script setup>
+import { ref } from 'vue'
+
+const currentLanguage = ref('en')
+
+const toggleLanguage = () => {
+  currentLanguage.value = currentLanguage.value === 'en' ? 'zh' : 'en'
+}
+</script>
+
 <template>
   <div class="max-w-4xl mx-auto p-8">
     <div class="flex justify-end mb-4">
@@ -125,13 +135,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-
-const currentLanguage = ref('en')
-
-const toggleLanguage = () => {
-  currentLanguage.value = currentLanguage.value === 'en' ? 'zh' : 'en'
-}
-</script>

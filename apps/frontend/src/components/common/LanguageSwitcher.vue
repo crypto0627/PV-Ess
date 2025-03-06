@@ -1,3 +1,49 @@
+<script setup lang="ts">
+import { useLanguage } from '@/lib/useLanguage'
+import { computed, ref } from 'vue'
+
+type LanguageKey = 'en' | 'zh_TW' | 'zh_CN'
+const { locale, changeLanguage } = useLanguage()
+const currentLocale = computed(() => locale.value as LanguageKey)
+const isOpen = ref(false)
+
+// 定義 props
+defineProps<{
+  direction?: 'up' | 'down'
+}>()
+
+const languages: Record<LanguageKey, string> = {
+  en: 'English',
+  zh_TW: '繁體中文',
+  zh_CN: '简体中文',
+}
+
+let timeoutId: number | null = null
+
+const handleMouseEnter = () => {
+  if (timeoutId) {
+    window.clearTimeout(timeoutId)
+    timeoutId = null
+  }
+  isOpen.value = true
+}
+
+const handleAvatarLeave = () => {
+  timeoutId = window.setTimeout(() => {
+    isOpen.value = false
+  }, 1000)
+}
+
+const handleDropdownLeave = () => {
+  isOpen.value = false
+}
+
+const selectLanguage = (lang: LanguageKey) => {
+  changeLanguage(lang)
+  isOpen.value = false
+}
+</script>
+
 <template>
   <div class="relative z-50">
     <button
@@ -55,49 +101,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useLanguage } from '@/lib/useLanguage'
-import { computed, ref } from 'vue'
-
-type LanguageKey = 'en' | 'zh_TW' | 'zh_CN'
-const { locale, changeLanguage } = useLanguage()
-const currentLocale = computed(() => locale.value as LanguageKey)
-const isOpen = ref(false)
-
-// 定義 props
-defineProps<{
-  direction?: 'up' | 'down'
-}>()
-
-const languages: Record<LanguageKey, string> = {
-  en: 'English',
-  zh_TW: '繁體中文',
-  zh_CN: '简体中文',
-}
-
-let timeoutId: number | null = null
-
-const handleMouseEnter = () => {
-  if (timeoutId) {
-    window.clearTimeout(timeoutId)
-    timeoutId = null
-  }
-  isOpen.value = true
-}
-
-const handleAvatarLeave = () => {
-  timeoutId = window.setTimeout(() => {
-    isOpen.value = false
-  }, 1000)
-}
-
-const handleDropdownLeave = () => {
-  isOpen.value = false
-}
-
-const selectLanguage = (lang: LanguageKey) => {
-  changeLanguage(lang)
-  isOpen.value = false
-}
-</script>

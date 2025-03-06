@@ -1,3 +1,62 @@
+<script setup lang="ts">
+import { useAuthStore } from '@/store/auth'
+import Swal from 'sweetalert2'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
+const { t } = useI18n()
+const isLoading = ref(false)
+const router = useRouter()
+const authStore = useAuthStore()
+const isDropdownOpen = ref(false)
+
+const handleSubmit = async () => {
+  if (isLoading.value) return
+
+  isLoading.value = true
+  try {
+    await authStore.logout()
+    await Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: t('navbar.logout_success'),
+      timer: 1500,
+      showConfirmButton: false,
+    })
+    await router.push('/login')
+  } catch (error) {
+    await Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: (error as Error).message,
+      confirmButtonText: 'OK',
+    })
+  } finally {
+    isLoading.value = false
+  }
+}
+
+let timeoutId: number | null = null
+
+const handleMouseEnter = () => {
+  if (timeoutId) {
+    window.clearTimeout(timeoutId)
+    timeoutId = null
+  }
+  isDropdownOpen.value = true
+}
+
+const handleAvatarLeave = () => {
+  timeoutId = window.setTimeout(() => {
+    isDropdownOpen.value = false
+  }, 1000)
+}
+
+const handleDropdownLeave = () => {
+  isDropdownOpen.value = false
+}
+</script>
 <template>
   <div class="relative">
     <button
@@ -77,62 +136,3 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import { useAuthStore } from '@/store/auth'
-import Swal from 'sweetalert2'
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
-
-const { t } = useI18n()
-const isLoading = ref(false)
-const router = useRouter()
-const authStore = useAuthStore()
-const isDropdownOpen = ref(false)
-
-const handleSubmit = async () => {
-  if (isLoading.value) return
-
-  isLoading.value = true
-  try {
-    await authStore.logout()
-    await Swal.fire({
-      icon: 'success',
-      title: 'Success!',
-      text: t('navbar.logout_success'),
-      timer: 1500,
-      showConfirmButton: false,
-    })
-    await router.push('/login')
-  } catch (error) {
-    await Swal.fire({
-      icon: 'error',
-      title: 'Error!',
-      text: (error as Error).message,
-      confirmButtonText: 'OK',
-    })
-  } finally {
-    isLoading.value = false
-  }
-}
-
-let timeoutId: number | null = null
-
-const handleMouseEnter = () => {
-  if (timeoutId) {
-    window.clearTimeout(timeoutId)
-    timeoutId = null
-  }
-  isDropdownOpen.value = true
-}
-
-const handleAvatarLeave = () => {
-  timeoutId = window.setTimeout(() => {
-    isDropdownOpen.value = false
-  }, 1000)
-}
-
-const handleDropdownLeave = () => {
-  isDropdownOpen.value = false
-}
-</script>

@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import LoginForm from '@/components/auth/LoginForm.vue'
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue' /* PartiallyEnd: #3632/scriptSetup.vue */
+</script>
+
 <template>
   <div
     class="flex h-screen items-center justify-center bg-gray-50 overflow-hidden"
@@ -6,7 +11,7 @@
       <LanguageSwitcher direction="up" />
     </div>
     <div
-      class="relative z-[2] bg-white rounded-lg p-12 w-[400px] flex flex-col items-center justify-center text-center shadow-md"
+      class="relative z-[2] bg-white rounded-lg p-12 w-[400px] flex flex-col items-center justify-center text-start shadow-md"
     >
       <img src="/logo.png" class="w-16 mb-6" />
       <h2 class="text-xl font-semibold text-gray-800 mb-2">
@@ -25,8 +30,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import LoginForm from '@/components/auth/LoginForm.vue'
-import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue' /* PartiallyEnd: #3632/scriptSetup.vue */
-</script>

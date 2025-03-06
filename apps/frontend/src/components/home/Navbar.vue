@@ -1,3 +1,56 @@
+<script setup lang="ts">
+import AvatarMenu from '@/components/common/AvatarMenu.vue'
+import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
+import { useAuthStore } from '@/store/auth'
+import Swal from 'sweetalert2'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
+const { t } = useI18n()
+const isLoading = ref(false)
+const router = useRouter()
+const authStore = useAuthStore()
+const isMenuOpen = ref(false)
+
+const navLinks = [
+  { key: 'navbar.home', link: '/home' },
+  { key: 'navbar.products', link: '/products' },
+  { key: 'navbar.solutions', link: '/solutions' },
+  { key: 'navbar.contact', link: '/contact' },
+]
+
+const handleSubmit = async () => {
+  if (isLoading.value) return
+
+  isLoading.value = true
+  try {
+    await authStore.logout()
+    await Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: t('navbar.logout_success'),
+      timer: 1500,
+      showConfirmButton: false,
+    })
+    await router.push('/login')
+  } catch (error) {
+    await Swal.fire({
+      icon: 'error',
+      title: 'Error!',
+      text: (error as Error).message,
+      confirmButtonText: 'OK',
+    })
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+</script>
+
 <template>
   <!-- Navigation -->
   <nav
@@ -110,56 +163,3 @@
     </div>
   </nav>
 </template>
-
-<script setup lang="ts">
-import AvatarMenu from '@/components/common/AvatarMenu.vue'
-import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
-import { useAuthStore } from '@/store/auth'
-import Swal from 'sweetalert2'
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
-
-const { t } = useI18n()
-const isLoading = ref(false)
-const router = useRouter()
-const authStore = useAuthStore()
-const isMenuOpen = ref(false)
-
-const navLinks = [
-  { key: 'navbar.home', link: '/home' },
-  { key: 'navbar.products', link: '/products' },
-  { key: 'navbar.solutions', link: '/solutions' },
-  { key: 'navbar.contact', link: '/contact' },
-]
-
-const handleSubmit = async () => {
-  if (isLoading.value) return
-
-  isLoading.value = true
-  try {
-    await authStore.logout()
-    await Swal.fire({
-      icon: 'success',
-      title: 'Success!',
-      text: t('navbar.logout_success'),
-      timer: 1500,
-      showConfirmButton: false,
-    })
-    await router.push('/login')
-  } catch (error) {
-    await Swal.fire({
-      icon: 'error',
-      title: 'Error!',
-      text: (error as Error).message,
-      confirmButtonText: 'OK',
-    })
-  } finally {
-    isLoading.value = false
-  }
-}
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-}
-</script>

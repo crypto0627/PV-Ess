@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import ScheduleChart from '@/components/schedule/ScheduleChart.vue'
+import Scrollform from '@/components/schedule/Scrollform.vue'
+</script>
+
 <template>
   <div class="flex flex-col h-full gap-5">
     <!-- 上半部 (固定大小) -->
@@ -16,8 +21,3 @@
     <Scrollform />
   </div>
 </template>
-
-<script setup lang="ts">
-import ScheduleChart from '@/components/schedule/ScheduleChart.vue'
-import Scrollform from '@/components/schedule/Scrollform.vue'
-</script>
