@@ -9,6 +9,6 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.useFlatConfig": true,
   "eslint.options": {
-    "overrideConfigFile": "node_modules/@repo/eslint-config/index.js"
+    "overrideConfigFile": "node_modules/jakelint/eslint.config.js"
   }
 }

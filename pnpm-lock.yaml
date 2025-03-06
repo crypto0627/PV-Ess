@@ -8,9 +8,9 @@ importers:
 
   .:
     devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:packages/eslint-config
+      jakelint:
+        specifier: ^1.0.7
+        version: 1.0.7(typescript@5.7.3)
       prettier:
         specifier: ^3.4.2
         version: 3.5.3
@@ -23,9 +23,6 @@ importers:
 
   apps/backend:
     dependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -91,7 +88,7 @@ importers:
         specifier: ^8.11.11
         version: 8.11.11
       jakelint:
-        specifier: ^1.0.5
+        specifier: ^1.0.7
         version: 1.0.7(typescript@5.7.3)
       nodemon:
         specifier: ^3.1.9
@@ -111,9 +108,6 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.2
         version: 1.1.2(react@18.3.1)
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       '@tailwindcss/postcss':
         specifier: ^4.0.6
         version: 4.0.9
@@ -141,6 +135,9 @@ importers:
       flowbite:
         specifier: ^3.1.2
         version: 3.1.2
+      jakelint:
+        specifier: ^1.0.7
+        version: 1.0.7(typescript@5.7.3)
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@18.3.1)
@@ -2375,12 +2372,12 @@ packages:
       - vue
     dev: false
 
-  /@vueuse/core@12.8.0(typescript@5.7.3):
-    resolution: {integrity: sha512-FTKJQZBJaV1vLKIoC9FEPJ05kmnpIREh27qnClwNu9EUbmjqS9hMB6Ct3B7YN6XK76ldUMkHSb+wK056eLKi8A==}
+  /@vueuse/core@12.8.1(typescript@5.7.3):
+    resolution: {integrity: sha512-oLM2NLjLYmTx3vat5yePUDCCA+AW0B3O0UWaMV4OyMmBLNAzPqI+uHCps4MyVnzTdZetYxE3jRe53XSJ7ZsKmg==}
     dependencies:
       '@types/web-bluetooth': 0.0.21
-      '@vueuse/metadata': 12.8.0
-      '@vueuse/shared': 12.8.0(typescript@5.7.3)
+      '@vueuse/metadata': 12.8.1
+      '@vueuse/shared': 12.8.1(typescript@5.7.3)
       vue: 3.5.13(typescript@5.7.3)
     transitivePeerDependencies:
       - typescript
@@ -2390,8 +2387,8 @@ packages:
     resolution: {integrity: sha512-IGa5FXd003Ug1qAZmyE8wF3sJ81xGLSqTqtQ6jaVfkeZ4i5kS2mwQF61yhVqojRnenVew5PldLyRgvdl4YYuSw==}
     dev: false
 
-  /@vueuse/metadata@12.8.0:
-    resolution: {integrity: sha512-ClPEZrptbzkJ3jUBIT3xeSAG1eP1q7sNUpV8JRtSzP2tCaIyViZ8m/+fStUglDFmln+40W133F74WQOAqb4tiQ==}
+  /@vueuse/metadata@12.8.1:
+    resolution: {integrity: sha512-a0sOZ815F2n2CnLXVjIYABVbN04FYYobOl3UwMfbCC6grUoPZjpJ/C5JvUjvQU/++XVunEdtnJec8saswCAQow==}
     dev: false
 
   /@vueuse/shared@10.11.1(vue@3.5.13):
@@ -2403,8 +2400,8 @@ packages:
       - vue
     dev: false
 
-  /@vueuse/shared@12.8.0(typescript@5.7.3):
-    resolution: {integrity: sha512-ynML4lIiTUZ6MHeXlBKqCeDVz1OsXApPdjYsrcj7IGBUW9kH36l2ngS6P8LCx3t+w9/La5vsBH+Qj+lqsahRsg==}
+  /@vueuse/shared@12.8.1(typescript@5.7.3):
+    resolution: {integrity: sha512-7StU60YRBzJyrlUu9NVIinUftdMVG6tlVcUvqNBfq/A92W+ex+lWgp0z27IojRFmEVgVCuUZglgOQIyT8u6VCQ==}
     dependencies:
       vue: 3.5.13(typescript@5.7.3)
     transitivePeerDependencies:
@@ -4978,7 +4975,7 @@ packages:
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.26.0)(eslint@9.21.0)
       eslint-plugin-jsdoc: 50.6.3(eslint@9.21.0)
       eslint-plugin-vue: 9.33.0(eslint@9.21.0)
-      vue-eslint-parser: 10.0.0(eslint@9.21.0)
+      vue-eslint-parser: 10.1.0(eslint@9.21.0)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
@@ -6490,8 +6487,8 @@ packages:
       '@internationalized/date': 3.7.0
       '@internationalized/number': 3.6.0
       '@tanstack/vue-virtual': 3.13.2(vue@3.5.13)
-      '@vueuse/core': 12.8.0(typescript@5.7.3)
-      '@vueuse/shared': 12.8.0(typescript@5.7.3)
+      '@vueuse/core': 12.8.1(typescript@5.7.3)
+      '@vueuse/shared': 12.8.1(typescript@5.7.3)
       aria-hidden: 1.2.4
       defu: 6.1.4
       ohash: 1.1.6
@@ -7799,8 +7796,8 @@ packages:
       vue: 3.5.13(typescript@5.7.3)
     dev: false
 
-  /vue-eslint-parser@10.0.0(eslint@9.21.0):
-    resolution: {integrity: sha512-xGtmOQJzWUIi6opA7CfJTJsJyCRjibJKHNzq39yqJ/f4AJ+N7Ngr7lDZMl/9ePaobBnsZgifu+7G6bST+gaYJA==}
+  /vue-eslint-parser@10.1.0(eslint@9.21.0):
+    resolution: {integrity: sha512-ZlBmdu5DorbpnKQpVUBAuxNkyZmaK8vTc+849e+CtozTtnjsfigCmauQaBMP5ARYVXnaq7b87G+n4bMwrusF2w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0

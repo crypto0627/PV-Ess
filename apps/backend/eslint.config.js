@@ -1,1 +1,2 @@
-export { default } from '@repo/eslint-config'
+export { default } from 'node_modules/jakelint/eslint.config.js';
+
