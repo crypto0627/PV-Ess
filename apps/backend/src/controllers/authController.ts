@@ -37,8 +37,8 @@ export class AuthController {
       // 設置 HttpOnly Cookie
       res.cookie('token', token, {
         httpOnly: true, // 防止 XSS 攻擊
-        secure: false, // HTTPS 限制
-        sameSite: 'none', // 限制 CSRF 攻擊
+        secure: true, // HTTPS 限制
+        sameSite: 'strict', // 限制 CSRF 攻擊
         maxAge: 3600000, // 1 小時
       })
 
@@ -68,7 +68,7 @@ export class AuthController {
       // 清除 Cookie
       res.clearCookie('token', {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: 'none',
         path: '/',
       })

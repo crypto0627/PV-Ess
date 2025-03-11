@@ -58,7 +58,7 @@ const handleDropdownLeave = () => {
 }
 </script>
 <template>
-  <div class="relative">
+  <div class="relative z-50">
     <button
       class="flex items-center text-white hover:text-green-100 focus:outline-none transition-transform duration-200 hover:scale-105"
       @mouseenter="handleMouseEnter"

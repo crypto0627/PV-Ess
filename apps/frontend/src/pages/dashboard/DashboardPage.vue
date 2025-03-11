@@ -14,7 +14,7 @@ const stats = [
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-4 z-0">
     <!-- Stats Cards -->
     <div class="grid gap-4 grid-cols-2 lg:grid-cols-4">
       <div
@@ -30,7 +30,7 @@ const stats = [
     </div>
 
     <!-- Main Content -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 z-0">
       <!-- 系統監控區域 -->
       <div
         class="col-span-1 bg-[#0a3726]/80 backdrop-blur-[30px] rounded-2xl p-4"

@@ -70,7 +70,7 @@ const closeSidebar = (event) => {
       @logout="handleLogout"
     />
     <div class="flex-1 flex flex-col overflow-hidden">
-      <DashboardNavbar @toggle-sidebar="toggleSidebar" />
+      <DashboardNavbar class="z-50" @toggle-sidebar="toggleSidebar" />
       <main class="overflow-y-auto p-6" @click="closeSidebar">
         <router-view v-slot="{ Component }">
           <transition name="fade" mode="out-in">
