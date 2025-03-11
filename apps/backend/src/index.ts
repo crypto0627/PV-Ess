@@ -19,10 +19,10 @@ app.use(
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   }),
 )
-
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cookieParser())
+
 
 AppDataSource.initialize()
   .then(() => console.log('✅ Database connected'))
