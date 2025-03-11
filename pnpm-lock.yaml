@@ -88,7 +88,7 @@ importers:
         specifier: ^8.11.11
         version: 8.11.11
       jakelint:
-        specifier: ^1.0.11
+        specifier: ^1.0.12
         version: 1.0.12(jiti@2.4.2)(typescript@5.7.3)
       nodemon:
         specifier: ^3.1.9
@@ -106,7 +106,7 @@ importers:
         specifier: ^4.0.6
         version: 4.0.12
       '@tailwindcss/vite':
-        specifier: ^4.0.6
+        specifier: ^4.0.12
         version: 4.0.12(vite@6.2.1(@types/node@20.17.24)(jiti@2.4.2)(lightningcss@1.29.2)(stylus@0.57.0))
       '@types/chart.js':
         specifier: ^2.9.41
@@ -194,7 +194,7 @@ importers:
         specifier: ^8.5.2
         version: 8.5.3
       tailwindcss:
-        specifier: ^4.0.8
+        specifier: ^4.0.12
         version: 4.0.12
       typescript:
         specifier: ~5.7.2
