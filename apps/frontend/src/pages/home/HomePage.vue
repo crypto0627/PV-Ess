@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Footer from '@/components/common/Footer.vue';
-import Features from '@/components/home/Features.vue';
-import Hero from '@/components/home/Hero.vue';
-import Navbar from '@/components/home/Navbar.vue';
+import Footer from '@/components/common/Footer.vue'
+import Features from '@/components/home/Features.vue'
+import Hero from '@/components/home/Hero.vue'
+import Navbar from '@/components/home/Navbar.vue'
 </script>
 
 <template>

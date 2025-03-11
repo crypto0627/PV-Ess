@@ -71,7 +71,7 @@ const handleSubmit = async () => {
     <div
       class="relative z-[2] bg-white rounded-lg p-12 w-[420px] flex flex-col items-center justify-center text-center shadow-md"
     >
-      <img src="/logo.png" class="w-16 mb-8" />
+      <img src="/logo01.png" class="w-40 mb-8" />
       <h2 class="text-2xl font-medium text-gray-800 mb-2">
         {{ $t('auth.create_account') }}
       </h2>

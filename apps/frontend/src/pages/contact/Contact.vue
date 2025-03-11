@@ -1,35 +1,34 @@
-<script>
-export default {
-  data() {
-    return {
-      formData: {
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      },
-    }
-  },
-  methods: {
-    submitForm() {
-      console.log('表單已提交：', this.formData)
-      alert('感謝您的訊息，我們會盡快與您聯繫！')
-      this.resetForm()
-    },
-    resetForm() {
-      this.formData = {
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      }
-    },
-  },
+<script setup>
+import Footer from '@/components/common/Footer.vue'
+import Navbar from '@/components/home/Navbar.vue'
+import { ref } from 'vue'
+
+const formData = ref({
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
+})
+
+function submitForm() {
+  console.log('表單已提交：', formData.value)
+  alert('感謝您的訊息，我們會盡快與您聯繫！')
+  resetForm()
+}
+
+function resetForm() {
+  formData.value = {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  }
 }
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto p-6 space-y-8">
+  <Navbar />
+  <div class="h-min-screen mx-auto p-6 space-y-8">
     <h1 class="text-3xl font-bold text-gray-800 mb-6">聯絡我們</h1>
 
     <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
@@ -110,4 +109,5 @@ export default {
       </form>
     </div>
   </div>
+  <Footer />
 </template>

@@ -24,23 +24,5 @@ import TowerIcon from '@/components/dashboard/monitor/icons/TowerIcon.vue'
         <TowerIcon class="w-full h-full fill-whiteblack" />
       </div>
     </div>
-    <div
-      class="absolute z-2 top-0 right-[30%] md:right-[35%] lg:right-[40%] flex flex-col items-start justify-start gap-3 md:gap-4 lg:gap-5"
-    >
-      <div
-        class="rounded-full p-0.5 md:p-1 border-dashed border-blue-900 border-5"
-      ></div>
-      <div class="p-2 md:p-3 rounded border-2 border-info justify-self-start">
-        <h3 class="font-bold text-sm md:text-base lg:text-lg">
-          {{ $t('main.dashboard.point_a') }}
-        </h3>
-        <h4 class="text-xs md:text-sm lg:text-base">
-          {{ $t('main.dashboard.generation_amount') }} 1000 kW
-        </h4>
-        <h4 class="text-xs md:text-sm lg:text-base">
-          {{ $t('main.dashboard.grid_output') }} 1000 kW
-        </h4>
-      </div>
-    </div>
   </div>
 </template>

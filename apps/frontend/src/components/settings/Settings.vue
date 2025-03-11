@@ -66,26 +66,26 @@ onMounted(async () => {
 <template>
   <div
     v-if="userStore.user"
-    class="grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-6 bg-white p-6 rounded-lg shadow-sm"
+    class="grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-6 bg-[#0a3726]/80 backdrop-blur-sm p-6 rounded-lg shadow-lg"
   >
     <!-- 歡迎卡片 -->
-    <div
-      class="col-span-full bg-white rounded-2xl p-4 md:p-6 border border-gray-200"
-    >
-      <h1 class="text-2xl md:text-3xl font-bold text-gray-900 text-center">
+    <div class="col-span-full p-4 md:p-6">
+      <h1 class="text-2xl md:text-3xl font-bold text-emerald-100 text-center">
         {{ $t('main.settings.title') }}
       </h1>
     </div>
 
     <!-- 語言設定卡片 -->
-    <div class="bg-white rounded-2xl p-4 md:p-6 border border-gray-200">
-      <h2 class="text-lg md:text-xl font-semibold text-gray-900 mb-4">
+    <div
+      class="bg-[#0a3726]/80 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-emerald-200 hover:shadow-lg transition-all duration-300"
+    >
+      <h2 class="text-lg md:text-xl font-semibold text-emerald-100 mb-4">
         {{ $t('main.settings.language') }}
       </h2>
       <div class="space-y-3">
         <select
           v-model="selectedLanguage"
-          class="w-full px-4 py-2 bg-white text-gray-900 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          class="w-full px-4 py-2 bg-emerald-50 text-emerald-900 rounded-lg border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
           @change="selectLanguage"
         >
           <option v-for="(label, lang) in languages" :key="lang" :value="lang">
@@ -94,33 +94,13 @@ onMounted(async () => {
         </select>
       </div>
     </div>
-
-    <!-- 主題設定卡片 -->
-    <!-- <div class="bg-white rounded-2xl p-4 md:p-6 border border-gray-200">
-      <h2 class="text-lg md:text-xl font-semibold text-gray-900 mb-4">
-        {{ $t('main.settings.theme') }}
-      </h2>
-      <div class="space-y-3">
-        <select
-          v-model="selectedTheme"
-          class="w-full px-4 py-2 bg-white text-gray-900 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-          @change="changeTheme"
-        >
-          <option value="dark">{{ $t('main.settings.theme_dark') }}</option>
-          <option value="light">{{ $t('main.settings.theme_light') }}</option>
-          <option value="system">
-            {{ $t('main.settings.theme_system') }}
-          </option>
-        </select>
-      </div>
-    </div> -->
   </div>
 
   <!-- 載入中狀態 -->
   <div v-else class="flex flex-col items-center justify-center min-h-[50vh]">
     <div
-      class="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-4 border-gray-300 border-t-transparent"
+      class="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-4 border-emerald-300 border-t-transparent"
     ></div>
-    <p class="text-base md:text-lg text-gray-900 mt-4">Loading...</p>
+    <p class="text-base md:text-lg text-emerald-900 mt-4">載入中...</p>
   </div>
 </template>

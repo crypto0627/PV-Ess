@@ -125,6 +125,7 @@
       "update_password": "更新密碼",
       "time_information": "時間資訊",
       "join_date": "加入日期",
+      "update_date": "更新日期",
       "loading": "加載中...",
       "old_password": "舊密碼",
       "new_password": "新密碼",
@@ -148,15 +149,17 @@
       "real_time_monitoring": "即時監控",
       "old_pv_system": "舊光儲系統",
       "new_pv_system": "新光儲系統",
-      "point_c": "點C",
       "energy_storage_system": "儲能系統",
       "battery_status": "電池狀態",
       "error": "錯誤",
       "warning": "警告",
       "normal": "正常",
-      "point_a": "點A",
-      "point_b": "點B",
-      "frequency": "頻率"
+      "frequency": "頻率",
+      "operation_status": "操作狀態",
+      "charge": "充電",
+      "discharge": "放電",
+      "standby": "待機",
+      "shutdown": "關機"
     },
     "weather": {
       "solar_energy": "太陽能量"

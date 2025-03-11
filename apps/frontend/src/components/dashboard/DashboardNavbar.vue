@@ -32,7 +32,7 @@ onMounted(() => {
 
 <template>
   <header
-    class="border-b border-gray-300 p-3.5 flex items-center justify-start lg:justify-end pl-4 lg:pl-16 pr-6 bg-white"
+    class="border-b border-gray-300 p-3.5 flex items-center justify-start lg:justify-end pl-4 lg:pl-16 pr-6 bg-white/30 backdrop-blur-[30px]"
   >
     <!-- Mobile Menu Button -->
     <button

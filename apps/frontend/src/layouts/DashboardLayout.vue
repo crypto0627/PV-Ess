@@ -46,18 +46,32 @@ const toggleSidebar = () => {
   sidebar.value?.toggleSidebar()
 }
 
-const closeSidebar = () => {
-  isSidebarOpen.value = false
-  sidebar.value?.toggleSidebar()
+const closeSidebar = (event) => {
+  // 檢查點擊事件的目標元素是否為input或textarea
+  if (
+    event.target.tagName.toLowerCase() === 'input' ||
+    event.target.tagName.toLowerCase() === 'textarea'
+  ) {
+    return
+  }
+
+  if (isSidebarOpen.value) {
+    isSidebarOpen.value = false
+    sidebar.value?.toggleSidebar()
+  }
 }
 </script>
 
 <template>
   <div class="flex h-screen w-full overflow-hidde">
-    <Sidebar ref="sidebar" @logout="handleLogout" />
-    <div class="flex-1 flex flex-col bg-white overflow-hidden">
+    <Sidebar
+      ref="sidebar"
+      :is-sidebar-open="isSidebarOpen"
+      @logout="handleLogout"
+    />
+    <div class="flex-1 flex flex-col overflow-hidden">
       <DashboardNavbar @toggle-sidebar="toggleSidebar" />
-      <main class="overflow-y-auto p-6 bg-gray-50" @click="closeSidebar">
+      <main class="overflow-y-auto p-6" @click="closeSidebar">
         <router-view v-slot="{ Component }">
           <transition name="fade" mode="out-in">
             <div :key="$route.name">

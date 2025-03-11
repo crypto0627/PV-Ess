@@ -68,10 +68,10 @@ const tableData = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col h-full gap-6 p-6 bg-white">
+  <div class="flex flex-col h-full gap-6 p-6 rounded-2xl">
     <!-- 控制區 -->
     <div
-      class="flex justify-between items-center gap-4 p-4 bg-white rounded-2xl border border-gray-200"
+      class="flex justify-between items-center gap-4 p-4 bg-[#0a3726]/80 rounded-2xl border border-gray-200"
     >
       <div class="flex flex-col md:flex-row items-center gap-4">
         <!-- 日期選擇 -->
@@ -124,7 +124,7 @@ const tableData = computed(() => {
         <button
           v-for="type in ['yearly', 'quarterly', 'monthly']"
           :key="type"
-          class="text-black px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-500 focus:outline-none transition-all"
+          class="text-white px-4 py-2 rounded-md focus:outline-none transition-all"
           :class="{
             'bg-blue-500 hover:bg-blue-600 text-white': reportType === type,
           }"
@@ -135,8 +135,10 @@ const tableData = computed(() => {
       </div>
     </div>
 
-    <div class="bg-white rounded-2xl p-4 border border-gray-200">
-      <h2 class="text-black mb-4 text-lg font-semibold">Report Summary</h2>
+    <div class="bg-[#0a3726]/80 rounded-2xl p-4">
+      <h2 class="text-emerald-100 mb-4 text-lg font-semibold">
+        Report Summary
+      </h2>
       <div class="w-full h-[400px] relative overflow-hidden">
         <div class="absolute inset-0 flex items-center justify-center">
           <component
@@ -149,11 +151,13 @@ const tableData = computed(() => {
     </div>
 
     <!-- 下半部 -->
-    <div class="bg-white rounded-2xl p-4 border border-gray-200">
-      <h2 class="text-black mb-4 text-lg font-semibold">Detailed Report</h2>
+    <div class="bg-[#0a3726]/80 rounded-2xl p-4 border border-gray-200">
+      <h2 class="text-emerald-100 mb-4 text-lg font-semibold">
+        Detailed Report
+      </h2>
       <div class="overflow-y-auto max-h-[400px]">
-        <table class="w-full text-black">
-          <thead class="relative top-0 bg-gray-100">
+        <table class="w-full text-emerald-100">
+          <thead class="relative top-0 bg-[#0a3726]/80 rounded-2xl">
             <tr>
               <th class="px-4 py-2 text-left">Date</th>
               <th class="px-4 py-2 text-left">Value</th>

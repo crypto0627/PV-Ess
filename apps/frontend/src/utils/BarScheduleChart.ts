@@ -58,20 +58,27 @@ export const chartOptions: ChartOptions<'bar'> = {
     legend: {
       display: true,
       position: 'top',
+      labels: {
+        color: '#d0fae5',
+      },
     },
     title: {
       display: true,
       text: 'Sales & Revenue Report',
+      color: '#d0fae5',
     },
   },
   scales: {
     x: {
       ticks: {
-        color: '#000000',
+        color: '#d0fae5',
       },
     },
     y: {
       beginAtZero: true,
+      ticks: {
+        color: '#d0fae5',
+      },
     },
   },
 }

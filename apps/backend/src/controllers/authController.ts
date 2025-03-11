@@ -58,7 +58,7 @@ export class AuthController {
 
       // 驗證 token 並解碼
       const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
-        id: string
+        id: number
       }
       const userId = decoded.id
 

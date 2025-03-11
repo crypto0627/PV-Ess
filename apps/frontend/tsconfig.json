@@ -19,6 +19,7 @@
     }
   },
   "include": [
+    "src/utils/*",
     "src/**/*",
     "cypress.config.ts",
     "vite.config.ts",

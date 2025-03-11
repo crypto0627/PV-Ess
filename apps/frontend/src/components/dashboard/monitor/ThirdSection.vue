@@ -76,22 +76,5 @@ const newPvStatusClass: ComputedRef<BorderColorType> = computed(() => {
         </h4>
       </div>
     </div>
-    <div
-      class="absolute z-20 -top-[2%] right-[40%] flex flex-col items-end justify-end"
-    >
-      <div
-        class="rounded-full p-0.5 sm:p-0.75 md:p-1 border-dashed border-blue-900 border-2 sm:border-3 md:border-5"
-      ></div>
-      <div
-        class="p-2 sm:p-2.5 md:p-3 rounded border-2 border-info mt-1 sm:mt-1.5 md:mt-2"
-      >
-        <h3 class="text-xs sm:text-sm md:text-base font-bold">
-          {{ $t('main.dashboard.point_c') }}
-        </h3>
-        <h4 class="text-xs sm:text-sm md:text-base">
-          {{ $t('main.dashboard.generation_amount') }} 1000 kW
-        </h4>
-      </div>
-    </div>
   </div>
 </template>

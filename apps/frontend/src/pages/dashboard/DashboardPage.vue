@@ -3,6 +3,7 @@ import BarChart from '@/components/dashboard/BarChart.vue'
 import DoughnutChart from '@/components/dashboard/DoughnutChart.vue'
 import LineChart from '@/components/dashboard/LineChart.vue'
 import TheSystem from '@/components/dashboard/monitor/TheSystem.vue'
+import Operation from '@/components/dashboard/Operation.vue'
 
 const stats = [
   { title: 'today_accumulated_income', value: '$62,263' },
@@ -19,7 +20,7 @@ const stats = [
       <div
         v-for="stat in stats"
         :key="stat.title"
-        class="bg-[#0a3726]/80 text-white backdrop-blur-[30px] rounded-xl border border-white/10 flex flex-col justify-center p-3"
+        class="bg-[#0a3726]/80 text-emerald-100 backdrop-blur-[30px] rounded-xl border border-white/10 flex flex-col justify-center p-3"
       >
         <div class="text-xs">
           {{ $t(`main.dashboard.${stat.title}`) }}
@@ -32,19 +33,21 @@ const stats = [
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <!-- 系統監控區域 -->
       <div
-        class="lg:col-span-1 bg-gray-900/30 backdrop-blur-[30px] rounded-2xl p-4"
+        class="col-span-1 bg-[#0a3726]/80 backdrop-blur-[30px] rounded-2xl p-4"
       >
-        <h1 class="text-base mb-2">
-          {{ $t('main.dashboard.real_time_monitoring') }}
+        <h1 class="text-xl font-medium mb-4 text-emerald-100 flex items-center">
+          <span class="mr-2">{{
+            $t('main.dashboard.real_time_monitoring')
+          }}</span>
         </h1>
         <TheSystem />
       </div>
 
       <!-- 右側圓餅圖 -->
       <div
-        class="lg:col-span-1 bg-white/10 backdrop-blur-[30px] rounded-2xl p-3 border border-white/10"
+        class="col-span-1 bg-[#0a3726]/80 backdrop-blur-[30px] rounded-2xl p-4"
       >
-        <h1 class="text-base mb-2">
+        <h1 class="text-xl font-medium text-emerald-100 flex items-center mb-2">
           {{ $t('main.dashboard.total_energy') }}: 11.5MWh
         </h1>
         <div class="h-72 relative">
@@ -52,36 +55,14 @@ const stats = [
             <DoughnutChart />
           </div>
         </div>
-        <div class="mt-4 p-3 bg-white/5 rounded-xl">
-          <h2 class="text-sm font-medium mb-2">
-            {{ $t('main.dashboard.real_time_monitoring') }}
-          </h2>
-          <div class="text-xs space-y-1">
-            <div class="flex justify-between">
-              <span>{{ $t('main.dashboard.energy_storage_system') }}</span>
-              <span>{{ $t('main.dashboard.generation_amount') }} 1000 kW</span>
-            </div>
-            <div class="flex justify-between">
-              <span>{{ $t('main.dashboard.new_pv_system') }}</span>
-              <span>{{ $t('main.dashboard.generation_amount') }} 1000 kW</span>
-            </div>
-            <div class="flex justify-between">
-              <span>{{ $t('main.dashboard.old_pv_system') }}</span>
-              <span>{{ $t('main.dashboard.generation_amount') }} 1000 kW</span>
-            </div>
-            <div class="flex justify-between">
-              <span>{{ $t('main.dashboard.grid_output') }}</span>
-              <span>{{ $t('main.dashboard.frequency') }} 60 Hz</span>
-            </div>
-          </div>
-        </div>
+        <Operation />
       </div>
 
       <!-- 長條圖 -->
       <div
-        class="lg:col-span-1 bg-white/10 backdrop-blur-[30px] rounded-2xl p-3 border border-white/10"
+        class="col-span-1 bg-[#0a3726]/80 backdrop-blur-[30px] rounded-2xl p-4"
       >
-        <h1 class="text-base mb-2">
+        <h1 class="text-xl font-medium mb-4 text-emerald-100 flex items-center">
           {{ $t('main.dashboard.individual_battery_cabinet_amount') }}
         </h1>
         <div class="h-48 relative">
@@ -93,9 +74,9 @@ const stats = [
 
       <!-- 折線圖 -->
       <div
-        class="lg:col-span-1 bg-white/10 backdrop-blur-[30px] rounded-2xl p-3 border border-white/10"
+        class="col-span-1 bg-[#0a3726]/80 backdrop-blur-[30px] rounded-2xl p-4"
       >
-        <h1 class="text-base mb-2">
+        <h1 class="text-xl font-medium mb-4 text-emerald-100 flex items-center">
           {{ $t('main.dashboard.factory_generation_amount') }}
         </h1>
         <div class="h-48 relative">

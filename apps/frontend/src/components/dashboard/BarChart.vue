@@ -19,14 +19,14 @@ const data: ChartData<'bar'> = {
     {
       label: 'charged',
       data: [50, 50, 50, 50, 50, 50],
-      backgroundColor: '#2b8a3e',
+      backgroundColor: '#eb9234',
       borderWidth: 0,
       barPercentage: 0.7,
     },
     {
       label: 'recharged',
       data: [100, 100, 100, 100, 100, 100],
-      backgroundColor: '#ffc107',
+      backgroundColor: '#37eb34',
       borderWidth: 1,
       barPercentage: 0.7,
     },
@@ -42,14 +42,15 @@ const option = {
     title: {
       display: true,
       text: 'capacity',
+      color: '#d0fae5',
       font: {
         size: 18,
-        color: 'black',
+        color: '#d0fae5',
       },
     },
     legend: {
       labels: {
-        color: 'black',
+        color: '#d0fae5',
       },
     },
   },
@@ -57,7 +58,7 @@ const option = {
     x: {
       stacked: true,
       ticks: {
-        color: 'black',
+        color: '#d0fae5',
       },
     },
     y: {
@@ -68,10 +69,10 @@ const option = {
       title: {
         display: true,
         text: 'Capacity',
-        color: 'black',
+        color: '#d0fae5',
       },
       ticks: {
-        color: 'black',
+        color: '#d0fae5',
       },
     },
   },

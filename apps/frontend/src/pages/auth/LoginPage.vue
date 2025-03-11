@@ -13,7 +13,7 @@ import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue' /* Parti
     <div
       class="relative z-[2] bg-white rounded-lg p-12 w-[400px] flex flex-col items-center justify-center text-start shadow-md"
     >
-      <img src="/logo.png" class="w-16 mb-6" />
+      <img src="/logo01.png" class="w-40 mb-6" />
       <h2 class="text-xl font-semibold text-gray-800 mb-2">
         {{ $t('auth.welcome') }}
       </h2>

@@ -6,7 +6,7 @@ const data = {
   labels: ['charged', 'recharged'],
   datasets: [
     {
-      backgroundColor: ['#2b8a3e', '#495057'],
+      backgroundColor: ['#eb9234', '#37eb34'],
       borderWidth: 1,
       borderColor: '#ffffff',
       data: [60, 40],
@@ -21,14 +21,14 @@ const option = {
   plugins: {
     legend: {
       labels: {
-        color: '#000000',
+        color: '#d0fae5',
         display: true,
         position: 'top',
       },
     },
     centerText: {
       text: '59%',
-      color: '#000000',
+      color: '#d0fae5',
       font: {
         size: '18',
         weight: 'bold',

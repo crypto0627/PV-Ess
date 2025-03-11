@@ -118,13 +118,13 @@ const toggleMenu = () => {
           {{ $t(link.key) }}
         </router-link>
         <router-link
-          to="/profile"
+          to="/main/profile"
           class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-800 transition-all duration-150"
         >
           {{ $t('navbar.profile') }}
         </router-link>
         <router-link
-          to="/settings"
+          to="/main/settings"
           class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-800 transition-all duration-150"
         >
           {{ $t('navbar.settings') }}

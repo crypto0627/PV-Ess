@@ -148,6 +148,7 @@ const data = {
       backgroundColor: '#ffc107',
       borderColor: '#ffc107',
       yAxisID: 'y',
+      data: [],
     },
   ],
 }
@@ -161,6 +162,7 @@ const option = {
     title: {
       display: true,
       text: 'PV System Prediction', // Title of the chart
+      color: '#d0fae5',
       font: {
         size: 18,
       },
@@ -173,38 +175,27 @@ const option = {
         },
       },
     },
-
-    // Scales configuration
-    scales: {
-      x: {
-        type: 'category', // The x-axis will use categories (time labels)
-        labels: data.labels, // Using the labels from Pv_data
-        ticks: {
-          maxRotation: 45, // Rotate labels for better readability
-          minRotation: 30,
-        },
-      },
-      y: {
-        type: 'linear', // Y-axis will be linear scale
-        beginAtZero: true, // Ensure the Y-axis starts from 0
-        title: {
-          display: true,
-          text: 'Power (kW)', // Title for the Y-axis
-        },
-        grid: {
-          drawOnChartArea: true, // Grid lines will be shown
-        },
-        ticks: {
-          stepSize: 500, // Step size for Y-axis ticks, adjust based on data range
-        },
+    legend: {
+      labels: {
+        color: '#d0fae5',
       },
     },
-    layout: {
-      padding: {
-        left: 10,
-        right: 10,
-        top: 10,
-        bottom: 10,
+  },
+  scales: {
+    x: {
+      ticks: {
+        color: '#d0fae5',
+      },
+    },
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: 'Power (kW)',
+        color: '#d0fae5',
+      },
+      ticks: {
+        color: '#d0fae5',
       },
     },
   },

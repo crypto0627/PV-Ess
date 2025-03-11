@@ -160,7 +160,7 @@ defineExpose({
 <template>
   <div
     :class="[
-      'bg-[#0a3726] text-white h-full flex flex-col transition-all duration-300 ease-in-out fixed lg:relative z-40',
+      'bg-[#071812] text-white h-full flex flex-col transition-all duration-300 ease-in-out fixed lg:relative z-40',
       isSidebarOpen ? 'w-64' : 'w-0 -ml-64 lg:w-64 lg:ml-0',
     ]"
   >
@@ -196,9 +196,16 @@ defineExpose({
             <label
               :for="item.id"
               class="relative flex gap-4 items-center h-[50px] w-full rounded-md font-normal text-base leading-none p-4 text-white/95 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer"
-              :class="{ 'bg-cyan-500/20': activeSidebar === item.id }"
+              :class="{
+                'bg-cyan-500/20 border-l-4 border-[#65bf65]':
+                  activeSidebar === item.id,
+              }"
             >
-              <component :is="item.lucideIcon" class="h-5 w-5" />
+              <component
+                :is="item.lucideIcon"
+                class="h-5 w-5 transition-colors duration-300"
+                :class="{ 'text-[#65bf65]': activeSidebar === item.id }"
+              />
               <p class="flex-1">{{ $t(`main.sidebar.${item.id}`) }}</p>
               <svg
                 v-if="item.hasSubmenu"
@@ -231,7 +238,10 @@ defineExpose({
                   <button
                     type="button"
                     class="relative pl-[52px] font-normal text-base leading-none text-white/95 transition-all duration-300 h-[42px] w-full rounded-md hover:bg-white/10 hover:translate-x-1 cursor-pointer before:content-[''] before:absolute before:top-1/2 before:left-6 before:-translate-y-1/2 before:w-[5px] before:h-[5px] before:rounded-full before:bg-white/35"
-                    :class="{ 'bg-cyan-500/20': activeSubItem === subItem.id }"
+                    :class="{
+                      'bg-cyan-500/20 border-l-4 border-[#65bf65]':
+                        activeSubItem === subItem.id,
+                    }"
                     @click="handleSubItemClick(subItem)"
                   >
                     {{ $t(`main.sidebar.${subItem.id}`) }}

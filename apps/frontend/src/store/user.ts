@@ -20,5 +20,21 @@ export const useUserStore = defineStore('user', {
         throw error
       }
     },
+    async updatePassword(oldPassword: string, newPassword: string) {
+      const { updatePassword } = useUserApi()
+      return await updatePassword(oldPassword, newPassword)
+    },
+    async updateEmail(newEmail: string) {
+      const { updateEmail } = useUserApi()
+      return await updateEmail(newEmail)
+    },
+    async updateUsername(newUsername: string) {
+      const { updateUsername } = useUserApi()
+      return await updateUsername(newUsername)
+    },
+    async deleteUser() {
+      const { deleteUser } = useUserApi()
+      return await deleteUser()
+    },
   },
 })
