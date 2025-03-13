@@ -23,7 +23,6 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-
 AppDataSource.initialize()
   .then(() => console.log('✅ Database connected'))
   .catch((error: Error) => {
