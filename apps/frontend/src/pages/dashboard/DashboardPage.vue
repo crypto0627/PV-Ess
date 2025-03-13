@@ -47,11 +47,45 @@ const stats = [
       <div
         class="col-span-1 bg-[#0a3726]/80 backdrop-blur-[30px] rounded-2xl p-4"
       >
-        <h1 class="text-xl font-medium text-emerald-100 flex items-center mb-2">
-          {{ $t('main.dashboard.total_energy') }}: 11.5MWh
-        </h1>
+        <!-- 能量條 -->
+        <div class="mb-4 bg-emerald-900/50 rounded-lg p-3">
+          <div class="flex justify-between text-emerald-100 text-sm mb-1">
+            <span>{{ $t('main.dashboard.total_energy') }}: 11.5MWh</span>
+            <span>{{ $t('main.dashboard.current_charge') }}: 59%</span>
+          </div>
+          <div class="w-full bg-emerald-900 rounded-full h-4 overflow-hidden">
+            <div
+              class="bg-emerald-400 h-full rounded-full"
+              style="width: 59%"
+            ></div>
+          </div>
+          <div class="flex justify-between text-emerald-100 text-xs mt-1">
+            <span>0%</span>
+            <span>100%</span>
+          </div>
+        </div>
+
         <div class="h-72 relative">
-          <div class="absolute inset-0 flex items-center justify-center">
+          <h1
+            class="text-xl font-medium text-emerald-100 flex items-center justify-center mb-4 md:mb-2"
+          >
+            {{ $t('main.dashboard.battery_charge_capacity') }}
+            <span class="hidden md:inline-block md:ml-2">{{
+              $t(
+                'main.dashboard.59_percent_represent_2_61_times_charge_capacity',
+              )
+            }}</span>
+          </h1>
+          <div class="text-sm text-center text-emerald-100 mb-2 md:hidden">
+            {{
+              $t(
+                'main.dashboard.59_percent_represent_2_61_times_charge_capacity',
+              )
+            }}
+          </div>
+          <div
+            class="absolute inset-0 top-12 md:top-10 flex items-center justify-center"
+          >
             <DoughnutChart />
           </div>
         </div>

@@ -159,7 +159,11 @@
       "charge": "充电",
       "discharge": "放电",
       "standby": "待机",
-      "shutdown": "关机"
+      "shutdown": "关机",
+      "weather_forecast": "天气预报",
+      "current_charge": "当前充电量",
+      "battery_charge_capacity": "电池充电容量",
+      "59_percent_represent_2_61_times_charge_capacity": "(59%代表达到2.61倍充电量)"
     },
     "weather": {
       "solar_energy": "太阳能能量"

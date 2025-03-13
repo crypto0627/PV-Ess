@@ -1,13 +1,15 @@
 <script setup>
-import { Cloud, CloudRain, Menu, Sun } from 'lucide-vue-next'
-import { defineEmits, onMounted, ref } from 'vue'
+import { Cloud, CloudRain, CloudSun, Menu, Sun } from 'lucide-vue-next'
+import { defineEmits, onMounted, ref, computed } from 'vue'
 import AvatarMenu from '../common/AvatarMenu.vue'
+import weatherApi from '@/api/weatherApi'
 
 const emit = defineEmits(['toggle-sidebar'])
 const currentTime = ref('')
-const temperature = ref(25)
-const weather = ref('sunny')
-const solarRadiation = ref(800)
+const currentWeather = ref({
+  weather: '',
+  temperature: '',
+})
 
 const toggleSidebar = () => {
   emit('toggle-sidebar')
@@ -21,12 +23,78 @@ const updateTime = () => {
   })
 }
 
+// 獲取天氣圖標組件
+const weatherIcon = computed(() => {
+  const weather = currentWeather.value.weather
+  switch (weather) {
+    case '晴':
+      return Sun
+    case '多雲':
+      return Cloud
+    case '陰':
+      return Cloud
+    case '雨':
+      return CloudRain
+    case '晴時多雲':
+      return CloudSun
+    default:
+      return Cloud
+  }
+})
+
+// 獲取天氣圖標顏色
+const weatherIconColor = computed(() => {
+  const weather = currentWeather.value.weather
+  switch (weather) {
+    case '晴':
+      return 'text-yellow-400'
+    case '多雲':
+      return 'text-gray-300'
+    case '陰':
+      return 'text-gray-300'
+    case '雨':
+      return 'text-blue-400'
+    case '晴時多雲':
+      return 'text-yellow-300'
+    default:
+      return 'text-gray-300'
+  }
+})
+
+const fetchWeatherData = async () => {
+  try {
+    const response = await weatherApi.getWeather()
+
+    if (response.data.success) {
+      const location = response.data.records.Locations[0].Location[0]
+
+      // 獲取天氣現象和溫度數據
+      const weatherData = location.WeatherElement.find(
+        (el) => el.ElementName === '天氣現象',
+      )
+      const tempData = location.WeatherElement.find(
+        (el) => el.ElementName === '溫度',
+      )
+
+      // 設置當前天氣
+      if (weatherData && tempData) {
+        currentWeather.value = {
+          weather: weatherData.Time[0].ElementValue[0].Weather,
+          temperature: `${tempData.Time[0].ElementValue[0].Temperature}°C`,
+        }
+      }
+    }
+  } catch (error) {
+    console.error('獲取天氣數據失敗:', error)
+  }
+}
+
 onMounted(() => {
   updateTime()
   setInterval(updateTime, 60000)
 
-  // 這裡可以加入實際的天氣API調用
-  // fetchWeatherData()
+  // 獲取實際天氣數據
+  fetchWeatherData()
 })
 </script>
 
@@ -49,13 +117,13 @@ onMounted(() => {
           {{ currentTime }}
         </div>
         <div class="flex items-center gap-2">
-          <Sun v-if="weather === 'sunny'" class="h-5 w-5 text-yellow-500" />
-          <Cloud v-if="weather === 'cloudy'" class="h-5 w-5 text-gray-500" />
-          <CloudRain v-if="weather === 'rainy'" class="h-5 w-5 text-blue-500" />
-          <span>{{ temperature }}°C</span>
-        </div>
-        <div class="text-sm">
-          {{ $t('main.weather.solar_energy') }}: {{ solarRadiation }} W/m²
+          <component
+            v-if="currentWeather.weather"
+            :is="weatherIcon"
+            class="h-5 w-5"
+            :class="weatherIconColor"
+          />
+          <span>{{ currentWeather.temperature }}</span>
         </div>
       </div>
       <AvatarMenu />

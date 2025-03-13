@@ -159,7 +159,11 @@
       "charge": "充電",
       "discharge": "放電",
       "standby": "待機",
-      "shutdown": "關機"
+      "shutdown": "關機",
+      "weather_forecast": "天氣預報",
+      "current_charge": "當前充電量",
+      "battery_charge_capacity": "電池充電容量",
+      "59_percent_represent_2_61_times_charge_capacity": "(59%代表達到2.61倍充電量)"
     },
     "weather": {
       "solar_energy": "太陽能量"

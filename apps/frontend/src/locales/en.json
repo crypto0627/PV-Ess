@@ -159,7 +159,11 @@
       "charge": "Charge",
       "discharge": "Discharge",
       "standby": "Standby",
-      "shutdown": "Shutdown"
+      "shutdown": "Shutdown",
+      "weather_forecast": "Weather Forecast",
+      "current_charge": "Current Charge",
+      "battery_charge_capacity": "Battery Charge Capacity",
+      "59_percent_represent_2_61_times_charge_capacity": "(59% represent 2.61x times charge capacity)"
     },
     "weather": {
       "solar_energy": "Solar Energy"

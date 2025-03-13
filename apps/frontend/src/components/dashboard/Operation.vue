@@ -1,61 +1,248 @@
+<script setup lang="ts">
+import weatherApi from '@/api/weatherApi'
+import { ForecastType } from '@/types'
+import { Cloud, CloudRain, CloudSun, Sun } from 'lucide-vue-next'
+import { computed, onMounted, ref } from 'vue'
+
+// 當前天氣數據
+const currentWeather = ref({
+  stationName: '',
+  weather: '',
+  temperature: '',
+  observationTime: '',
+  countyName: '',
+  townName: '',
+})
+
+// 天氣預報數據
+const forecasts = ref<ForecastType[]>([])
+
+// 城市資訊
+const city = ref('')
+const district = ref('')
+
+// 獲取天氣圖標組件
+const weatherIcon = computed(() => {
+  const weather = currentWeather.value.weather
+  switch (weather) {
+    case '晴':
+      return Sun
+    case '多雲':
+      return Cloud
+    case '陰':
+      return Cloud
+    case '雨':
+      return CloudRain
+    case '晴時多雲':
+      return CloudSun
+    default:
+      return Cloud
+  }
+})
+
+// 獲取天氣圖標顏色
+const weatherIconColor = computed(() => {
+  const weather = currentWeather.value.weather
+  switch (weather) {
+    case '晴':
+      return 'text-yellow-400'
+    case '多雲':
+      return 'text-gray-300'
+    case '陰':
+      return 'text-gray-300'
+    case '雨':
+      return 'text-blue-400'
+    case '晴時多雲':
+      return 'text-yellow-300'
+    default:
+      return 'text-gray-300'
+  }
+})
+
+// 獲取預報圖標組件
+const getForecastIcon = (weather: string) => {
+  switch (weather) {
+    case '晴':
+      return Sun
+    case '多雲':
+      return Cloud
+    case '陰':
+      return Cloud
+    case '雨':
+      return CloudRain
+    case '晴時多雲':
+      return CloudSun
+    default:
+      return Cloud
+  }
+}
+
+// 獲取預報圖標顏色
+const getForecastIconColor = (weather: string) => {
+  switch (weather) {
+    case '晴':
+      return 'text-yellow-400'
+    case '多雲':
+      return 'text-gray-300'
+    case '陰':
+      return 'text-gray-300'
+    case '雨':
+      return 'text-blue-400'
+    case '晴時多雲':
+      return 'text-yellow-300'
+    default:
+      return 'text-gray-300'
+  }
+}
+
+// 格式化時間為"上午/下午 HH:MM"格式
+const formatTime = (date: Date) => {
+  return date.toLocaleTimeString('zh-TW', {
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}
+
+// 獲取未來3小時間隔的時間點
+const getFutureTimePoints = () => {
+  const timePoints = []
+  const now = new Date()
+
+  // 當前時間
+  timePoints.push(new Date(now))
+
+  // 往後3小時、6小時、9小時、12小時
+  for (let i = 1; i <= 4; i++) {
+    const futureTime = new Date(now)
+    futureTime.setHours(now.getHours() + i * 3)
+    timePoints.push(futureTime)
+  }
+
+  return timePoints
+}
+
+onMounted(async () => {
+  try {
+    const response = await weatherApi.getWeather()
+
+    if (response.data.success) {
+      const location = response.data.records.Locations[0].Location[0]
+      city.value = response.data.records.Locations[0].LocationsName
+      district.value = location.LocationName
+
+      // 獲取天氣現象、溫度和降雨機率數據
+      const weatherData = location.WeatherElement.find(
+        (el: any) => el.ElementName === '天氣現象',
+      )
+      const tempData = location.WeatherElement.find(
+        (el: any) => el.ElementName === '溫度',
+      )
+      const rainData = location.WeatherElement.find(
+        (el: any) => el.ElementName === '3小時降雨機率',
+      )
+
+      // 設置當前天氣
+      if (weatherData) {
+        currentWeather.value = {
+          stationName: location.LocationName,
+          weather: weatherData.Time[0].ElementValue[0].Weather,
+          temperature: `${tempData.Time[0].ElementValue[0].Temperature}°C`,
+          observationTime: weatherData.Time[0].StartTime,
+          countyName: city.value,
+          townName: district.value,
+        }
+      }
+
+      // 獲取未來時間點
+      const timePoints = getFutureTimePoints()
+
+      // 設置預報數據 - 顯示5個時間點
+      forecasts.value = timePoints.map((time, index) => {
+        // 使用API數據中最接近的時間點數據
+        const apiTimeIndex = Math.min(index, weatherData.Time.length - 1)
+
+        return {
+          time: formatTime(time),
+          icon: weatherData.Time[apiTimeIndex].ElementValue[0].Weather,
+          temperature: `${tempData.Time[apiTimeIndex].ElementValue[0].Temperature}°C`,
+          precipitation: `降雨機率 ${rainData.Time[apiTimeIndex].ElementValue[0].ProbabilityOfPrecipitation}%`,
+        }
+      })
+    }
+  } catch (error) {
+    console.error('獲取天氣數據失敗:', error)
+  }
+})
+</script>
+
 <template>
   <div
     class="mt-4 p-4 bg-[#0a3726]/80 backdrop-blur-sm rounded-2xl border border-emerald-500/30"
   >
-    <h2 class="text-xl font-medium mb-4 text-emerald-100 flex items-center">
-      <span class="mr-2">{{ $t('main.dashboard.operation_status') }}</span>
-      <div class="h-1 flex-1 bg-emerald-500/50 rounded overflow-hidden">
-        <div
-          class="h-full w-[30%] bg-emerald-400 animate-[energyBar_2s_ease-in-out_infinite] relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-emerald-300/50 before:to-transparent before:animate-[energyPulse_1.5s_ease-in-out_infinite]"
-        ></div>
-      </div>
+    <h2
+      class="text-xl font-medium mb-4 text-emerald-100 flex items-center justify-between"
+    >
+      <span class="mr-2">{{ $t('main.dashboard.weather_forecast') }}</span>
+      <span class="text-sm text-emerald-100">
+        {{ new Date().toLocaleDateString() }}
+        {{ new Date().toLocaleTimeString() }}
+      </span>
     </h2>
-    <div class="grid grid-cols-2 gap-6">
+
+    <!-- 當前天氣信息 -->
+    <div class="mb-4 p-3 bg-emerald-800/50 rounded-xl">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-lg font-bold text-emerald-100">
+            {{ city }} {{ district }}
+          </div>
+          <div class="text-sm text-emerald-100">
+            {{ new Date().toLocaleDateString() }}
+            {{ new Date().toLocaleTimeString() }}
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="mr-3">
+            <div class="text-3xl font-bold text-emerald-100">
+              {{ currentWeather.temperature }}
+            </div>
+            <div class="text-sm text-emerald-100">
+              {{ currentWeather.weather }}
+            </div>
+          </div>
+          <div class="text-3xl" v-if="currentWeather.weather">
+            <component :is="weatherIcon" :class="weatherIconColor" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 天氣預報 -->
+    <div class="grid grid-cols-5 gap-2" v-if="forecasts.length > 0">
       <div
+        v-for="(forecast, index) in forecasts"
+        :key="index"
         class="flex flex-col items-center bg-emerald-800/80 p-3 rounded-xl hover:bg-emerald-800/30 transition-all"
       >
         <div class="text-sm text-emerald-100 font-medium mb-2">
-          {{ $t('main.dashboard.charge') }}
+          {{ forecast.time }}
         </div>
-        <div
-          class="w-5 h-5 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50 animate-pulse"
-        ></div>
-      </div>
-      <div
-        class="flex flex-col items-center bg-emerald-800/80 p-3 rounded-xl hover:bg-emerald-800/30 transition-all"
-      >
-        <div class="text-sm text-emerald-100 font-medium mb-2">
-          {{ $t('main.dashboard.standby') }}
+        <div class="text-2xl mb-2">
+          <component
+            :is="getForecastIcon(forecast.icon)"
+            :class="getForecastIconColor(forecast.icon)"
+          />
         </div>
-        <div
-          class="w-5 h-5 rounded-full bg-amber-400 shadow-lg shadow-amber-400/50 animate-pulse"
-        ></div>
-      </div>
-      <div
-        class="text-base text-emerald-100 font-bold text-center col-span-2 my-2 bg-emerald-800/40 py-2 rounded-lg mx-auto p-4"
-      >
-        {{ $t('main.dashboard.operation_status') }}
-      </div>
-      <div
-        class="flex flex-col items-center bg-emerald-800/80 p-3 rounded-xl hover:bg-emerald-800/30 transition-all"
-      >
-        <div class="text-sm text-emerald-100 font-medium mb-2">
-          {{ $t('main.dashboard.discharge') }}
+        <div class="text-base text-emerald-100 font-bold">
+          {{ forecast.temperature }}
         </div>
-        <div
-          class="w-5 h-5 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/50 animate-pulse"
-        ></div>
-      </div>
-      <div
-        class="flex flex-col items-center bg-emerald-800/80 p-3 rounded-xl hover:bg-emerald-800/30 transition-all"
-      >
-        <div class="text-sm text-emerald-100 font-medium mb-2">
-          {{ $t('main.dashboard.shutdown') }}
+        <div class="text-xs text-emerald-100 mt-1">
+          {{ forecast.precipitation }}
         </div>
-        <div
-          class="w-5 h-5 rounded-full bg-rose-500 shadow-lg shadow-rose-500/50 animate-pulse"
-        ></div>
       </div>
+    </div>
+    <div v-else class="text-center text-emerald-100 py-4">
+      正在加載天氣預報數據...
     </div>
   </div>
 </template>
