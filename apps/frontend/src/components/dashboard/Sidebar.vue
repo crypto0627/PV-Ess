@@ -13,17 +13,32 @@ import {
   Wallet,
 } from 'lucide-vue-next'
 import Swal from 'sweetalert2'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink, useRouter, useRoute } from 'vue-router'
+import { cn } from '@/lib/utils'
 
 const router = useRouter()
+const route = useRoute()
 const authStore = useAuthStore()
 const { t } = useI18n()
 const isLoading = ref(false)
-const activeSidebar = ref('dashboard')
-const activeSubItem = ref('')
 const isSidebarOpen = ref(false)
+
+// 根據當前路由計算active的sidebar item
+const activeSidebar = ref('')
+
+// 根據當前路由計算active的sub item
+const activeSubItem = computed(() => {
+  const path = route.path
+  for (const item of menuItems) {
+    if (item.hasSubmenu) {
+      const subItem = item.submenu.find(sub => sub.link === path)
+      if (subItem) return subItem.id
+    }
+  }
+  return ''
+})
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value
@@ -31,7 +46,12 @@ const toggleSidebar = () => {
 
 const handleClick = async (item) => {
   if (item.hasSubmenu) {
-    activeSidebar.value = activeSidebar.value === item.id ? '' : item.id
+    // 修改這裡: 如果當前選中的項目已經是這個項目,則取消選中,否則選中這個項目
+    if (activeSidebar.value === item.id) {
+      activeSidebar.value = ''
+    } else {
+      activeSidebar.value = item.id
+    }
     return
   }
 
@@ -74,8 +94,6 @@ const handleClick = async (item) => {
 }
 
 const handleSubItemClick = async (subItem) => {
-  activeSubItem.value = activeSubItem.value === subItem.id ? '' : subItem.id
-
   if (subItem.link) {
     try {
       await router.push(subItem.link)
@@ -133,6 +151,15 @@ const footerNavItems = [
   { name: 'Settings', icon: Settings, link: '/main/settings' },
   { name: 'Contact us', icon: Headset, link: '/contact' },
 ]
+
+// 使用計算屬性來優化子選單高度計算
+const getSubmenuHeight = computed(() => {
+  return (item) => {
+    return activeSidebar.value === item.id
+      ? `${item.submenu.length * 50}px`
+      : '0px'
+  }
+})
 
 // Resize handler (move here for sidebar responsiveness)
 const handleResize = () => {
@@ -195,22 +222,32 @@ defineExpose({
             />
             <label
               :for="item.id"
-              class="relative flex gap-4 items-center h-[50px] w-full rounded-md font-normal text-base leading-none p-4 text-white/95 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer"
-              :class="{
-                'bg-cyan-500/20 border-l-4 border-[#65bf65]':
-                  activeSidebar === item.id,
-              }"
+              :class="
+                cn(
+                  'relative flex gap-4 items-center h-[50px] w-full rounded-md font-normal text-base leading-none p-4 text-white/95 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-pointer',
+                  activeSidebar === item.id &&
+                    'bg-cyan-500/20 border-l-4 border-[#65bf65]',
+                )
+              "
             >
               <component
                 :is="item.lucideIcon"
-                class="h-5 w-5 transition-colors duration-300"
-                :class="{ 'text-[#65bf65]': activeSidebar === item.id }"
+                :class="
+                  cn(
+                    'h-5 w-5 transition-colors duration-300',
+                    activeSidebar === item.id && 'text-[#65bf65]',
+                  )
+                "
               />
               <p class="flex-1">{{ $t(`main.sidebar.${item.id}`) }}</p>
               <svg
                 v-if="item.hasSubmenu"
-                class="w-4 h-4 transition-transform duration-300"
-                :class="{ 'rotate-180': activeSidebar === item.id }"
+                :class="
+                  cn(
+                    'w-4 h-4 transition-transform duration-300',
+                    activeSidebar === item.id && 'rotate-180',
+                  )
+                "
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
@@ -223,13 +260,8 @@ defineExpose({
 
             <div
               v-if="item.hasSubmenu"
-              class="relative overflow-hidden transition-all duration-500"
-              :style="{
-                height:
-                  activeSidebar === item.id
-                    ? item.submenu.length * 50 + 'px'
-                    : '0px',
-              }"
+              class="relative overflow-hidden transition-all duration-300 will-change-[height]"
+              :style="{ height: getSubmenuHeight(item) }"
             >
               <ul
                 class="absolute top-0 left-0 grid gap-1 list-none p-2 m-0 w-full"
@@ -237,11 +269,13 @@ defineExpose({
                 <li v-for="subItem in item.submenu" :key="subItem.id">
                   <button
                     type="button"
-                    class="relative pl-[52px] font-normal text-base leading-none text-white/95 transition-all duration-300 h-[42px] w-full rounded-md hover:bg-white/10 hover:translate-x-1 cursor-pointer before:content-[''] before:absolute before:top-1/2 before:left-6 before:-translate-y-1/2 before:w-[5px] before:h-[5px] before:rounded-full before:bg-white/35"
-                    :class="{
-                      'bg-cyan-500/20 border-l-4 border-[#65bf65]':
-                        activeSubItem === subItem.id,
-                    }"
+                    :class="
+                      cn(
+                        'relative pl-[52px] font-normal text-base leading-none text-white/95 transition-all duration-300 h-[42px] w-full rounded-md hover:bg-white/10 hover:translate-x-1 cursor-pointer before:content-[\'\'] before:absolute before:top-1/2 before:left-6 before:-translate-y-1/2 before:w-[5px] before:h-[5px] before:rounded-full before:bg-white/35',
+                        activeSubItem === subItem.id &&
+                          'bg-cyan-500/20 border-l-4 border-[#65bf65]',
+                      )
+                    "
                     @click="handleSubItemClick(subItem)"
                   >
                     {{ $t(`main.sidebar.${subItem.id}`) }}

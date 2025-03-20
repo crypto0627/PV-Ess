@@ -1,8 +1,16 @@
 <script setup lang="ts">
 import weatherApi from '@/api/weatherApi'
 import { ForecastType } from '@/types'
-import { Cloud, CloudRain, CloudSun, Sun } from 'lucide-vue-next'
-import { computed, onMounted, ref } from 'vue'
+import {
+  Cloud,
+  CloudDrizzle,
+  CloudLightning,
+  CloudRain,
+  CloudSun,
+  Cloudy,
+  Sun,
+} from 'lucide-vue-next'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
 // 當前天氣數據
 const currentWeather = ref({
@@ -21,6 +29,12 @@ const forecasts = ref<ForecastType[]>([])
 const city = ref('')
 const district = ref('')
 
+// 當前日期和時間
+const currentDateTime = ref(new Date())
+
+// 定時器引用
+let timer: number | null = null
+
 // 獲取天氣圖標組件
 const weatherIcon = computed(() => {
   const weather = currentWeather.value.weather
@@ -28,13 +42,17 @@ const weatherIcon = computed(() => {
     case '晴':
       return Sun
     case '多雲':
-      return Cloud
+      return Cloudy
     case '陰':
       return Cloud
     case '雨':
       return CloudRain
     case '晴時多雲':
       return CloudSun
+    case '短暫陣雨或雷雨':
+      return CloudLightning
+    case '短暫陣雨':
+      return CloudDrizzle
     default:
       return Cloud
   }
@@ -54,6 +72,10 @@ const weatherIconColor = computed(() => {
       return 'text-blue-400'
     case '晴時多雲':
       return 'text-yellow-300'
+    case '短暫陣雨或雷雨':
+      return 'text-purple-400'
+    case '短暫陣雨':
+      return 'text-blue-300'
     default:
       return 'text-gray-300'
   }
@@ -65,13 +87,17 @@ const getForecastIcon = (weather: string) => {
     case '晴':
       return Sun
     case '多雲':
-      return Cloud
+      return Cloudy
     case '陰':
       return Cloud
     case '雨':
       return CloudRain
     case '晴時多雲':
       return CloudSun
+    case '短暫陣雨或雷雨':
+      return CloudLightning
+    case '短暫陣雨':
+      return CloudDrizzle
     default:
       return Cloud
   }
@@ -90,6 +116,10 @@ const getForecastIconColor = (weather: string) => {
       return 'text-blue-400'
     case '晴時多雲':
       return 'text-yellow-300'
+    case '短暫陣雨或雷雨':
+      return 'text-purple-400'
+    case '短暫陣雨':
+      return 'text-blue-300'
     default:
       return 'text-gray-300'
   }
@@ -119,6 +149,11 @@ const getFutureTimePoints = () => {
   }
 
   return timePoints
+}
+
+// 更新當前時間
+const updateCurrentTime = () => {
+  currentDateTime.value = new Date()
 }
 
 onMounted(async () => {
@@ -172,6 +207,18 @@ onMounted(async () => {
   } catch (error) {
     console.error('獲取天氣數據失敗:', error)
   }
+
+  // 設置定時器，每秒更新一次時間
+  updateCurrentTime()
+  timer = window.setInterval(updateCurrentTime, 1000)
+})
+
+onBeforeUnmount(() => {
+  // 組件銷毀前清除定時器
+  if (timer !== null) {
+    clearInterval(timer)
+    timer = null
+  }
 })
 </script>
 
@@ -184,8 +231,8 @@ onMounted(async () => {
     >
       <span class="mr-2">{{ $t('main.dashboard.weather_forecast') }}</span>
       <span class="text-sm text-emerald-100">
-        {{ new Date().toLocaleDateString() }}
-        {{ new Date().toLocaleTimeString() }}
+        {{ currentDateTime.toLocaleDateString() }}
+        {{ currentDateTime.toLocaleTimeString() }}
       </span>
     </h2>
 
@@ -197,8 +244,8 @@ onMounted(async () => {
             {{ city }} {{ district }}
           </div>
           <div class="text-sm text-emerald-100">
-            {{ new Date().toLocaleDateString() }}
-            {{ new Date().toLocaleTimeString() }}
+            {{ currentDateTime.toLocaleDateString() }}
+            {{ currentDateTime.toLocaleTimeString() }}
           </div>
         </div>
         <div class="flex items-center">

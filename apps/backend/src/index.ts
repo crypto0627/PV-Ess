@@ -2,15 +2,22 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
+import http from 'http'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Server as SocketIOServer } from 'socket.io'
+import connectDB from './config/mongo'
 import AppDataSource from './data-source'
 import authRoutes from './routes/authRoute'
+import scheduleRoutes from './routes/scheduleRoute'
 import userRoutes from './routes/userRoute'
+import socketEvent from './socket/socket-event'
 
 dotenv.config()
 
 const app = express()
 const port = process.env.PORT || 3000
 
+// CORS 設定
 app.use(
   cors({
     origin: true,
@@ -23,6 +30,7 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// 初始化 MySQL 和 MongoDB 連線
 AppDataSource.initialize()
   .then(() => console.log('✅ Database connected'))
   .catch((error: Error) => {
@@ -30,18 +38,34 @@ AppDataSource.initialize()
     process.exit(1)
   })
 
+const connectMongo = async () => {
+  await connectDB({ uri: process.env.MONGO_URI || '' })
+}
+connectMongo()
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch((error: Error) => {
+    console.error('❌ Error connecting to MongoDB:', error)
+    process.exit(1)
+  })
+
 const apiPrefix = '/api'
 app.use(`${apiPrefix}/auth`, authRoutes)
 app.use(`${apiPrefix}/users`, userRoutes)
+app.use(`${apiPrefix}/schedule`, scheduleRoutes)
 
-app.use((err: any, req: express.Request, res: express.Response) => {
-  console.error('🔥 Error:', err)
-  res.status(err.status || 500).json({
-    message: err.message || 'Internal Server Error',
-    error: process.env.NODE_ENV === 'development' ? err.stack : {},
-  })
+// 創建 HTTP Server 來支援 WebSocket
+const server = http.createServer(app)
+const io = new SocketIOServer(server, {
+  cors: {
+    origin: '*', // 可根據需求設定允許的前端網域
+    methods: ['GET', 'POST'],
+  },
 })
 
-app.listen(port, () => {
+// socket connection
+socketEvent(io)
+
+
+server.listen(port, () => {
   console.log(`🚀 Server is running on http://localhost:${port}/api`)
 })

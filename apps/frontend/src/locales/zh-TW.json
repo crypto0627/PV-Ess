@@ -167,6 +167,16 @@
     },
     "weather": {
       "solar_energy": "太陽能量"
+    },
+    "schedule": {
+      "chart": {
+        "title": "PV-ESS 能源排程圖表",
+        "power": "功率 (W)",
+        "schedule": "排程",
+        "battery_charge_power": "電池充電功率",
+        "battery_charge_prediction": "電池充電預測",
+        "pv_generation": "PV發電功率"
+      }
     }
   }
 }

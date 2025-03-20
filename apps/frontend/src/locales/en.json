@@ -167,6 +167,16 @@
     },
     "weather": {
       "solar_energy": "Solar Energy"
+    },
+    "schedule": {
+      "chart": {
+        "title": "PV-ESS Energy Schedule Chart",
+        "power": "Power (W)",
+        "schedule": "Schedule",
+        "battery_charge_power": "Battery Charge Power",
+        "battery_charge_prediction": "Battery Charge Prediction",
+        "pv_generation": "PV Generation"
+      }
     }
   }
 }

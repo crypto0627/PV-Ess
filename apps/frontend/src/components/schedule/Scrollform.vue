@@ -1,41 +1,187 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { computed, onMounted, ref } from 'vue';
 
-// 使用 ref 來儲存選擇的日期
-const selectedDate = ref<string>('')
+// 接收從父組件傳入的屬性
+const props = defineProps<{
+  selectedDate: string
+  powerValues: { [key: string]: number }
+  originalPowerValues: { [key: string]: number }
+  times: string[]
+}>()
 
-// 使用 ref 來儲存每個時段的功率值,並設定預設值為0
-const powerValues = ref<{ [key: string]: number }>({})
+// 定義事件
+const emit = defineEmits<{
+  (e: 'date-change', date: string): void
+  (e: 'update-original-values'): void
+  (e: 'update:selectedDate', date: string): void
+}>()
+
+// 本地日期狀態
+const localSelectedDate = ref(props.selectedDate);
+
+// 在組件掛載時設置當前日期
+onMounted(() => {
+  if (!props.selectedDate) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    
+    localSelectedDate.value = formattedDate;
+    emit('update:selectedDate', formattedDate);
+    emit('date-change', formattedDate);
+  }
+});
+
+// 計算屬性：判斷是否已選擇日期
+const isDateSelected = computed(() => !!props.selectedDate)
+
+// 計算屬性：判斷排程是否有變動
+const hasScheduleChanged = computed(() => {
+  if (!isDateSelected.value) return false
+
+  return Object.entries(props.powerValues).some(([timeSlot, power]) => {
+    return power !== props.originalPowerValues[timeSlot]
+  })
+})
+
+// 計算屬性：獲取已變更的時間段
+const changedTimestamps = computed(() => {
+  if (!isDateSelected.value) return []
+
+  return Object.entries(props.powerValues)
+    .filter(([timeSlot, power]) => power !== props.originalPowerValues[timeSlot])
+    .map(([timeSlot]) => timeSlot)
+})
 
 // 處理日期變更事件
 const handleDateChange = () => {
-  console.log('選擇的日期:', selectedDate.value)
-  // 這裡可以加入其他處理邏輯，例如更新圖表數據等
+  emit('update:selectedDate', localSelectedDate.value)
+  emit('date-change', localSelectedDate.value)
+}
+
+// 將時間段轉換為ISO格式的時間戳
+const convertToISOTimestamp = (date: string, timeSlot: string) => {
+  // 從時間段中提取小時和分鐘（例如從 "00:00 -> 00:15" 提取 "00:00"）
+  const startTime = timeSlot.split(' -> ')[0];
+  const [hours, minutes] = startTime.split(':').map(Number);
+  
+  // 創建日期對象
+  const dateObj = new Date(date);
+  dateObj.setHours(hours, minutes, 0, 0);
+  
+  // 返回ISO格式的時間戳
+  return dateObj.toISOString();
 }
 
 // 儲存排程功能
-const saveSchedule = () => {
-  if (!selectedDate.value) {
+const saveSchedule = async () => {
+  if (!props.selectedDate) {
     alert('請先選擇日期')
     return
   }
-  console.log('儲存排程，日期為:', selectedDate.value)
-  console.log('功率設定:', powerValues.value)
-  // 這裡可以加入儲存排程的API呼叫或其他邏輯
-}
 
-const times: string[] = []
-for (let hour = 0; hour < 24; hour += 1) {
-  for (let minute = 0; minute < 60; minute += 15) {
-    const endMinute =
-      minute + 15 >= 60 ? '00' : String(minute + 15).padStart(2, '0')
-    const endHour =
-      minute + 15 >= 60
-        ? String(hour + 1).padStart(2, '0')
-        : String(hour).padStart(2, '0')
-    const timeKey = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')} -> ${endHour}:${endMinute}`
-    times.push(timeKey)
-    powerValues.value[timeKey] = 0 // 為每個時段設定預設值0
+  if (!hasScheduleChanged.value) {
+    Swal.fire({
+      title: '無變更',
+      text: '排程未有任何變動',
+      icon: 'info',
+      confirmButtonColor: '#10b981',
+    })
+    return
+  }
+
+  // 獲取已變更的時間段
+  const changedTimes = changedTimestamps.value;
+  
+  // 創建JSON格式的數據
+  const scheduleData = changedTimes.map(timestamp => ({
+    data: {
+      timestamp: convertToISOTimestamp(props.selectedDate, timestamp),
+      status: 0,
+      esHSL: props.powerValues[timestamp] / 1000,
+      pvEnergy: 0,
+      esEnergy: 0,
+      soc: 0
+    },
+    _id: "",
+    qseId: "33284077",
+    groupId: 1,
+    date: props.selectedDate,
+    __v: 0
+  }));
+
+  // 轉換為JSON字符串
+  const jsonData = JSON.stringify(scheduleData, null, 2)
+
+  // 使用 SweetAlert2 顯示確認對話框
+  const result = await Swal.fire({
+    title: '確認送出排程?',
+    html: `
+      <div class="text-left">
+        <p><strong>日期:</strong> ${props.selectedDate}</p>
+        <p><strong>功率設定:</strong></p>
+        <div style="max-height: 200px; overflow-y: auto; margin-bottom: 10px;">
+          <pre>${jsonData}</pre>
+        </div>
+      </div>
+    `,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: '確認送出',
+    cancelButtonText: '取消',
+    confirmButtonColor: '#10b981',
+    cancelButtonColor: '#ef4444',
+  })
+
+  if (result.isConfirmed) {
+    try {
+      // 將所有變更整合為一個請求
+      const updateData = changedTimes.map(timestamp => ({
+        data: {
+          timestamp: convertToISOTimestamp(props.selectedDate, timestamp),
+          status: 0,
+          esHSL: props.powerValues[timestamp] / 1000,
+          pvEnergy: 0,
+          esEnergy: 0,
+          soc: 0
+        },
+        _id: "",
+        qseId: "33284077",
+        groupId: 1,
+        date: props.selectedDate,
+        __v: 0
+      }));
+      
+      // 發送單一請求更新所有變更
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/schedule/${props.selectedDate}`, 
+        updateData
+      );
+      
+      console.log('儲存排程成功:', response);
+      
+      Swal.fire({
+        title: '成功!',
+        text: '排程已成功送出',
+        icon: 'success',
+        confirmButtonColor: '#10b981',
+      })
+
+      // 通知父組件更新原始功率值
+      emit('update-original-values')
+    } catch (error) {
+      console.error('儲存排程失敗:', error);
+      Swal.fire({
+        title: '錯誤!',
+        text: '排程送出失敗，請稍後再試',
+        icon: 'error',
+        confirmButtonColor: '#ef4444',
+      })
+    }
   }
 }
 </script>
@@ -47,7 +193,7 @@ for (let hour = 0; hour < 24; hour += 1) {
     <div class="relative">
       <input
         type="date"
-        v-model="selectedDate"
+        v-model="localSelectedDate"
         @change="handleDateChange"
         class="bg-emerald-100 border border-emerald-300 rounded-md px-4 py-2 w-64 text-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
       />
@@ -55,10 +201,17 @@ for (let hour = 0; hour < 24; hour += 1) {
         class="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-emerald-700 pointer-events-none"
       />
     </div>
+    <h1 class="text-emerald-100">
+      {{ isDateSelected ? '' : '請選擇日期' }}
+    </h1>
 
     <button
       class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md flex items-center transition-all shadow-lg shadow-emerald-500/20"
       @click="saveSchedule"
+      :disabled="!isDateSelected || !hasScheduleChanged"
+      :class="{
+        'opacity-50 cursor-not-allowed': !isDateSelected || !hasScheduleChanged,
+      }"
     >
       Save Schedule
     </button>
@@ -97,9 +250,13 @@ for (let hour = 0; hour < 24; hour += 1) {
                     type="range"
                     v-model="powerValues[time]"
                     min="0"
-                    max="1000"
+                    max="4000"
                     step="1"
                     class="w-full h-2 bg-emerald-800/70 rounded-lg appearance-none cursor-pointer hover:bg-emerald-700/70 transition-all"
+                    :disabled="!isDateSelected"
+                    :class="{
+                      'opacity-50 cursor-not-allowed': !isDateSelected,
+                    }"
                   />
                   <span class="min-w-[4rem] text-right"
                     >{{ powerValues[time] }} kW</span

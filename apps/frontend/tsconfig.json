@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "lib": ["dom", "esnext"],
-    "types": ["vite/client", "node", "cypress", "jest"],
+    "types": ["vite/client", "node", "jest"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
@@ -21,7 +21,6 @@
   "include": [
     "src/utils/*",
     "src/**/*",
-    "cypress.config.ts",
     "vite.config.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",

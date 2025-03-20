@@ -16,7 +16,7 @@ const handleSubmit = async () => {
   errorMessage.value = ''
 
   try {
-    const res = await authStore.forgot_password(email.value)
+    const res = await authStore.forgotPassword(email.value)
 
     if (res.data?.success) {
       successMessage.value =

@@ -1,8 +1,8 @@
 <script setup>
-import { Cloud, CloudRain, CloudSun, Menu, Sun } from 'lucide-vue-next'
-import { defineEmits, onMounted, ref, computed } from 'vue'
-import AvatarMenu from '../common/AvatarMenu.vue'
 import weatherApi from '@/api/weatherApi'
+import { Cloud, CloudRain, CloudSun, Menu, Sun } from 'lucide-vue-next'
+import { computed, defineEmits, onBeforeUnmount, onMounted, ref } from 'vue'
+import AvatarMenu from '../common/AvatarMenu.vue'
 
 const emit = defineEmits(['toggle-sidebar'])
 const currentTime = ref('')
@@ -10,6 +10,9 @@ const currentWeather = ref({
   weather: '',
   temperature: '',
 })
+
+// 定時器引用
+let timer = null
 
 const toggleSidebar = () => {
   emit('toggle-sidebar')
@@ -20,6 +23,7 @@ const updateTime = () => {
   currentTime.value = now.toLocaleTimeString('zh-TW', {
     hour: '2-digit',
     minute: '2-digit',
+    second: '2-digit',
   })
 }
 
@@ -91,16 +95,25 @@ const fetchWeatherData = async () => {
 
 onMounted(() => {
   updateTime()
-  setInterval(updateTime, 60000)
+  // 每秒更新一次時間，實現即時更新
+  timer = setInterval(updateTime, 1000)
 
   // 獲取實際天氣數據
   fetchWeatherData()
+})
+
+// 組件銷毀前清除定時器
+onBeforeUnmount(() => {
+  if (timer !== null) {
+    clearInterval(timer)
+    timer = null
+  }
 })
 </script>
 
 <template>
   <header
-    class="border-b border-gray-300 p-3.5 flex items-center justify-start lg:justify-end pl-4 lg:pl-16 pr-6 bg-white/30 backdrop-blur-[30px]"
+    class="border-b border-gray-300 p-3.5 flex items-center justify-start lg:justify-end pl-4 lg:pl-16 pr-6"
   >
     <!-- Mobile Menu Button -->
     <button
